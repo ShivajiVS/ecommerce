@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
@@ -16,21 +14,44 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+https://lilsimsie-merch.creator-spring.com/
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+packages :
+zustund
+react hook form
+zod
+framer motion
+shadcn
+next-themes
 
-## Learn More
+supabase
+drizzel
 
-To learn more about Next.js, take a look at the following resources:
+cloudflair for images:
+https://st4ng.medium.com/how-to-use-next-js-image-optimization-with-cloudflare-569da7b3ddc6
+https://logsnag.com/blog/deploying-nextjs-13-app-dir-to-cloudflare-pages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+stripe payments:
+https://medium.com/@rakeshdhariwal61/integrating-stripe-payment-gateway-in-next-js-14-a-step-by-step-guide-1bd17d164c2c
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+https://www.annscottage.com/
 
-## Deploy on Vercel
+https://g2vape.com/
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+https://www.rallyenergy.co/
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+https://www.josiefairbijoux.com/
+
+https://www.peregrineclothing.co.uk/
+
+https://orm.drizzle.team/learn/tutorials/drizzle-with-supabase#setup-supabase-and-drizzle-orm
+
+https://orm.drizzle.team/docs/get-started-postgresql#supabase
+
+https://medium.com/@hiro08gh/next-js-naming-conventions-are-checked-with-eslint-rules-946371d67882#:~:text=js%20file%20naming%20conventions%20are%20checked%20with%20ESLint%20rules,-Hiroki%20Ueda&text=The%20current%20front%2Dend%20environment,beginning%20of%20the%20file%20name.
+
+https://stackoverflow.com/questions/53132068/naming-best-practices-for-react-components-and-functions-including-filenames
+
+card : small
+details page : bigger
+cart : thembnail
