@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import NavBar from "@/components/navBar";
+import NavBar from "@/components/navigation/navBar";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,10 +25,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavBar />
-          <main className="w-full dark:bg-zinc-800">
-            <div className="max-w-6xl mx-auto p-6">{children}</div>
-          </main>
+          <div className="flex flex-col">
+            <NavBar />
+            <main className="w-full dark:bg-zinc-800 grow">
+              <div className="max-w-6xl mx-auto p-2 lg:p-6">{children}</div>
+            </main>
+          </div>
         </ThemeProvider>
       </body>
     </html>

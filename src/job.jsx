@@ -1,6 +1,28 @@
-// I was looking for a job as a web developer and for anyone to reach out if they were looking to hire a junior developer
-
 /* 
+
+ I was looking for a job as a web developer and for anyone to reach out if they were looking to hire a junior developer.
+
+how do you learn quickly and effectively in just the stuff you need.
+
+many companies still have openings because a lot of skilled people do not apply and many unskilled people apply but are not crack the interviews. as a result, opening remain. there is still a gap and this gap can be filled which will significantly increase your chance of getting job.
+
+
+work upon the things which is our control.
+keep a check on your mental health.
+step by step approach.
+
+
+taking actions is the best step to learn 
+taking action you can learn stuff much faster than reading books. 
+
+ 
+
+creating and composing together functions can directly apply to creating and composing components however instead of composing functions together to get some value, you can compose components together to get some ui.
+
+
+
+clean architecture and domain driven design.
+
 
 CSR: 
     client  ----> edge network or server to get initial page.
@@ -53,7 +75,108 @@ caching:
     ppr: 
         - mark something as static and dynamic in ppr.
         - A route can combine some static parts and dynamic parts.
-                
+
+
+request memoization: 
+  - if you make a same request in multiple times in the same page(route) then your request is cached and use it for other requests also by avoiding making multiple ruquests.
+  - cleared request memoization cache when you refresh the page(route).
+  - if you want to opt out from request memoization you can use abort controller.
+      ex: 
+        const controller = new AbortController()
+        fetch("api.com"{signal:controller.signal})
+  - request memoization is only for fetch not for direct database data fetching but you can tell react to do samething for database request instead. 
+    ex: 
+      import {cache} from "react"
+      export const database = cache(()=>{
+        make database call and get the data.
+        return data
+      })
+    
+data cache: data is cached across the all routes and all users.
+revalidate : 60 - even after 60 seconds, first user(request) get stale data and remaining requests gets the fresh data(make a new request, cache it and serve it).
+   single fetch : fetch("api.com", {next: revalidate: 60 })
+   entire page : export const revalidate = 60
+   revalidate the entire page: revalidatePath("test")
+   revalidate the specific fetch(single) : revalidateTag("todo")
+         fetch("api.com", {next: tags: ["todo", "1"] })
+         fetch("api.com", {next: tags: ["todo"] })
+   Note: if the tag is revalidated then data cache is cleared and if you make a new request then server get the new data, store it in the data cache and serve it until the tag is revalidated.
+
+   - with time based revalidation we get steal data for first request. 
+   - with ondemand revalidation we never get stale data, as soon as you revalidate something, its always give you the most update data, next time you fetch it.
+   - you can opt out of it in two ways: 
+        1. fetch("api.com", {cache:"no-store"})
+        2. export const dynamic= "force-dynamic"
+  
+   - data cache for database data fetching:
+      ex: 
+        import {unstable-cache} from "next/cache"
+        export const database = unstable-cache(()=>{
+          make database call and get the data.
+          return data
+        },["todo"],{tags:["db"] or revalidate:60})
+
+full route cache: 
+  - full route is generated during build time and cached on the server. routr can be static, ssg or isr. you can revalidate the path.
+  - at reuest      e.
+
+SSG: using SSG, we can generate a pages during build time(head of time). the page is generated and cached during buid age is not generated during build time, by default the server build that page at request time and cached. next time when the user request the page then the server serve it from cache.
+Note: you can opt out from this default behaviour by exporting a dynamicParams variable with false value. 
+    export const dynamicParams = false - opt out from default behaviour.
+    export const dynamicParams = true -  default behaviour. 
+
+     
+
+client components: client components are run only on the server for very first time that we goto the website and every single page you goto, after that it is going rendered exclusely on the client and server components are still going to be run on the server. 
+
+server actions:
+functions cannot be passed directly to server components unless you explicitly mark it into "use server" or 
+ <form action={()=> console.log("-----")}
+server action must be asynv functions.
+
+formData.get("name") as string
+
+parallel + route intercepting:
+  @model : render this parallel route in the layout file.
+    (.)sign-in
+      page.tsx
+    default.tsx: return null
+  sign-in:
+    page.tsx
+
+
+Authentication:
+
+Refresh token: server validate the user information, if the user information is correct then server creates a refresh token from using user information.
+Refresh token is a htpp-only cookie and it accessable only htpp only. javascript can't able read and modify. server is only able to  
+
+react-select lib.
+server-only, client-only lib.
+
+
+
+
+api call:
+try{
+  const res= fetch("api.com")
+  const json = await res.json()
+  return {
+    success:true,
+    data: json
+  } 
+}
+catch(error){
+  return {
+    success:false,
+    data: error.message
+  }
+} 
+
+services:
+    user.service.ts
+
+
+
 
 beat root, carrot, tommato, apple,phine apple is very good for skin, heart, blood 
 
@@ -61,10 +184,6 @@ small towl for head and another towl for body.
 maintain proper hyzen, inner hyzen and inner cleaning.
 when you use a washroom, wash your hands properly,
 don't touch your face.
-
-
-
-
 
 
 
@@ -130,12 +249,21 @@ code splitting:
 
 
 
-
 react query : asynchronous state managment lib.
 
 we are seen react query as a data fetcing lib but react query is beyond data fething lib.
-data fetching, caching, deduping, stale data, data update, performane optimization,managing memory, memozing queries, less code and less bugs.
-deduping: prevent unnessary api call when you make multiple duplicate api calls.
+data fetching, caching, deduping, stale data, data update, performance optimization, managing memory, memozing queries, less code and less bugs.
+deduping: prevent unnecessary api call when you make multiple duplicate api calls.
+
+caching, background refetching, invalidate the cache.
+
+let's say that you do have the data in the cache, and you're showing that to the user ideally, what you will want to do, at the same time, trigger a request in the background  the user doesn't see that. to just refresh the data, in case that there's new new data to be found.
+
+don't write the code that's already written, use something that's tested and that works and that does the work for you.
+
+
+stealTime
+gcTime: grabage collection
 
 example:
   let data= useQuery({
@@ -143,12 +271,170 @@ example:
     queryFn:yourDataFetchingFunction
   })
 
-you get data, loading state, error state:
+you get the data, loading state, error state:
 const {data, loading,error }=data;
 
+Mutation:
+  let newPost= useMutation({
+    mutationFn:(title)=>{
+      return post.push({id:211, title})  
+    }
+  })
+<Button onclick={()=>newPost.mutate("post 3")}>Post</Button>
 
 
-server actions:  server action are asynchronous functions that are executed on the server and the main purpose is that you can use them in a form while handling form submissions and performin data mutations so whenever you want to update, create, delete data.
+  let {mutate, isLoading, error, isError, isPending, reset}= useMutation({
+    mutationFn:(title)=>{
+      return post.push({id:211, title})  
+    }
+  })
+<Button onclick={()=>mutate("post 3")}>Post</Button>
+
+
+function handleSubmit(event){
+  const formData = new formData(event.target)
+  const title = formData.get("title")
+  const tags = Array.from(formData.keys()).filter(key=>formData.get(key)==="on")
+
+  if(!title || !tags ) return
+
+  mutate({title, tags})
+
+  event.target.reset() //clear the form
+}
+
+const tags =["dcdfd","dererer"]
+<form onSubmit={handleSubmit}>
+    <input type="text" />
+    <div>
+    {
+      tags.map(tag => (
+          <div key={tag}>
+            <input name={tag} id={tag} type="checkbox" />
+            <label htmlfor={tag}>{tag}</label>
+          </div>
+        ))
+    }
+    </div>
+</form>
+
+
+Invalidate the data in every success mutation:
+  example:
+    import {useQueryClient} from "@tanstack/react-query"
+
+    const queryClient = useQueryClient()
+    let newPostMutation= useMutation({
+        mutationFn:(title)=>{
+          return post.push({id:211, title})  
+        },
+        onSuccess:()=>queryClient.invalidateQueries(["post"])
+      })
+
+
+disable the button while mutating the data:
+  example :
+     <Button disabled={newPostMutation.isLoading} onclick={()=>newPostMutation.mutate("post 3")}>Post</Button>
+
+
+
+frontend:
+    form data
+    local storage
+    third party api
+    url
+    Api request
+
+Backend:
+  Api route handlers.
+  Server components.
+  Server actions.
+
+    third party api
+    Webhooks.
+    env variables.
+    file system.
+    url.
+    database(orm).
+
+
+API: to validate the api data by using typescript, it will won't work because typescript work during build time not run time. apis is executed in run time. 
+over time backend team might be change the structure of data(different property names) and data type of the data.
+
+in order to fix this issues, you need to use an validators like zod or yup schema validator to validate the Api data.
+  steps to be followed:  
+    - create a zode schema.
+    - make api call and get the data. type would be unknown. 
+        ex: const data:unknown = fetch("www.google.com")
+    - validate the api data with zode safeParse and zod schema.
+    - safeParse methods gives three properties: Data, success and error message.
+    - based on the success message, you can handle the execution. 
+        ex: if(!validateData.success)return  
+        
+extract type from zod schema: single source of truth.
+  type Product = z.infer<typeof yourSchema>
+
+validate search params:  
+    const SearchParamsSchema=z.Object({
+      id:z.coerce.number(),
+      color:z.enum(["red","green","blue"]), 
+    })
+    const searchParams= useSearchParams()
+    const searchParamsObject = Object.fromEntries(searchParams)
+    const validatedSearchParams = SearchParamsSchema.safeParse(searchParamsObject)
+
+  z.coerce.number(): if its already a number, it will stay number but if it is a string zod will convert this into number.
+
+
+ Api route handlers:
+  export async function Post(request:Request, response:NextResponse){
+
+    const body:unknown = await reuest.json();
+    const validatedData = YourZodSchema.safeParse(body)
+    if(!validatedData.success){
+      return NextResponse.json(validatedData.error, {status: 422})
+    }
+  }
+
+ env variables:
+    const EnvSchema=z.Object({
+       DATABASE_URL:string(),
+    }) 
+    export const parsedEnv = EnvZodSchema.parse(process.env) 
+  
+file system:
+import path from "path"
+import {Promise as fs} from "fs"
+
+  export async function Post(request:Request, response:NextResponse){
+    const fileDirectory = path.join(process.cwd(), "../../pathoFYourFile")
+    const  fileContains = await fs.readFile(fileDirectory + "/data.json")
+
+    const parsedData =  YourZodSchema.safePare(fileContains)
+
+    return NextResponse.json(parsedData.data)
+  }
+
+search params:
+const searchParamsSchema = z.Object({
+  id:z.coerce.number(),
+  color:z.enum(["red", "blue"])
+})
+ export function Page({searchParams}:{searchParams:{[key:string]: string | string[] | indefined}}){
+
+  const parsedSearchParams = searchParamsSchema.safeParse(searchParams)
+
+ 
+ }
+
+
+
+
+
+
+
+
+  server actions:  server action are asynchronous functions that are executed on the server and the main purpose is that you can use them in a form while handling form submissions and performin data mutations so whenever you want to update, create, delete data.
 
 
 "use server"
@@ -394,6 +680,28 @@ searchParams :
              {searchparams.message}
         </div>
     )}
+
+search params:    
+    when to use:
+      data fetching state.
+      page number for pagination.
+      serch term.
+      filtering
+      tabs and modal.
+      
+    Not to use:
+      personalisation.
+      sensitive information.
+      no long term importance.
+
+you can access the search params in the layout or pages and client compoenents but not in server components.
+layouts and pages: access through props.
+client components: access through useSearchParams hook.
+
+Note: if you use useSearchParams hook in the client component and wrap it on the layout then need to use supspense.  within suspense wrap the client component otherwise it will throw an error.
+
+
+
 
  - if there is no pramas then you add a default value: 
         let currentTab= props.searchParams.tab ?? "gallery"

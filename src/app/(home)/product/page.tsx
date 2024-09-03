@@ -1,19 +1,18 @@
-"use client";
-
+import AddToBag from "@/components/bag/addToBag";
 import { Button } from "@/components/ui/button";
-import { ProductsType } from "@/lib/dumyProducts";
+import { Product } from "@/types/product";
 import { Heart } from "lucide-react";
 
-type PropsTypes = {
-  searchParams?: ProductsType;
+type PropsType = {
+  searchParams: Product;
 };
 
-export default function Page({ searchParams }: PropsTypes) {
+export default function Page({ searchParams }: PropsType) {
   return (
     <div className="flex flex-col lg:flex-row space-y-5 lg:space-x-10">
       <div>
         <img
-          src={searchParams?.imgUrl}
+          src={"3.webp"}
           alt={searchParams?.title}
           className="h-[500px] mx-6"
         />
@@ -33,7 +32,7 @@ export default function Page({ searchParams }: PropsTypes) {
           </p>
         </div>
         <div className="flex flex-col space-y-4">
-          <Button>ADD TO BAG</Button>
+          <AddToBag product={searchParams} />
           <Button variant="outline" className="flex space-x-3">
             <Heart /> <span>Add to wishlist</span>
           </Button>

@@ -16,6 +16,15 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 https://lilsimsie-merch.creator-spring.com/
 
+
+
+
+git remote add origin https://github.com/ShivajiKS/ecommerce.git
+git branch -M main
+git push -u origin main
+
+https://www.youtube.com/feed/downloads
+
 packages :
 zustund
 react hook form

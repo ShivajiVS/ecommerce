@@ -5,12 +5,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ProfileIcon } from "./icons";
+import { ProfileIcon } from "@/components/icons";
 import Link from "next/link";
 import { DarkModeToggler } from "./darkModeToggler";
-import Logout from "./logout";
+import Logout from "@/components/navigation/logout";
 
 export const NavLinks = () => {
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
