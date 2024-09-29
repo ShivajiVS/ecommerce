@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { NavLinks } from "@/components/navigation/navLinks";
+
+import { NavLinks } from "@/components/navigation/nav-links";
 import { AddToBagIcon } from "../icons";
-import BagCount from "@/components/bag/bagCount";
+import BagCount from "@/components/bag/bag-count";
+import { Header } from "./nav-wrapper";
 
 const NavBar = () => {
   return (
-    <header className="w-full h-14 sticky top-0 bg-gray-50 dark:bg-zinc-800 drop-shadow z-50">
+    <Header>
       <nav className="max-w-6xl h-full flex mx-auto justify-between items-center px-6">
         <Link
           href="/"
@@ -23,7 +25,7 @@ const NavBar = () => {
           <NavLinks />
         </div>
       </nav>
-    </header>
+    </Header>
   );
 };
 

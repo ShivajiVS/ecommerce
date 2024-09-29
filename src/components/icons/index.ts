@@ -1,4 +1,4 @@
-import AddToBagIcon from "@/components/icons/AddToBag";
-import ProfileIcon from "@/components/icons/Profile";
+import AddToBagIcon from "@/components/icons/add-to-bag";
+import ProfileIcon from "@/components/icons/profile";
 
 export { AddToBagIcon, ProfileIcon };

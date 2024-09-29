@@ -23,8 +23,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import GoogleSignInButton from "./googleSignIn";
-import { PasswordInput } from "./passwordInput";
+import GoogleSignInButton from "./google-signIn";
+import { PasswordInput } from "./password-input";
 import { SignUpSchema } from "@/lib/validators";
 
 export default function SignUpForm() {
@@ -47,14 +47,14 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="box-border  py-1 lg:py-5">
+    <div className="box-border  py-5 md:pt-3">
       <Card className="mx-auto max-w-sm lg:max-w-md">
         <div className="flex flex-col items-center">
           <CardHeader>
             <CardTitle className="text-xl text-center">
               Create Account
             </CardTitle>
-            <CardDescription>Sign up to create a new account</CardDescription>
+            {/* <CardDescription>Sign up to create a new account</CardDescription> */}
           </CardHeader>
         </div>
         <Form {...form}>

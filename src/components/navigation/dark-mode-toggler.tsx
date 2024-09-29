@@ -1,9 +1,10 @@
 "use client";
 
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { useTheme } from "next-themes";
+
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
 export const DarkModeToggler = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);

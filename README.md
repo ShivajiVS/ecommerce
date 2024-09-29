@@ -25,6 +25,11 @@ git push -u origin main
 
 https://www.youtube.com/feed/downloads
 
+
+
+dynamic route:it should be some name related(seperated by - symbol) to product name and add search params to it like productId and other information. 
+in the dynamic route, fetch the product data using productId searchparam and not by dynamic slug id.
+
 packages :
 zustund
 react hook form
@@ -64,3 +69,13 @@ https://stackoverflow.com/questions/53132068/naming-best-practices-for-react-com
 card : small
 details page : bigger
 cart : thembnail
+
+
+fonts :
+
+products page: Lora - 700 - 400 : available on google fonts..
+
+product page:
+   SourceSansPro - 400
+
+

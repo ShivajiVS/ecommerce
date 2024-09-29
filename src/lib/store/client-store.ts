@@ -15,6 +15,7 @@ type CartType = {
   removeFromeCart: (id: number) => void;
   incrementQuantity: (id: number) => void;
   decrementQuantity: (id: number) => void;
+  clearCart: () => void;
 };
 
 export const useCartState = create<CartType>()(
@@ -86,6 +87,9 @@ export const useCartState = create<CartType>()(
           });
           return { cart: updatedCart };
         });
+      },
+      clearCart: () => {
+        set(() => ({ cart: [] }));
       },
     }),
     { name: "cart" }

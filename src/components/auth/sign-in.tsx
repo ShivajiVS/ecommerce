@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,8 +21,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import GoogleSignInButton from "./googleSignIn";
-import { PasswordInput } from "./passwordInput";
+import GoogleSignInButton from "./google-signIn";
+import { PasswordInput } from "./password-input";
 import { SignInSchema } from "@/lib/validators";
 
 export default function SignInForm() {
@@ -41,7 +42,7 @@ export default function SignInForm() {
   } = form;
 
   return (
-    <div className="box-border py-9 lg:py-16 ">
+    <div className="box-border py-12 lg:pt-16 ">
       <Card className="mx-auto max-w-sm lg:max-w-md ">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>

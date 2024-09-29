@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { ProductsType } from "@/lib/dumyProducts";
-import { ProductCard } from "./productCard";
+import { ProductCard } from "./product-card";
 
 type PropsTypes = {
   products: ProductsType[];

@@ -1,3 +1,8 @@
+import Link from "next/link";
+
+import { ProfileIcon } from "@/components/icons";
+import { DarkModeToggler } from "./dark-mode-toggler";
+import Logout from "@/components/navigation/logout";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -5,13 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ProfileIcon } from "@/components/icons";
-import Link from "next/link";
-import { DarkModeToggler } from "./darkModeToggler";
-import Logout from "@/components/navigation/logout";
 
 export const NavLinks = () => {
-  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

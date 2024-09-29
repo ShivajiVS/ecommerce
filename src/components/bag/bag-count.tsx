@@ -1,6 +1,7 @@
 "use client";
 
 import { useCartState } from "@/lib/store/client-store";
+import { Badge } from "lucide-react";
 
 const BagCount = () => {
   const cart = useCartState((state) => state.cart);

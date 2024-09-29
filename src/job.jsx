@@ -15,7 +15,7 @@ step by step approach.
 taking actions is the best step to learn 
 taking action you can learn stuff much faster than reading books. 
 
- 
+
 
 creating and composing together functions can directly apply to creating and composing components however instead of composing functions together to get some value, you can compose components together to get some ui.
 
@@ -77,7 +77,7 @@ caching:
         - A route can combine some static parts and dynamic parts.
 
 
-request memoization: 
+Request memoization: 
   - if you make a same request in multiple times in the same page(route) then your request is cached and use it for other requests also by avoiding making multiple ruquests.
   - cleared request memoization cache when you refresh the page(route).
   - if you want to opt out from request memoization you can use abort controller.
@@ -144,17 +144,58 @@ parallel + route intercepting:
   sign-in:
     page.tsx
 
-
-Authentication:
-
-Refresh token: server validate the user information, if the user information is correct then server creates a refresh token from using user information.
-Refresh token is a htpp-only cookie and it accessable only htpp only. javascript can't able read and modify. server is only able to  
+ 
 
 react-select lib.
 server-only, client-only lib.
 
 
+SSG:
+export async function generateStaticParams(){
+  make api call and get the all products
+  const products = await db.query.products.findMany()
+  if(products){
+    const slugs = products.map(item =>({slug:item.id.toString()})) 
+    return slugs;
+  }
+    return [] // you need to add a check because sometimes you might get fail, if something wrong with api, and it is heard to debug. that's why you need to return an empty array. 
+}
 
+Page: 
+export async function Page({params}:{params:{slug:string}}){
+  const product = db.query.products.findFirst({where:eq(product.id, Number(params.slug) )})
+  return(
+  <main>
+    <section className="flex flex-col lg:flex-row gap-4 lg:gap-12>
+      <div className="flex-1">
+    
+        varients.map( item => item.type === selectedColor && item.varientImages.map(img => (
+          <CarouselItem key={img.id}>
+               {img.url ? <Image priority className="rounded-md" width="1280" height="720" src={product.img.irl} alt={product.title} /> : null }
+          </CarouselItem>
+        )))
+        small images:
+        <div className="flex overflow-clip py-2 gap-4 ">
+          {images.map(item => 
+            <Image priority className="rounded-md transition-all duration-300 ease-in-out cussor-pointer hover:opacity-75" width="72 ${selectedImage? "opacity-100 ": "opacity-75"}" height="48" src={product.img.irl} alt={product.title} />
+          )}
+        </div>
+
+      </div>
+      <div className="flex flex-1 flex-col gap-2">
+        <h2>{product.title}</h2>
+        <p>{product.price}</p>
+        <div dangerouslySetInnerHtml={{__html: product.description}}></div>
+        description
+      </div>
+    </section>
+  </main>
+  )
+}
+
+modify searchParams:
+router.push(`/products?$id={id}&title=${title}`,{scroll:false})
+scroll:false: don't scroll to top of the page, stay where you present  
 
 api call:
 try{
@@ -174,8 +215,6 @@ catch(error){
 
 services:
     user.service.ts
-
-
 
 
 beat root, carrot, tommato, apple,phine apple is very good for skin, heart, blood 
@@ -433,8 +472,7 @@ const searchParamsSchema = z.Object({
 
 
 
-
-  server actions:  server action are asynchronous functions that are executed on the server and the main purpose is that you can use them in a form while handling form submissions and performin data mutations so whenever you want to update, create, delete data.
+server actions:  server action are asynchronous functions that are executed on the server and the main purpose is that you can use them in a form while handling form submissions and performin data mutations so whenever you want to update, create, delete data.
 
 
 "use server"
@@ -485,8 +523,6 @@ function EmailTemplate({message}){
 }
 
 React email package: structure your email message.
-
-
 
 
 
@@ -635,121 +671,8 @@ matcher: middlware is executed for all routes and including api routes but excep
  }
 
 
-Server driven Ui:
-what is it?
- - it is a frontend design pattern where the backend control what to show and where in the UI.
- - it has only one objective, to shift as much bussiness logic to backend as possible.
- - it's a long term development decision.
- - it's not a new way to write.
 
 
-  - gets you out of release cycle dependency. you iterate faster, you ship faster. you don't have to release cycle for every new feature that you build. 
-  - rollout release cycle: dev testing, testing approval, QA, etc... and then only goes to playstore or app store. atleast it takes 2 weeks to rollout the feature for all users.
-  - to build and ship faster you need to have a server driven ui.
-
-
-- developer decide how much of the bussiness logic they want on server.
-
-- bring you close to a full-fledged design system.
-
-granular components: ask your designers what to split. split things that are used by serval different components.
-
-design philosophy:
-  - atomic design.
-  - an existing design system and a component library.
-  - demand driven schema design approach.
-
-develpment workflow:
-  - synchronization between the backend and frontend on component.
-  - a sliding scale of how much business logic is moved to the server.
-  - two phase rendering.
-
-
-searchParams : 
-
-  route handler:
-    if(error) redirectTo.pathname= "/sign-in?meassage=could not verify Otp"
-
-    NextResponse.redirect(`${origin}/login?message=could not login with provider`)
-
-  server action: 
-    if(error) redirect("/sign-in?meassage=could not verify Otp")
-
-    {searchparams.message && (
-        <div className="text-sm font-semibold text-destructive">
-             {searchparams.message}
-        </div>
-    )}
-
-search params:    
-    when to use:
-      data fetching state.
-      page number for pagination.
-      serch term.
-      filtering
-      tabs and modal.
-      
-    Not to use:
-      personalisation.
-      sensitive information.
-      no long term importance.
-
-you can access the search params in the layout or pages and client compoenents but not in server components.
-layouts and pages: access through props.
-client components: access through useSearchParams hook.
-
-Note: if you use useSearchParams hook in the client component and wrap it on the layout then need to use supspense.  within suspense wrap the client component otherwise it will throw an error.
-
-
-
-
- - if there is no pramas then you add a default value: 
-        let currentTab= props.searchParams.tab ?? "gallery"
-
- - avoids the random tab value other than specified values:
-      if(currentTab !== "messages" && currentTab !== "setting) currentTab="gallery"
-
- - add default value for shadCn tabs:
-      <Tabs defaultValue={currentTab}> /<Tabs>
-
- - update the params by clicking the tabs(navigation): must add asChild prop to TabsTrigger component.
-      <Link href={{query:{tab:"gallery"}}}>gallery</Link>
-      <Link href={{query:{tab:"messages"}}}>messages</Link>
-      <Link href={{query:{tab:"settings"}}}>settings</Link>
-
-
-const router = useRouter()
-const pathName= usePathname()   
-const searchParams= useSearchParams()
-
-function onChange(event){
-  const sp = new URLSearchParams(searchParams)
-  sp.set("title", event.target.value)
-  router.push(`${pathname}?${sp.toString()}`)
-}
-
-
-if you have existing searchParams:
-      <Link href={{query:{...props.serachParms, tab:"gallery"}}}>gallery</Link>
-      <Link href={{query:{...props.serachParms, tab:"messages"}}}>messages</Link>
-      <Link href={{query:{...props.serachParms, tab:"settings"}}}>settings</Link>
-
-
-debounce input: use usehooks-ts library:
-import {useDebounceCallback} from "usehooks-ts"
-const debounce=useDebounceCallback(yourFunction, time duration)
-
-
-filtering process in client components:
-  - capture the user filter input and make a api call with user filter input and get the data.
-  - based on the data, you render the page on the client side.
-
-
-filtering process in server components:
-  - client component which contains user filter and filter button. when the user click filter button then filter server action should be trigger with user filter.
-  - server action takes user filter input and validate it
-  - redirect to page with user input filter and within the page, read the search params and make a db call and render the ui and sent back to client.
-  
  
 you implicitly tells to typescript, hey this is string type not undefined:
 
@@ -828,29 +751,7 @@ const sleep =(ms:number)=> new Promise((resolve)=>setTimeout(resolve, ms))
 await sleep(10000)
 
 
-neon : 
-  const connector = neon(process.env.connectionstring)
-  // @ts-expect-error
 
-export const db= drizzle(connector) // typescript throw an error, to happy typescript then you nned to add // @ts-expect-error
-
-
-sql: it allows us to write your raw sql queries to interactive with database directly.
-to_tsvector: it allows us to full text search.
-@@ to-tsquery : it allows us to insert your input query.
-
-let products= await db.select().from('productTable').where( 
-    
-    sql` to-tsvector('simple', lower(${productTable.name} || ' ' || ${productTable.description})) 
-    @@ to-tsquery('simple', lower(${inputQuery.trim().split(' ').join(' & ')}))`
-
-).limit(10)
-
-cricket bat --invaild
-cricket&bat -- valid 
-
-either cricket or bat : |
-both cricket and bat : &
 
 
 

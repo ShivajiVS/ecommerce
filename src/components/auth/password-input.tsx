@@ -1,6 +1,6 @@
 import { useState, forwardRef } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { CustomePasswordInput } from "./customePasswordInput";
+import { CustomePasswordInput } from "./custom-password-input";
 
 export interface PasswordInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
