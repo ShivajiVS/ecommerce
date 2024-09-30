@@ -1,10 +1,12 @@
+import { Footer } from "@/components/footer";
 import { ProductsList } from "@/components/products/products-list";
 import { DumyProducts } from "@/lib/dumyProducts";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col text-justify relative dark:bg-zinc-800 p-2">
+    <div className="flex flex-col text-justify relative p-2 lg:p-4">
       <ProductsList products={DumyProducts} />
-    </main>
+      <Footer />
+    </div>
   );
 }

@@ -8,6 +8,7 @@ import formatPrice from "@/lib/format-price";
 import { Button } from "@/components/ui/button";
 import { useCartState } from "@/lib/store/client-store";
 import emptyBusket from "../../../../public/emptyBusket.json";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Page() {
   const {
@@ -100,7 +101,7 @@ export default function Page() {
                 ))}
             </div>
 
-            <div className="md:w-[400px] max-h-56 md:shadow-lg p-1 md:p-3 my-2">
+            <div className="md:w-[400px] max-h-56 md:border-2 md:rounded-md p-1 md:p-3 my-4">
               <h2 className="font-semibold tracking-tight">Order Details</h2>
               <div className="mt-4 space-y-3.5">
                 <section className="flex justify-between text-sm">
@@ -118,9 +119,31 @@ export default function Page() {
               </div>
               <div className="mt-8 hidden md:block">
                 <Button className="uppercase w-full ml-auto">checkout</Button>
-                {/* proceed to */}
               </div>
             </div>
+
+            {/* <Card className="md:w-[400px] max-h-56 py-2 mt-10">
+              <CardContent>
+                <h2 className="font-semibold tracking-tight">Order Details</h2>
+                <div className="mt-4 space-y-3.5">
+                  <section className="flex justify-between text-sm">
+                    <h3 className="tracking-tight">Bag total</h3>
+                    <span>{formatPrice(subTotal())}</span>
+                  </section>
+                  <section className="flex justify-between mt-3 text-sm ">
+                    <h3 className="tracking-tight">Bag discount</h3>
+                    <span> -{formatPrice(400)}</span>
+                  </section>
+                  <section className="flex justify-between mt-3 text-sm font-semibold">
+                    <h3 className="tracking-tight">Order total</h3>
+                    <span>{formatPrice(subTotal() - 400)}</span>
+                  </section>
+                </div>
+                <div className="mt-8 hidden md:block">
+                  <Button className="uppercase w-full ml-auto">checkout</Button>
+                </div>
+              </CardContent>
+            </Card> */}
           </div>
 
           <div className="bg-zinc-100 w-full fixed bottom-0 left-0 right-0 h-20 flex flex-col justify-center drop-shadow-md md:hidden px-4 ">

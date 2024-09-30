@@ -5,6 +5,7 @@ import "../globals.css";
 import NavBar from "@/components/navigation/nav-bar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { Footer } from "@/components/footer";
 
 const lora = Lora({ subsets: ["latin-ext"] });
 
@@ -27,14 +28,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen dark:bg-slate-900 dark:text-white">
             <NavBar />
-            <main className="w-full dark:bg-zinc-800 grow">
-              <div className="max-w-6xl mx-auto lg:p-6">{children}</div>
+            <main className="w-full grow">
+              <div className="max-w-6xl mx-auto lg:p-4">{children}</div>
             </main>
-            <footer className="flex h-14 items-center justify-center bg-slate-400">
-              <h2>@Shivaji</h2>
-            </footer>
           </div>
           <Toaster
             toastOptions={{

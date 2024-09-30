@@ -8,7 +8,7 @@ type PropsTypes = {
 
 export const ProductsList: FC<PropsTypes> = ({ products }) => {
   return (
-    <div className="w-full h-full  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 lg:px-10 py-3 ">
+    <div className="w-full h-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 py-1s">
       {products?.map((item: ProductsType) => (
         <ProductCard item={item} key={item.id} />
       ))}
