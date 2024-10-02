@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { NavLinks } from "@/components/navigation/nav-links";
-import { AddToBagIcon } from "../icons";
+import AddToBagIcon from "@/components/icons/add-to-bag";
 import BagCount from "@/components/bag/bag-count";
 import { Header } from "./nav-wrapper";
 

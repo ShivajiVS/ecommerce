@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ProfileIcon } from "@/components/icons";
+import ProfileIcon  from "@/components/icons/profile";
 import { DarkModeToggler } from "./dark-mode-toggler";
 import Logout from "@/components/navigation/logout";
 import {

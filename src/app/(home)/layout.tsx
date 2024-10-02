@@ -5,7 +5,6 @@ import "../globals.css";
 import NavBar from "@/components/navigation/nav-bar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { Footer } from "@/components/footer";
 
 const lora = Lora({ subsets: ["latin-ext"] });
 

@@ -8,7 +8,7 @@ import formatPrice from "@/lib/format-price";
 import { Button } from "@/components/ui/button";
 import { useCartState } from "@/lib/store/client-store";
 import emptyBusket from "../../../../public/emptyBusket.json";
-import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Page() {
   const {
@@ -24,11 +24,12 @@ export default function Page() {
     cart.forEach((item) => (total += item.quantity * item.price));
     return total;
   };
+  let session = false;
 
   return (
-    <div className="max-w-6xl min-h-screen mx-auto relative">
+    <div className="max-w-6xl h-full mx-auto relative">
       {cart.length == 0 ? (
-        <div className="flex flex-col h-full w-full items-center justify-center p-2 mt-28  lg:mt-16 ">
+        <div className="flex flex-col h-full w-full items-center justify-center p-2 mt-28 lg:mt-16 ">
           <motion.div
             animate={{ opacity: 1 }}
             initial={{ opacity: 0 }}
@@ -118,38 +119,29 @@ export default function Page() {
                 </section>
               </div>
               <div className="mt-8 hidden md:block">
-                <Button className="uppercase w-full ml-auto">checkout</Button>
+                {session ? (
+                  <Button className="capitalize w-full ml-auto">
+                    Checkout
+                  </Button>
+                ) : (
+                  <Button className="capitalize w-full ml-auto">
+                    <Link href="/sign-in">Sign-in</Link>
+                  </Button>
+                )}
               </div>
             </div>
-
-            {/* <Card className="md:w-[400px] max-h-56 py-2 mt-10">
-              <CardContent>
-                <h2 className="font-semibold tracking-tight">Order Details</h2>
-                <div className="mt-4 space-y-3.5">
-                  <section className="flex justify-between text-sm">
-                    <h3 className="tracking-tight">Bag total</h3>
-                    <span>{formatPrice(subTotal())}</span>
-                  </section>
-                  <section className="flex justify-between mt-3 text-sm ">
-                    <h3 className="tracking-tight">Bag discount</h3>
-                    <span> -{formatPrice(400)}</span>
-                  </section>
-                  <section className="flex justify-between mt-3 text-sm font-semibold">
-                    <h3 className="tracking-tight">Order total</h3>
-                    <span>{formatPrice(subTotal() - 400)}</span>
-                  </section>
-                </div>
-                <div className="mt-8 hidden md:block">
-                  <Button className="uppercase w-full ml-auto">checkout</Button>
-                </div>
-              </CardContent>
-            </Card> */}
           </div>
 
           <div className="bg-zinc-100 w-full fixed bottom-0 left-0 right-0 h-20 flex flex-col justify-center drop-shadow-md md:hidden px-4 ">
             <div className="flex items-center space-x-8">
               <h2>₹{subTotal() - 400}</h2>
-              <Button className="flex-1">Checkout</Button>
+              {session ? (
+                <Button className="flex-1">Checkout</Button>
+              ) : (
+                <Button className="flex-1">
+                  <Link href="/sign-in">Sign-in</Link>
+                </Button>
+              )}
             </div>
           </div>
         </div>

@@ -11,12 +11,12 @@ export function Header({ children }: { children: ReactNode }) {
       className={cn(
         `inset-x-0 top-0 z-[768686] w-full h-14 transition-all duration-300 sticky`,
         {
-          "border-b border-accent bg-background/50 backdrop-blur-lg sticky":
+          "border-b border-accent bg-background/50 dark:bg-slate-900/50 backdrop-blur-lg sticky":
             scrolled,
         }
       )}
     >
       {children}
-    </header>
+    </header> 
   );
 }

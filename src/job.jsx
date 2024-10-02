@@ -25,17 +25,33 @@ clean architecture and domain driven design.
 
 
 CSR: 
-    client  ----> edge network or server to get initial page.
+    client  ----> edge network or server to get initial page(empty html page).
     client  ----> make a API call and then that server hits your data source(DB) and then it goes back to client. 
     client  ----> server  ----> client.
     
-    - when we navigate between routesin client side rendered applications, there is no Full page refresh becaue all your code is being rendered in your browser 
+    index.html file : client request and server response. few millseconds complete blank white is display until client executes the bundle.js file.
+    bundle.js : client request and server response
+    other api calls : client request and server response
+    
+    - when we navigate between routes in client side rendered applications, there is no Full page refresh becaue all your code is being rendered in your browser.
+    - CSR is a modern technique used in web development where the rendering of a web page is performed in the browser using javascript. instead of server sending a fully rendered Html page to the client.
+    when you run npm run build command, it will create a dist file which all your files.
+         cd dist -----> serve
+         npm install -g serve & serve
+         serve command serves the dist folder via http port 
 
 SSR: 
     - client make a http call  ---->  server make a call  ----> data source(DB) ---->  it goes back to server to server with data  ----> server generate a html page and return to client ----> client render the html.
     - client <---->  server <---->  data source
     - it happended for the initial render but then for subsuquent naviagtions, it is de-opted back to client side rendering.
     - it is great for Seo because google bots can read all your information.
+    - seo optimized, gets rid of the waterfalling problem, no white flash before you see content.
+    - downsides of ssr: 
+      - expensive since every request needs to render on the server.
+      - harder to scale, you can't cache to cdn's
+    - dynamic means every users wants its own page.
+    - static means you created it once, everyone is going to fetch the same page 
+
 
 SSG:
     - client  ---->  Edge or CDN.
@@ -47,7 +63,8 @@ SSG:
 ISR: 
     - if you wanted to update you data then you need a ISR pattern.
     - you don't have to Re-build your whole application, you could just Re-build specific routes either timed interval or after an event on month. 
- 
+    - between two requests: the time gap between the last request and current request.
+  
     
 caching:
     - all the different environments your application code can live in. if you're doing most things on the client then it is perfect but as soon as you cross over a network boundary so either client to server or from server to data source(DB) then there is going to be a some cost either it can be resource cost ro time cost. reduce those potential latency caused by crossing these boundaries we need a caching.
@@ -593,6 +610,18 @@ Note: middleware works on the edge
   Can use regular expression enclosed in parenthesis: /about/(.*) is the same as /about/:path*
 
 
+example:
+export const config = {
+matcher: ['/courses/:path*']
+} 
+const token = req.nextauth.token;
+if(!token){
+ return NextResponse.redirect(new URL("/invalidsession", req.url))
+} 
+const user = getUser();
+if(!user){
+ return NextResponse.redirect(new URL("/invalidsession", req.url))
+} 
 
 protected routes: 
 1. client side:
@@ -747,9 +776,8 @@ if(!validatedData.success){
 }
 
 
-const sleep =(ms:number)=> new Promise((resolve)=>setTimeout(resolve, ms))
+const sleep = (ms:number)=> new Promise((resolve)=>setTimeout(resolve, ms))
 await sleep(10000)
-
 
 
 
@@ -764,10 +792,10 @@ references:
 
 
 
-if  i encounter a tag that i have to use i just google it.
+if i encounter a tag that i have to use i just google it.
 
 
-i want to work with people, who ar much more relatable and approachable to me, eventually because then i get to learn a lot from them.   
+i want to work with people, who are much more relatable and approachable to me, eventually because then i get to learn a lot from them.   
 
 hey can you guide me to build a better eccomm website. it should be user interface & user experience and best practices and industry standards.
 
