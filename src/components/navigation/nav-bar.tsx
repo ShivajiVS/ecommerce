@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import { NavLinks } from "@/components/navigation/nav-links";
-import AddToBagIcon from "@/components/icons/add-to-bag";
-import BagCount from "@/components/bag/bag-count";
 import { Header } from "./nav-wrapper";
+import { NavLinks } from "@/components/navigation/nav-links";
+import BagCount from "@/components/bag/bag-count";
+import AddToBagIcon from "../icons/add-to-bag";
 
 const NavBar = () => {
   return (

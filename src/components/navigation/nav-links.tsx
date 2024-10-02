@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import ProfileIcon  from "@/components/icons/profile";
 import { DarkModeToggler } from "./dark-mode-toggler";
 import Logout from "@/components/navigation/logout";
 import {
@@ -10,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import ProfileIcon from "../icons/profile";
 
 export const NavLinks = () => {
   return (
