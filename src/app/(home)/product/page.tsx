@@ -9,8 +9,8 @@ type PropsType = {
 
 export default function Page({ searchParams }: PropsType) {
   return (
-    <div className="flex flex-col lg:flex-row space-y-5 lg:space-x-10 p-2">
-      <div className="flex flex-col lg:flex-row lg:w-1/2">
+    <div className="flex flex-col lg:flex-row space-y-5 lg:space-x-10 max-w-6xl mx-auto lg:px-4  ">
+      <div className="flex flex-col lg:flex-row lg:w-1/2 p-2">
         <ProductImage images={["1", "2", "3", "4", "5"]} />
       </div>
       <div className="flex flex-col lg:w-1/2 space-y-10 mt-6">

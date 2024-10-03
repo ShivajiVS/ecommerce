@@ -27,7 +27,7 @@ export default function Page() {
   let session = false;
 
   return (
-    <div className="max-w-6xl h-full mx-auto relative">
+    <div className="max-w-6xl mx-auto lg:px-4 h-full relative ">
       {cart.length == 0 ? (
         <div className="flex flex-col h-full w-full items-center justify-center p-2 mt-28 lg:mt-16 ">
           <motion.div

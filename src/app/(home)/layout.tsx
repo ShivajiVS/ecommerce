@@ -30,7 +30,7 @@ export default function RootLayout({
           <div className="flex flex-col min-h-screen dark:bg-slate-900 dark:text-white">
             <NavBar />
             <main className="w-full grow">
-              <div className="max-w-6xl mx-auto lg:p-4">{children}</div>
+              <div className="">{children}</div>
             </main>
           </div>
           <Toaster
