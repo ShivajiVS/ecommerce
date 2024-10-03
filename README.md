@@ -12,12 +12,11 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+https://preview.themeforest.net/item/flatsome-multipurpose-responsive-woocommerce-theme/full_screen_preview/5484319?_ga=2.158718458.1710574276.1727961171-898020830.1727350514
+
+https://www.youtube.com/watch?v=-IXkPn1WV00
 
 https://lilsimsie-merch.creator-spring.com/
-
-
-
 
 git remote add origin https://github.com/ShivajiKS/ecommerce.git
 git branch -M main
@@ -25,9 +24,7 @@ git push -u origin main
 
 https://www.youtube.com/feed/downloads
 
-
-
-dynamic route:it should be some name related(seperated by - symbol) to product name and add search params to it like productId and other information. 
+dynamic route:it should be some name related(seperated by - symbol) to product name and add search params to it like productId and other information.
 in the dynamic route, fetch the product data using productId searchparam and not by dynamic slug id.
 
 packages :
@@ -70,12 +67,9 @@ card : small
 details page : bigger
 cart : thembnail
 
-
 fonts :
 
 products page: Lora - 700 - 400 : available on google fonts..
 
 product page:
-   SourceSansPro - 400
-
-
+SourceSansPro - 400

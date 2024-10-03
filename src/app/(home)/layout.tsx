@@ -5,6 +5,7 @@ import "../globals.css";
 import NavBar from "@/components/navigation/nav-bar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { Banner } from "@/components/banner";
 
 const lora = Lora({ subsets: ["latin-ext"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex flex-col min-h-screen dark:bg-slate-900 dark:text-white">
+            <Banner />
             <NavBar />
             <main className="w-full grow">
               <div className="">{children}</div>
