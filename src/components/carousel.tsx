@@ -15,7 +15,7 @@ interface CarouselProps {
 
 const Carousel = ({
   images = ["banner1.jpg", "cat2.jpg", "cat3.jpg", "cat4.jpg", "cat5.jpg"],
-  autoSlideInterval = 2000,
+  autoSlideInterval = 4000,
   transitionSpeed = 0.7,
   loop = true,
   pauseOnHover = true,
@@ -96,6 +96,10 @@ const Carousel = ({
               alt={`Image ${currentIndex + 1}`}
               layout="fill"
               objectFit="cover"
+              objectPosition=""
+              fill
+              // loading="lazy"
+              // style={{ objectFit: "contain" }}
               priority={currentIndex === 0}
               sizes="(max-width: 768px) 100vw, 500px"
             />

@@ -32,7 +32,7 @@ export default function RootLayout({
             <Banner />
             <NavBar />
             <main className="w-full grow">
-              <div className="">{children}</div>
+              <div className="max-w-6xl mx-auto  lg:px-4">{children}</div>
             </main>
           </div>
           <Toaster

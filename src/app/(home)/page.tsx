@@ -9,7 +9,7 @@ export default function Home() {
     <div className="flex flex-col relative p-2">
       <Carousel />
       <section className="max-w-6xl mx-auto px-2 lg:px-4 space-y-8">
-        <Title title="weekly featured products" />
+        <Title title="Featured Products" />
         <ProductsList products={DumyProducts} />
         <Title title="best selling products" />
         <ProductsList products={DumyProducts} />
