@@ -8,6 +8,7 @@ type PropsType = {
 };
 
 export default function Page({ searchParams }: PropsType) {
+  console.log("search params :", searchParams);
   return (
     <div className="flex flex-col lg:flex-row space-y-5 lg:space-x-10">
       <div className="flex flex-col lg:flex-row lg:w-1/2 p-2">
@@ -32,9 +33,6 @@ export default function Page({ searchParams }: PropsType) {
         </div>
         <div className="flex flex-col space-y-4">
           <AddToBag product={searchParams} />
-          {/* <Button variant="outline" className="flex space-x-3">
-            <Heart /> <span>Add to wishlist</span>
-          </Button> */}
         </div>
       </div>
     </div>

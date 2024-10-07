@@ -13,7 +13,7 @@ import Link from "next/link";
 export default function Page() {
   const {
     cart,
-    removeFromeCart,
+    removeFromCart,
     incrementQuantity,
     decrementQuantity,
     clearCart,
@@ -27,7 +27,7 @@ export default function Page() {
   let session = false;
 
   return (
-    <div className="h-full relative ">
+    <div className="h-full relative">
       {cart.length == 0 ? (
         <div className="flex flex-col h-full w-full items-center justify-center mt-28 lg:mt-16 ">
           <motion.div
@@ -43,8 +43,8 @@ export default function Page() {
         </div>
       ) : (
         <div>
-          <div className="flex flex-col space-y-2 md:flex-row md:space-x-6 mb-24 lg:mb-0 mx-2">
-            <div className="flex flex-col space-y-4 mt-1 w-full max-w-2xl flex-3 p-1.5">
+          <div className="flex flex-col space-y-2 md:flex-row md:space-x-6 mb-24 lg:mb-0 mx-2 md:mx-0.5">
+            <div className="flex flex-col space-y-4 mt-0 w-full md:max-w-md md:px-2 lg:px-0 lg:max-w-2xl p-1.5">
               <h2 className="font-bold text-base tracking-tight lg:text-xl mt-2">
                 My Bag
                 {cart.length > 0 && (
@@ -52,7 +52,7 @@ export default function Page() {
                 )}
               </h2>
               {cart.length > 0 &&
-                cart.map(({ id, title, imgUrl, price, quantity }) => (
+                cart.map(({ id, title, imgUrl, price, size, quantity }) => (
                   <div
                     key={id}
                     className="flex space-x-2 py-3 items-center border-b-2 last:border-none"
@@ -69,20 +69,24 @@ export default function Page() {
                       </section>
 
                       <section className="font-medium text-sm">
+                        <h3 className="text-lg">{size}</h3>
+                      </section>
+
+                      <section className="font-medium text-sm">
                         {quantity} x ₹{price}
                       </section>
 
                       <section className="w-full flex items-center justify-between ">
                         <div className="flex items-center space-x-4 ">
                           <button
-                            onClick={() => decrementQuantity(id)}
+                            onClick={() => decrementQuantity(id, size)}
                             className="h-10 w-10 bg-secondary text-secondary-foreground hover:bg-secondary/80 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                           >
                             <MinusIcon className="h-5 w-5" />
                           </button>
                           <div className="flex-1">{quantity}</div>
                           <button
-                            onClick={() => incrementQuantity(id)}
+                            onClick={() => incrementQuantity(id, size)}
                             className="h-10 w-10 bg-secondary text-secondary-foreground hover:bg-secondary/80 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                           >
                             <PlusIcon className="h-5 w-5" />
@@ -93,7 +97,7 @@ export default function Page() {
                         <div>
                           <Trash2
                             className="text-red-600 cursor-pointer"
-                            onClick={() => removeFromeCart(id)}
+                            onClick={() => removeFromCart(id, size)}
                           />
                         </div>
                       </section>
@@ -102,7 +106,7 @@ export default function Page() {
                 ))}
             </div>
 
-            <div className="md:w-[400px] max-h-56 md:border-2 md:rounded-md p-1 md:p-3 my-4">
+            <div className="md:w-[350px] lg:w-[400px] max-h-56 md:border-2 md:rounded-md p-1 md:p-3 my-4">
               <h2 className="font-semibold tracking-tight">Order Details</h2>
               <div className="mt-4 space-y-3.5">
                 <section className="flex justify-between text-sm">

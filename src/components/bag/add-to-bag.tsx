@@ -13,6 +13,7 @@ const SearchParamsSchema = z.object({
   id: z.coerce.number(),
   title: z.string(),
   price: z.coerce.number(),
+  size: z.string().optional(),
   imgUrl: z.string(),
 });
 
@@ -20,7 +21,9 @@ type PropsType = {
   product: Product;
 };
 
-const AddToBag = ({ product: { id, title, price, imgUrl } }: PropsType) => {
+const AddToBag = ({
+  product: { id, title, price, imgUrl, size },
+}: PropsType) => {
   const searchParams = useSearchParams();
   const searchParamsObject = Object.fromEntries(searchParams);
   const validatedSearchParams =
@@ -39,7 +42,7 @@ const AddToBag = ({ product: { id, title, price, imgUrl } }: PropsType) => {
       <Button
         className="w-full"
         onClick={() => {
-          addToCart({ quantity, title, id, price, imgUrl });
+          addToCart({ size, quantity, title, id, price, imgUrl });
           toast("Added successful", {
             duration: 700,
           });

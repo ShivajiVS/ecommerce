@@ -1,6 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 export const Banner = () => {
@@ -14,9 +15,9 @@ export const Banner = () => {
           <div className="container px-6 flex items-center gap-2 max-w-6xl">
             <p className="flex space-x-1">
               <span>Sign up and get 20% OFF for your first order.</span>{" "}
-              <a href="#" className="underline">
+              <Link href="/sign-in" className="underline">
                 Sign up now
-              </a>
+              </Link>
             </p>
 
             <X

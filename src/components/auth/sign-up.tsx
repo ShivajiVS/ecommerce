@@ -52,7 +52,7 @@ export default function SignUpForm() {
         <div className="flex flex-col items-center">
           <CardHeader>
             <CardTitle className="text-xl text-center">
-              Create Account
+              Create an Account
             </CardTitle>
             {/* <CardDescription>Sign up to create a new account</CardDescription> */}
           </CardHeader>
