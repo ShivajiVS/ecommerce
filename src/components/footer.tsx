@@ -30,7 +30,7 @@ const socials: { title: string; icon: ReactNode; href: string }[] = [
 
 export const Footer = () => {
   return (
-    <div className="w-full max-w-6xl mx-auto flex flex-col mt-10 md:mt-20">
+    <footer className="w-full max-w-6xl mx-auto flex flex-col mt-10 px-2 md:mt-20">
       <div className="w-full flex flex-col justify-between py-6 md:flex-row space-y-6 md:space-y-0 md:space-x-8">
         {/* main  footer section */}
         <div className="space-y-3 flex-1">
@@ -120,6 +120,6 @@ export const Footer = () => {
           ))}
         </div>
       </div>
-    </div>
+    </footer>
   );
 };

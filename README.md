@@ -16,6 +16,10 @@ https://preview.themeforest.net/item/flatsome-multipurpose-responsive-woocommerc
 
 https://www.youtube.com/watch?v=-IXkPn1WV00
 
+https://www.portotheme.com/wordpress/porto/shop3/
+
+
+
 https://lilsimsie-merch.creator-spring.com/
 
 git remote add origin https://github.com/ShivajiKS/ecommerce.git

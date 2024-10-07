@@ -1,7 +1,7 @@
 import { FC } from "react";
+import Link from "next/link";
 
 import { ProductsType } from "@/lib/dumyProducts";
-import Link from "next/link";
 import formatPrice from "@/lib/format-price";
 
 type PropsTypes = {

@@ -7,7 +7,7 @@ import BagCount from "@/components/bag/bag-count";
 const NavBar = () => {
   return (
     <Header>
-      <nav className="max-w-6xl h-full flex mx-auto justify-between items-center px-6">
+      <nav className="max-w-6xl h-full flex mx-auto justify-between items-center px-4">
         <Link
           href="/"
           className="font-bold tracking-tight text-lg dark:text-white"

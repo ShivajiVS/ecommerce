@@ -6,9 +6,9 @@ import { DumyProducts } from "@/lib/dumyProducts";
 
 export default function Home() {
   return (
-    <div className="flex flex-col relative p-2">
+    <div className="flex flex-col relative">
       <Carousel />
-      <section className="max-w-6xl mx-auto px-2 lg:px-4 space-y-8">
+      <section className="max-w-6xl mx-auto px-1 lg:px-4 space-y-8">
         <Title title="Featured Products" />
         <ProductsList products={DumyProducts} />
         <Title title="best selling products" />
