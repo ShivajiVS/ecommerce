@@ -7,7 +7,7 @@ export type CartItem = {
   price: number;
   imgUrl: string;
   quantity: number;
-  size: string; // Added size property
+  size: string; 
 };
 
 type CartType = {

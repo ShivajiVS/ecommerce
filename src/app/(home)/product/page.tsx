@@ -10,9 +10,9 @@ type PropsType = {
 export default function Page({ searchParams }: PropsType) {
   console.log("search params :", searchParams);
   return (
-    <div className="flex flex-col lg:flex-row space-y-5 lg:space-x-10">
-      <div className="flex flex-col lg:flex-row lg:w-1/2 p-2">
-        <ProductImage images={["1", "2", "3", "4", "5"]} />
+    <div className="w-full flex flex-col lg:flex-row space-y-5 lg:space-x-10 h-full">
+      <div className="flex flex-col lg:flex-row w-full lg:w-1/2">
+        <ProductImage />
       </div>
       <div className="flex flex-col lg:w-1/2 space-y-10 mt-6 px-2">
         <div className="space-y-4">
@@ -20,7 +20,7 @@ export default function Page({ searchParams }: PropsType) {
             {searchParams?.title}
           </h2>
           <div className=" text-sm">{searchParams?.price} INR</div>
-          <p className="text-justify text-sm line-clamp-4">
+          <p className="text-justify text-sm line-clamp-6">
             There is always room in your wardrobe for a casual jacket. Smart in
             the traditional sense but with an eye for the contemporary, this
             Relaxed fit jacket in color green, will make you look dressed up
