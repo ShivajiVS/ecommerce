@@ -12,7 +12,7 @@ const NavBar = () => {
           href="/"
           className="font-bold tracking-tight text-lg dark:text-white"
         >
-          Shivaji.dev
+          Svella<span className="text-blue-500">R</span>ealm
         </Link>
         <div className="flex space-x-6">
           <div className="relative">

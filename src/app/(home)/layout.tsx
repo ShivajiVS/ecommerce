@@ -10,8 +10,9 @@ import { Banner } from "@/components/banner";
 const lora = Lora({ subsets: ["latin-ext"] });
 
 export const metadata: Metadata = {
-  title: "ecommerce",
-  description: "developed by shivaji",
+  title: "SvellaRealm",
+  description:
+    "your ultimate shopping destination! Explore a curated selection of high-quality products across fashion, gadgets, and more. Enjoy a seamless shopping experience with secure checkout and personalized recommendations.",
 };
 
 export default function RootLayout({

@@ -31,10 +31,18 @@ const socials: { title: string; icon: ReactNode; href: string }[] = [
 export const Footer = () => {
   return (
     <footer className="w-full max-w-6xl mx-auto flex flex-col mt-10 px-2 md:mt-20">
-      <div className="w-full flex flex-col justify-between py-6 md:flex-row space-y-6 md:space-y-0 md:space-x-8">
+      <div className="w-full flex flex-col justify-between py-6 md:flex-row space-y-6 md:space-y-0 md:space-x-20">
         {/* main  footer section */}
-        <div className="space-y-3 flex-1">
-          <h2 className="text-sm font-semibold tracking-tight ">Shivaji.dev</h2>
+        <div className="space-y-1 flex-1">
+          <h2 className="text-lg font-semibold tracking-tight ">
+            Svella<span className="text-blue-500">R</span>ealm
+          </h2>
+          <p className="text-justify text-sm tracking-tight">
+            your ultimate shopping destination! Explore a curated selection of
+            high-quality products across fashion, gadgets, and more. Enjoy a
+            seamless shopping experience with secure checkout and personalized
+            recommendations.
+          </p>
         </div>
         <div className="flex-1 grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
           <div>

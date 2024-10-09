@@ -25,7 +25,7 @@ export default function Page() {
     [cart]
   );
 
-  const session = true;
+  const session = false;
 
   return (
     <div className="h-full relative">
@@ -138,7 +138,7 @@ export default function Page() {
           </div>
 
           {/* Price Details */}
-          <div className="w-full md:w-[350px] lg:w-[400px] md:sticky md:top-16 md:self-start md:h-auto lg:mt-0 p-1 md:p-3 my-4 md:border-2 md:rounded-md">
+          <div className="w-full md:w-[350px] lg:w-[400px] md:sticky md:top-24 md:self-start md:h-auto lg:mt-0 p-1 md:p-3 my-4 md:border-2 md:rounded-md">
             <h2 className="font-semibold tracking-tight capitalize">
               Price details
               <span className="text-sm"> ({cart.length} items)</span>
