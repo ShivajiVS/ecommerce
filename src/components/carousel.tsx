@@ -61,7 +61,7 @@ const Carousel = ({
 
   return (
     <div
-      className="mb-4 overflow-hidden lg:mx-4"
+      className="mb-8 mt-5 overflow-hidden lg:mx-4"
       onMouseEnter={() => pauseOnHover && setIsPaused(true)}
       onMouseLeave={() => pauseOnHover && setIsPaused(false)}
     >
