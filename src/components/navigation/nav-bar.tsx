@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { Redressed } from "next/font/google";
 
 import { Header } from "./nav-wrapper";
 import { NavLinks } from "@/components/navigation/nav-links";
 import BagCount from "@/components/bag/bag-count";
+
+const redressed = Redressed({ weight: "400" });
 
 const NavBar = () => {
   return (
@@ -10,7 +13,7 @@ const NavBar = () => {
       <nav className="max-w-6xl h-full flex mx-auto justify-between items-center px-4">
         <Link
           href="/"
-          className="font-bold tracking-tight text-lg dark:text-white"
+          className={`font-bold tracking-tight text-2xl capitalize dark:text-white ${redressed.className}`}
         >
           Svella<span className="text-blue-500">R</span>ealm
         </Link>

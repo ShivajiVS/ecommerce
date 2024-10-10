@@ -2,6 +2,7 @@ import Link from "next/link";
 import { GithubIcon, Linkedin, TwitterIcon } from "lucide-react";
 import { ReactNode } from "react";
 import { Separator } from "./ui/separator";
+import { Redressed } from "next/font/google";
 
 const socials: { title: string; icon: ReactNode; href: string }[] = [
   {
@@ -28,15 +29,20 @@ const socials: { title: string; icon: ReactNode; href: string }[] = [
   },
 ];
 
+const redressed = Redressed({ weight: "400" });
+
 export const Footer = () => {
   return (
     <footer className="w-full max-w-6xl mx-auto flex flex-col mt-10 px-2 md:mt-20">
       <div className="w-full flex flex-col justify-between py-6 md:flex-row space-y-6 md:space-y-0 md:space-x-20">
         {/* main  footer section */}
         <div className="space-y-1 flex-1">
-          <h2 className="text-lg font-semibold tracking-tight ">
+          <Link
+            href="/"
+            className={`font-bold tracking-tight text-2xl dark:text-white ${redressed.className}`}
+          >
             Svella<span className="text-blue-500">R</span>ealm
-          </h2>
+          </Link>
           <p className="text-justify text-sm tracking-tight">
             your ultimate shopping destination! Explore a curated selection of
             high-quality products across fashion, gadgets, and more. Enjoy a
