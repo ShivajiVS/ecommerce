@@ -1,4 +1,4 @@
-import ProductShowcase from "@/components/products/product-showcase";
+// import ProductShowcase from "@/components/products/product-showcase";
 
 export default function Page() {
   return (
@@ -16,9 +16,7 @@ export default function Page() {
             <div className="w-20 h-20  bg-gray-800"></div>
           </div>
         </div>
-        <div className="flex-1 bg-gray-500">
-          <ProductShowcase />
-        </div>
+        <div className="flex-1 bg-gray-500">{/* <ProductShowcase /> */}</div>
       </section>
       <div>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus

@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +11,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -24,6 +26,7 @@ import {
 import GoogleSignInButton from "./google-signIn";
 import { PasswordInput } from "./password-input";
 import { SignInSchema } from "@/lib/validators";
+import { signInwithEmail } from "@/auth/logout";
 
 export default function SignInForm() {
   const form = useForm<z.infer<typeof SignInSchema>>({
@@ -33,8 +36,10 @@ export default function SignInForm() {
       password: "",
     },
   });
-  const onSubmit = (values: z.infer<typeof SignInSchema>) => {
-    console.log("submitted..");
+  const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
+    console.log("start..");
+    await signInwithEmail(values);
+    console.log("end..");
   };
 
   const {
@@ -109,20 +114,22 @@ export default function SignInForm() {
                 <Button type="submit" className="w-full">
                   Login
                 </Button>
-                <div className="mx-auto my-1 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
-                  or
-                </div>
-                <GoogleSignInButton>Continue with Google</GoogleSignInButton>
-              </div>
-              <div className="mt-4 text-center text-sm">
-                Don&apos;t have an account?
-                <Link href="/sign-up" className="underline">
-                  Sign up
-                </Link>
               </div>
             </CardContent>
           </form>
         </Form>
+        <CardFooter className="flex-col">
+          <div className="mx-auto mb-3 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
+            or
+          </div>
+          <GoogleSignInButton provider="google">Continue with Google</GoogleSignInButton>
+          <div className="mt-4 text-center text-sm">
+            Don&apos;t have an account?
+            <Link href="/sign-up" className="underline">
+              Sign up
+            </Link>
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );

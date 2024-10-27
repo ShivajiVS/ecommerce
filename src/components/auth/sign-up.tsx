@@ -9,15 +9,12 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -148,7 +145,7 @@ export default function SignUpForm() {
                   <div className="mx-auto my-1 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
                     or
                   </div>
-                  <GoogleSignInButton>Continue with Google</GoogleSignInButton>
+                  <GoogleSignInButton provider="google">Continue with Google</GoogleSignInButton>
                 </div>
                 <div className="text-center text-sm">
                   Do have an account?{" "}

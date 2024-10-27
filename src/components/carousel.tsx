@@ -98,8 +98,6 @@ const Carousel = ({
               objectFit="cover"
               objectPosition=""
               fill
-              // loading="lazy"
-              // style={{ objectFit: "contain" }}
               priority={currentIndex === 0}
               sizes="(max-width: 768px) 100vw, 500px"
             />

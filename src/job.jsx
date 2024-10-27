@@ -1,6 +1,17 @@
 /* 
 
- I was looking for a job as a web developer and for anyone to reach out if they were looking to hire a junior developer.
+internals of next-auth.
+internals of jwts and how it works under the hood.
+what is auth flow when loginto the application and when you click signout button.
+internals of sql.
+how to optimize the queries.
+
+
+I truly understand that you are busy with your work but i'm really interested to continue our previous discussion.
+
+cracking the interview is about knowing more than the interviewer.
+
+I was looking for a job as a junior developer and for anyone to reach out if they were looking to hire a junior developer.
 
 how do you learn quickly and effectively in just the stuff you need.
 
@@ -24,23 +35,94 @@ creating and composing together functions can directly apply to creating and com
 clean architecture and domain driven design.
 
 
-CSR: 
+
+benefits of nextjs:
+  - control over rendering strategies.
+  - nextj simplifies some things like server actions, code splitting, font, image, scrpt optimzation.
+  - better technology under the hood.
+  - in-buit seo.
+  - file based routing.
+  - good docs.
+
+what you still need to consider:
+  - more functionality = more complexity.
+  - new problems(eg: ssr)
+    - hydration errors because of ssr.
+    - window not exists
+  - can't ignore all features like cacching, you need to learn a lot of new stuff otherwise it may work against for you.
+  - falling into traps with use client or use server.
+  - some nextjs specific things are abstracted from you which can lead good or bad.
+  - but you are not drilled to use. ex: the link component, you can still stick with normal a tag.
+  
+- wear normal cloths.
+- get rid of your phone.
+- listen to concentrating music 
+- use techniques lile pomodoro. flow tool.
+- solve problems wisely.
+- don't overthink every problem.
+- before you start coding think about what do i wanna do today.
+- make regular pauses where you can sort your mind.
+
+add prettier and prettier-plugins-tailndcss to your project as a dev dependency.
+
+ctrl + k + s : search format document to change the shortcut key. shift + f
+
+.prettierrc file: 
+    {
+      "printWidth":"80",
+      "semi":true,
+      "singleQuote":true,
+      "tabwidth":2,
+      "jsxSingleQuote":false,
+      "plugins":["prettier-plugin-tailwindcss"],
+
+    }
+
+tailwindcss best practices:
+  1. instead of adding same styles for different elements, you can just add classes once
+    - inside globals.css:
+        h1{
+          @apply font-bold text-2xl text-zinc-800
+        }
+        p{
+          @apply font-bold text-medium text-zinc-800 
+        }     
+  2. extract into components:
+    const H1= ({children}:{ children: React.ReactNode})=> {
+      return (
+        <h1 className="font-bold text-2xl text-zinc-800">{children}</h1>
+    )}
+
+
+
+CSR, SSR, SSG, ISR, Dynamic SSR: these are Different techniques for rendering the user interface.
+rebdering is process of converting your code into user interface and depending upon how you have writen your code and few other conditions, this rendering could either take place in the client side or server side. 
+when and where the rendering is going to be happening.
+
+
+CSR: browser make a request to server, server then sends a some html along with javascript and then this javascript executed in the browser and then builds out the entire page so this is called client side rendering.
     client  ----> edge network or server to get initial page(empty html page).
     client  ----> make a API call and then that server hits your data source(DB) and then it goes back to client. 
     client  ----> server  ----> client.
     
-    index.html file : client request and server response. few millseconds complete blank white is display until client executes the bundle.js file.
+    index.html file : client request and server response. few millseconds complete blank white page is displayed until client executes the bundle.js file.
     bundle.js : client request and server response
     other api calls : client request and server response
     
-    - when we navigate between routes in client side rendered applications, there is no Full page refresh becaue all your code is being rendered in your browser.
+    - when we navigate between routes in client side rendered applications, there is no Full page refresh because all your code is being rendered in your browser.
     - CSR is a modern technique used in web development where the rendering of a web page is performed in the browser using javascript. instead of server sending a fully rendered Html page to the client.
     when you run npm run build command, it will create a dist file which all your files.
+         npm run build : this command will create an optimized build for your project.
          cd dist -----> serve
          npm install -g serve & serve
          serve command serves the dist folder via http port 
-
-SSR: 
+    - problems with CSR:
+        - poor seo.
+        - slower initial page load.
+      note: we do not have these problems in case of server side rendering.
+  
+SSR: the content is full rendered on the server before being sent to the client and bacause of that we get faster initial load times and very good seo.
+all of this code is first going to be executed on the server side, so whenever i get a request to this particular route, i will first fecth data from database then render out the entire content and then send back a complete html response to client. 
     - client make a http call  ---->  server make a call  ----> data source(DB) ---->  it goes back to server to server with data  ----> server generate a html page and return to client ----> client render the html.
     - client <---->  server <---->  data source
     - it happended for the initial render but then for subsuquent naviagtions, it is de-opted back to client side rendering.
@@ -51,9 +133,9 @@ SSR:
       - harder to scale, you can't cache to cdn's
     - dynamic means every users wants its own page.
     - static means you created it once, everyone is going to fetch the same page 
+    - probelms with SSR : it can be slower for dynamic content because server needs to render the page on each request and since because server is rendering the page on each request, there would be higher server load in case of SSR.
 
-
-SSG:
+SSG: to fix the issues of both CSR abd SSR, SSG was introduced. SSG pages are pre-rendered at build time and we get very good seo and also get faster initial load times and since html is pre-rendered at build time, these can be served as static content files which basically improve the performance but SSG is still not suitable for highly dynamic content that cahnge frequently because content is fixed at build time the if you want to update the content of your website, you basicaly have to rebuild enrire application again.
     - client  ---->  Edge or CDN.
     - at build time: fetch the data from server and generate a html page during build time and cache it on the CDN  
     - it request comes from client and then CDN serves the cached html page.
@@ -61,9 +143,11 @@ SSG:
     - if you update data then you need to re-build your whole application.
 
 ISR: 
+    - ISR is a improved version of SSG. basically it will generate the pages at build time but it also enables updates at run time. IsR combines the both benefits of SSG which is basicallyfater intial load times and very good seo and with the ability to update content without a full rebuild the application 
     - if you wanted to update you data then you need a ISR pattern.
     - you don't have to Re-build your whole application, you could just Re-build specific routes either timed interval or after an event on month. 
     - between two requests: the time gap between the last request and current request.
+    - not ideal for real time content or personalized content.
   
     
 caching:
@@ -487,9 +571,23 @@ const searchParamsSchema = z.Object({
 
 
 
-
-
 server actions:  server action are asynchronous functions that are executed on the server and the main purpose is that you can use them in a form while handling form submissions and performin data mutations so whenever you want to update, create, delete data.
+
+.next -> server -> app -> page.js file :
+    format the file : search 1031, within the function list all id for server actions.
+
+.next -> static -> chunks -> app -> page file : client side code
+
+.next -> cache -> webpack -> .rscinfo : encryption key for server actions.
+Note: you can add custome encryption key by adding an environment variable.
+NEXT_SERVER_ACTIONS_ENCRYPTION_KEY = YOUR KEY
+
+next/dynamic : lazy load imports.
+
+
+FormData: if you dirctly bind the server action using form action prop then you can receive an formData object(not event) as a parameter to the server action.
+  <form action={handleServerAction}></form>
+  export async function handleServerAction(formData:FormData){}
 
 
 "use server"

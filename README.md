@@ -12,13 +12,15 @@ pnpm dev
 bun dev
 ```
 
+how did i do
+
+https://github.com/DevAntonioRogers/drizzle-neon-next-multistep-form/blob/main/app/(auth)/login/page.tsx
+
 https://preview.themeforest.net/item/flatsome-multipurpose-responsive-woocommerce-theme/full_screen_preview/5484319?_ga=2.158718458.1710574276.1727961171-898020830.1727350514
 
 https://www.youtube.com/watch?v=-IXkPn1WV00
 
 https://www.portotheme.com/wordpress/porto/shop3/
-
-
 
 https://lilsimsie-merch.creator-spring.com/
 

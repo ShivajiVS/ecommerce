@@ -1,23 +1,30 @@
 "use client";
 
-import { LogOut } from "lucide-react";
+import { LogIn, LogOut } from "lucide-react";
 import Link from "next/link";
 
+import { signOut } from "@/auth";
+import { useClientSession } from "@/auth/useClientSession";
+import { logout } from "@/auth/logout";
+
 const Logout = () => {
-  let userStatus = false;
-  const logout = () => {
-    console.log("logout...");
-  };
+  const session = useClientSession();
+
   return (
     <>
-      {userStatus ? (
-        <div className="flex gap-2 font-medium" onClick={logout}>
+      {session ? (
+        <div
+          className="flex gap-2 font-medium"
+          onClick={async () => {
+            await logout();
+          }}
+        >
           <LogOut className="w-5 h-5" />
-          Logout
+          <span>Logout</span>
         </div>
       ) : (
         <Link href="/sign-in" className="flex gap-2 font-medium">
-          Sign-In
+          <LogIn className="w-5 h-5" /> <span>SignIn</span>
         </Link>
       )}
     </>

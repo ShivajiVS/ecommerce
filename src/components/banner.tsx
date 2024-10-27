@@ -22,7 +22,7 @@ export const Banner = () => {
 
             <X
               onClick={() => setIsVisible((prevState) => !prevState)}
-              className="text-white w-4 h-4"
+              className="text-white w-4 h-4 cursor-pointer"
             />
           </div>
         </div>

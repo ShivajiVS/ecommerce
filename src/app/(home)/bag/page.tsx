@@ -1,6 +1,6 @@
 "use client";
 
-import { MinusIcon, PlusIcon, Trash2 } from "lucide-react";
+import { LogIn, MinusIcon, PlusIcon, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import Lootie from "lottie-react";
 import formatPrice from "@/lib/format-price";
@@ -176,21 +176,25 @@ export default function Page() {
                 </Button>
               ) : (
                 <Button className="capitalize w-full ml-auto">
-                  <Link href="/sign-in">Sign-in</Link>
+                  <Link href="/sign-in" className="flex gap-2 font-medium">
+                    <LogIn className="w-5 h-5" /> <span>SignIn</span>
+                  </Link>
                 </Button>
               )}
             </div>
           </div>
 
           {/* Mobile Checkout Section */}
-          <div className="bg-zinc-100 w-full fixed bottom-0 left-0 right-0 h-20 flex flex-col justify-center drop-shadow-md md:hidden px-4">
+          <div className="bg-zinc-100 dark:bg-slate-700 w-full fixed bottom-0 left-0 right-0 h-20 flex flex-col justify-center drop-shadow-md md:hidden px-4">
             <div className="flex items-center space-x-8">
-              <h2>₹{subTotal - 400}</h2>
+              <h2>{formatPrice(subTotal - 400 + 20)}</h2>
               {session ? (
                 <Button className="flex-1 uppercase">place order</Button>
               ) : (
                 <Button className="flex-1">
-                  <Link href="/sign-in">Sign-in</Link>
+                  <Link href="/sign-in" className="flex gap-2 font-medium">
+                    <LogIn className="w-5 h-5" /> <span>SignIn</span>
+                  </Link>
                 </Button>
               )}
             </div>

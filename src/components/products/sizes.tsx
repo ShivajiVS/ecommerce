@@ -30,7 +30,7 @@ const Sizes = ({
           )}
         >
           {item}
-        </Link>
+        </Link>  
       ))}
     </div>
   );

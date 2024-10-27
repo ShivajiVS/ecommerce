@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { GithubIcon, Linkedin, TwitterIcon } from "lucide-react";
 import { ReactNode } from "react";
-import { Separator } from "./ui/separator";
-import { Redressed } from "next/font/google";
+import { Separator } from "@/components/ui/separator";
+import localFont from "next/font/local";
 
 const socials: { title: string; icon: ReactNode; href: string }[] = [
   {
@@ -29,7 +29,10 @@ const socials: { title: string; icon: ReactNode; href: string }[] = [
   },
 ];
 
-const redressed = Redressed({ weight: "400" });
+const redressed = localFont({
+  src: "../fonts/Redressed-Regular.ttf",
+  weight: "400",
+});
 
 export const Footer = () => {
   return (
@@ -41,7 +44,7 @@ export const Footer = () => {
             href="/"
             className={`font-bold tracking-tight text-2xl dark:text-white ${redressed.className}`}
           >
-            Svella<span className="text-blue-500">R</span>ealm
+            <span className="text-blue-500">S</span>vella
           </Link>
           <p className="text-justify text-sm tracking-tight">
             your ultimate shopping destination! Explore a curated selection of
