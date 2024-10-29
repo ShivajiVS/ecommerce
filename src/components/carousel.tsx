@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { MotionDiv } from "./framer-motion";
 
 interface CarouselProps {
   images?: string[];
@@ -81,7 +82,7 @@ const Carousel = ({
           />
         </button>
         <AnimatePresence custom={direction}>
-          <motion.div
+          <MotionDiv
             key={images[currentIndex]} //Use image URL as key
             className="absolute w-full h-full"
             variants={variants}
@@ -101,7 +102,7 @@ const Carousel = ({
               priority={currentIndex === 0}
               sizes="(max-width: 768px) 100vw, 500px"
             />
-          </motion.div>
+          </MotionDiv>
         </AnimatePresence>
       </div>
     </div>

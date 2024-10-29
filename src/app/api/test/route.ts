@@ -23,7 +23,19 @@ export function GET() {
 - you can read the request body using standard web api method.
 
 - route handlers supports both edge and nodejs runtime seamlessly, including support for streaming. yu can use the runtime segment config option to specify the run time.
-export const runtime = "edge" // nodejs is the default 
+export const runtime = "edge" // nodejs is the default
+
+- on the server, urls are mapped to handler functions if the incoming request is matched by one of the handlers. the input is validated, the business logic is performed and the data is updated in your storage solution. then a response is sent back to the client which contains a three status code, indicating the result of the request, a list of headers and the actual response body.
+the response body will most likely be html describing layout of a page, Json when you working with Rest Api's, Javascript, css or static assets like images or videos. 
+the browser will parse the html line by line in a synchronous manner and the markup will be used to construct an in-memory tree reprsentation of the document structure called the dom. this dom is used to display all the UI in the browser. of course the html can also contains css and javascript either directly embedded or link to external files. when the browser find such files, subsequent http request will be sent to the server to retrieve the data. caching machanism can be used to avoid requesting information that's already available in the browser from previous interactions.
+so at the end of a request/response cycle, the user will see the requested page in his browser.
+links to trigger other get requests and navigate to othe pages or via forms to submit information to the server. every interaction will cause a full page refresh and this architecture is called as multi page application. 
+the easiest way to improve the Ux is to avoid refreshing the whole page on every user interaction. most of the time just part of page needs to be updated so there is no need to interrpt to entire user flow. think of a button that allows you to remove an entry from movie list. once button is clicked, it is musch nicer if we simply remove the element from the dom instead of doing a full page refresh. we can do this with javascript, js allows us to implement dynamic interactive features in the browser.
+
+it follows closely the ecma script specification which is updated on yearly basis so the browsers have to add support for all the new features defined by the ecma script specification but this is a usually a fairly slow process. so you can use a transpiler like bable to write modern javascript which is then converted in code that all browsers can understand.or you can use typescript to support both newset ecma script features and strict types in your codebase.
+
+
+js script can perform an asynchronous call to server, and when the response is received only the relevent elements will be updated. working with the dom can be somewhat verbose and libraries like Jquery simplify the dev experience in such scenarious 
 
 
   - app

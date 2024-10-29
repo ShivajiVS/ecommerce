@@ -178,8 +178,11 @@ caching:
         - A route can combine some static parts and dynamic parts.
 
 
+
+https://blog.webdevsimplified.com/2024-01/next-js-app-router-cache/
+
 Request memoization: 
-  - if you make a same request in multiple times in the same page(route) then your request is cached and use it for other requests also by avoiding making multiple ruquests.
+  - if you make a same request in multiple times in the same page(route) then your request is cached and use it for other requests also by avoiding making multiple requests.
   - cleared request memoization cache when you refresh the page(route).
   - if you want to opt out from request memoization you can use abort controller.
       ex: 

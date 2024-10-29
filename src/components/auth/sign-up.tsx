@@ -6,12 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -44,7 +39,7 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="box-border  py-5 md:pt-3">
+    <div className="box-border py-5 md:pt-3">
       <Card className="mx-auto max-w-sm lg:max-w-md">
         <div className="flex flex-col items-center">
           <CardHeader>
@@ -145,7 +140,9 @@ export default function SignUpForm() {
                   <div className="mx-auto my-1 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
                     or
                   </div>
-                  <GoogleSignInButton provider="google">Continue with Google</GoogleSignInButton>
+                  <GoogleSignInButton provider="google">
+                    Continue with Google
+                  </GoogleSignInButton>
                 </div>
                 <div className="text-center text-sm">
                   Do have an account?{" "}

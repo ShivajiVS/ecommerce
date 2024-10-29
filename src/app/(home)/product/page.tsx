@@ -9,7 +9,6 @@ type PropsType = {
 
 export default async function Page(props: PropsType) {
   const searchParams = await props.searchParams;
-  console.log("search params :", searchParams);
   return (
     <div className="w-full flex flex-col lg:flex-row space-y-5 lg:space-x-10 h-full">
       <div className="flex flex-col lg:flex-row w-full lg:w-1/2">

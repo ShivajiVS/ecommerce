@@ -33,10 +33,11 @@ import {
 } from "@/components/ui/select";
 import { indianStates } from "@/lib/validators/addressSchema";
 
-import { AddressSchema } from "@/lib/validators"
+import { AddressSchema } from "@/lib/validators";
 
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { MotionDiv } from "../framer-motion";
 
 export default function AddressForm() {
   const [formStep, setFormStep] = useState(0);
@@ -110,10 +111,10 @@ export default function AddressForm() {
             <CardContent>
               <div className="grid gap-4">
                 {/* form step 1 */}
-                <motion.div
+                <MotionDiv
                   className={cn("space-y-4", { hidden: formStep == 1 })}
-                  //formstep == 0 ->translateX == 0%
-                  //formstep == 1 ->translateX == -100%
+                  // formstep == 0 ->translateX == 0%
+                  // formstep == 1 ->translateX == -100%
 
                   animate={{ translateX: `-${formStep * 100}%` }}
                   transition={{ ease: "easeInOut" }}
@@ -130,7 +131,7 @@ export default function AddressForm() {
                             <Input placeholder="Kondeti Shivaji" {...field} />
                           </FormControl>
                           <div className="h-1">
-                            <FormMessage className="text-xs"/>
+                            <FormMessage className="text-xs" />
                           </div>
                         </FormItem>
                       )}
@@ -148,7 +149,7 @@ export default function AddressForm() {
                             <Input placeholder="8788676763" {...field} />
                           </FormControl>
                           <div className="h-1">
-                            <FormMessage className="text-xs"/>
+                            <FormMessage className="text-xs" />
                           </div>
                         </FormItem>
                       )}
@@ -171,15 +172,15 @@ export default function AddressForm() {
                           </FormControl>
 
                           <div className="h-3">
-                            <FormMessage className="text-xs"/>
+                            <FormMessage className="text-xs" />
                           </div>
                         </FormItem>
                       )}
                     />
                   </div>
-                </motion.div>
+                </MotionDiv>
                 {/* form step 2 */}
-                <motion.div
+                <MotionDiv
                   className={cn("space-y-4", {
                     hidden: formStep == 0,
                   })}
@@ -234,7 +235,7 @@ export default function AddressForm() {
                               <Input placeholder="533246" {...field} />
                             </FormControl>
                             <div className="h-1">
-                              {isDirty && <FormMessage className="text-xs"/>}
+                              {isDirty && <FormMessage className="text-xs" />}
                             </div>
                           </FormItem>
                         )}
@@ -253,7 +254,7 @@ export default function AddressForm() {
                             <Input placeholder="City/District" {...field} />
                           </FormControl>
                           <div className="h-2">
-                            {isDirty && <FormMessage className="text-xs"/>}
+                            {isDirty && <FormMessage className="text-xs" />}
                           </div>
                         </FormItem>
                       )}
@@ -275,7 +276,7 @@ export default function AddressForm() {
                             />
                           </FormControl>
                           <div className="h-2">
-                            {isDirty && <FormMessage className="text-xs"/>}
+                            {isDirty && <FormMessage className="text-xs" />}
                           </div>
                         </FormItem>
                       )}
@@ -315,7 +316,7 @@ export default function AddressForm() {
                       )}
                     />
                   </div>
-                </motion.div>
+                </MotionDiv>
 
                 <div className="mt-2 flex space-x-6 justify-around">
                   {formStep === 1 && (
