@@ -144,7 +144,7 @@ export default function SignUpForm() {
   const nextFormStep = async () => {
     const isValid = await form.trigger(["fullName", "email"]);
     if (isValid) {
-      form.clearErrors(); // Clear errors when validation succeeds
+      form.clearErrors();
       setFormStep(1);
     }
   };
@@ -158,7 +158,7 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="box-border py-5 md:pt-3">
+    <div className="box-border py-12 pt-24 lg:pt-16 px-2">
       <Card className="mx-auto max-w-sm lg:max-w-md">
         <CardHeader>
           <CardTitle className="text-xl text-center">
@@ -195,7 +195,7 @@ export default function SignUpForm() {
             <AuthProviderWrapper />
             <div className="mt-4 text-center text-sm">
               Already have an account?
-              <Link href="/login" className="underline ml-1">
+              <Link href="/sign-in" className="underline ml-1">
                 Sign in
               </Link>
             </div>

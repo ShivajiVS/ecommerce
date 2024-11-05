@@ -2,10 +2,18 @@ import * as z from "zod";
 
 const SignUpSchema = z
   .object({
-    fullName: z.string().min(6, { message: "min 6 chars" }),
+    fullName: z
+      .string()
+      .min(1, { message: "Required." }) // Ensures the field is not empty
+      .min(4, { message: "Too short." }) // Minimum length of 2 characters
+      .max(100, { message: "Too long." }) // Maximum length of 100 characters
+      .regex(/^[a-zA-Z\s]+$/, {
+        message: "FullName can only contain letters and spaces",
+      }), // Only allows letters ,
     email: z.string().email({ message: "Invalid email." }),
     password: z
       .string()
+      .min(1, { message: "Required." })
       .min(8, { message: "Password must be at least 8 characters long." })
       .regex(/[a-z]/, {
         message: "Password must include at least one lowercase letter.",

@@ -48,7 +48,7 @@ export default function SignInForm() {
   } = form;
 
   return (
-    <div className="box-border py-12 lg:pt-16 ">
+    <div className="box-border py-12 pt-20 lg:pt-16 px-2">
       <Card className="mx-auto max-w-sm lg:max-w-md ">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
@@ -125,9 +125,9 @@ export default function SignInForm() {
           </div>
           <AuthProviderWrapper />
           <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?
+            Don&apos;t have an account?{" "}
             <Link href="/sign-up" className="underline">
-              Sign up
+              SignUp
             </Link>
           </div>
         </CardFooter>

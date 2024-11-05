@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -31,13 +30,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { indianStates } from "@/lib/validators/addressSchema";
-
-import { AddressSchema } from "@/lib/validators";
-
 import { Textarea } from "@/components/ui/textarea";
+
+import { indianStates } from "@/lib/validators/addressSchema";
+import { AddressSchema } from "@/lib/validators";
 import { cn } from "@/lib/utils";
+
 import { MotionDiv } from "../framer-motion";
+import { ArrowLeft } from "lucide-react";
 
 export default function AddressForm() {
   const [formStep, setFormStep] = useState(0);
@@ -58,7 +58,7 @@ export default function AddressForm() {
 
   const {
     reset,
-    formState: { isDirty, errors, touchedFields },
+    formState: { isDirty },
   } = form;
 
   const onSubmit = (values: z.infer<typeof AddressSchema>) => {
@@ -68,41 +68,36 @@ export default function AddressForm() {
     setFormStep(0);
   };
 
-  const nextFormStep = () => {
+  const nextFormStep = async () => {
     //validation: if the specific input fields are invalid then there is no sense to move to next form step..
     // trigger method helps to trigger the validations for specific input field.
 
-    form.trigger(["fullName", "phoneNumber", "email"]);
-
-    const fullNameState = form.getFieldState("fullName");
-    const phoneNumberState = form.getFieldState("phoneNumber");
-    const emailState = form.getFieldState("email");
-
-    if (!fullNameState.isDirty || fullNameState.invalid) return;
-    if (!phoneNumberState.isDirty || phoneNumberState.invalid) return;
-    if (!emailState.isDirty || emailState.invalid) return;
-
-    setFormStep(1);
+    const isValid = await form.trigger(["fullName", "phoneNumber", "email"]);
+    if (isValid) {
+      form.clearErrors();
+      setFormStep(1);
+    }
   };
 
-  // const nextFormStep =  () => {
-  //   const isStepValid = await form.trigger([
-  //     "fullName",
-  //     "phoneNumber",
-  //     "email",
-  //   ]);
-  //   if (!isStepValid) return;
-
-  //   setFormStep(1);
-  // };
-
   return (
-    <div className="box-border px-2 py-1 lg:py-10">
-      <Card className="mx-auto w-full max-w-sm lg:max-w-lg">
+    <div className="box-border pt-20 lg:pt-5 px-2">
+      <Card className="mx-auto max-w-sm lg:max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl">Address..</CardTitle>
-          <CardDescription>Enter your address</CardDescription>
+          <CardTitle className="text-2xl">Shipping Information</CardTitle>
+          <CardDescription>
+            Enter your information to set up your account
+          </CardDescription>
+          {formStep === 1 && (
+            <CardDescription className="flex space-x-0.5">
+              <ArrowLeft
+                aria-label="Go back to the previous step"
+                className="cursor-pointer mt-2"
+                onClick={() => setFormStep(0)}
+              />
+            </CardDescription>
+          )}
         </CardHeader>
+
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -130,9 +125,7 @@ export default function AddressForm() {
                           <FormControl>
                             <Input placeholder="Kondeti Shivaji" {...field} />
                           </FormControl>
-                          <div className="h-1">
-                            <FormMessage className="text-xs" />
-                          </div>
+                          <FormMessage className="text-xs" />
                         </FormItem>
                       )}
                     />
@@ -148,9 +141,7 @@ export default function AddressForm() {
                           <FormControl>
                             <Input placeholder="8788676763" {...field} />
                           </FormControl>
-                          <div className="h-1">
-                            <FormMessage className="text-xs" />
-                          </div>
+                          <FormMessage className="text-xs" />
                         </FormItem>
                       )}
                     />
@@ -170,10 +161,7 @@ export default function AddressForm() {
                               {...field}
                             />
                           </FormControl>
-
-                          <div className="h-3">
-                            <FormMessage className="text-xs" />
-                          </div>
+                          <FormMessage className="text-xs" />
                         </FormItem>
                       )}
                     />
@@ -217,9 +205,7 @@ export default function AddressForm() {
                                 ))}
                               </SelectContent>
                             </Select>
-                            <div className="h-1">
-                              {isDirty && <FormMessage />}
-                            </div>
+                            <FormMessage />
                           </FormItem>
                         )}
                       />
@@ -235,9 +221,7 @@ export default function AddressForm() {
                             <FormControl>
                               <Input placeholder="533246" {...field} />
                             </FormControl>
-                            <div className="h-1">
-                              {isDirty && <FormMessage className="text-xs" />}
-                            </div>
+                            <FormMessage className="text-xs" />
                           </FormItem>
                         )}
                       />
@@ -254,9 +238,7 @@ export default function AddressForm() {
                           <FormControl>
                             <Input placeholder="City/District" {...field} />
                           </FormControl>
-                          <div className="h-2">
-                            {isDirty && <FormMessage className="text-xs" />}
-                          </div>
+                          <FormMessage className="text-xs" />
                         </FormItem>
                       )}
                     />
@@ -276,9 +258,7 @@ export default function AddressForm() {
                               {...field}
                             />
                           </FormControl>
-                          <div className="h-2">
-                            {isDirty && <FormMessage className="text-xs" />}
-                          </div>
+                          <FormMessage className="text-xs" />
                         </FormItem>
                       )}
                     />
@@ -319,18 +299,7 @@ export default function AddressForm() {
                   </div>
                 </MotionDiv>
 
-                <div className="mt-2 flex space-x-6 justify-around">
-                  {formStep === 1 && (
-                    <Button
-                      className="w-40"
-                      variant={"outline"}
-                      onClick={() => {
-                        setFormStep(0);
-                      }}
-                    >
-                      Previous
-                    </Button>
-                  )}
+                <div className="mt-2 flex space-x-6">
                   {formStep == 0 && (
                     <Button className="w-full" onClick={nextFormStep}>
                       Next
@@ -338,7 +307,7 @@ export default function AddressForm() {
                   )}
 
                   {formStep == 1 && (
-                    <Button type="submit" className="w-40">
+                    <Button type="submit" className="w-full">
                       Save
                     </Button>
                   )}
