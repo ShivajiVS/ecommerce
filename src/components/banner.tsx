@@ -11,7 +11,7 @@ export const Banner = () => {
   return (
     <>
       {isVisible && !session && (
-        <div className="bg-black text-xs md:text-sm min-w-full grid place-content-center py-2 font-medium text-white px-6 text-center max-w-md">
+        <div className="bg-primary text-xs md:text-sm min-w-full grid place-content-center py-2 font-medium text-white px-6 text-center max-w-md">
           <div className="container px-6 flex items-center gap-2 max-w-6xl">
             <p className="flex space-x-1">
               <span>Sign up and get 20% OFF for your first order.</span>{" "}

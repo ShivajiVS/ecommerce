@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-const AddToBagIcon = ({ className }: { className?: string | undefined }) => {
+const BagIcon = ({ className }: { className?: string | undefined }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -19,4 +19,4 @@ const AddToBagIcon = ({ className }: { className?: string | undefined }) => {
   );
 };
 
-export default AddToBagIcon;
+export default BagIcon;

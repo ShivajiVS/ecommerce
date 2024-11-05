@@ -12,4 +12,4 @@ export const users = pgTable("user", {
   email: text("email").notNull(),
   image: text("image").default("no-image"),
   password: text("password"),
-});
+}); 

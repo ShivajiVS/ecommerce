@@ -85,7 +85,7 @@ export default function AddressForm() {
     setFormStep(1);
   };
 
-  // const nextFormStep = async () => {
+  // const nextFormStep =  () => {
   //   const isStepValid = await form.trigger([
   //     "fullName",
   //     "phoneNumber",
@@ -179,6 +179,7 @@ export default function AddressForm() {
                     />
                   </div>
                 </MotionDiv>
+
                 {/* form step 2 */}
                 <MotionDiv
                   className={cn("space-y-4", {

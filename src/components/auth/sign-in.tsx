@@ -23,10 +23,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import GoogleSignInButton from "./google-signIn";
+import GoogleSignInButton from "./signIn-with-google";
 import { PasswordInput } from "./password-input";
 import { SignInSchema } from "@/lib/validators";
 import { signInwithEmail } from "@/auth/logout";
+import AuthProviderWrapper from "./auth-provider-wrapper";
 
 export default function SignInForm() {
   const form = useForm<z.infer<typeof SignInSchema>>({
@@ -122,7 +123,7 @@ export default function SignInForm() {
           <div className="mx-auto mb-3 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
             or
           </div>
-          <GoogleSignInButton provider="google">Continue with Google</GoogleSignInButton>
+          <AuthProviderWrapper />
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?
             <Link href="/sign-up" className="underline">

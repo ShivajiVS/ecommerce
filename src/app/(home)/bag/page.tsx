@@ -111,7 +111,7 @@ export default function Page() {
                       <button
                         aria-label="Decrease quantity"
                         onClick={() => decrementQuantity(id, size)}
-                        className="h-10 w-10 bg-secondary text-secondary-foreground hover:bg-secondary/80 inline-flex items-center justify-center rounded-md transition-colors"
+                        className="h-9 w-9 bg-secondary text-secondary-foreground hover:bg-secondary/80 inline-flex items-center justify-center rounded-full transition-colors"
                       >
                         <MinusIcon className="h-5 w-5" />
                       </button>
@@ -119,7 +119,7 @@ export default function Page() {
                       <button
                         aria-label="Increase quantity"
                         onClick={() => incrementQuantity(id, size)}
-                        className="h-10 w-10 bg-secondary text-secondary-foreground hover:bg-secondary/80 inline-flex items-center justify-center rounded-md transition-colors"
+                        className="h-9 w-9 bg-primary text-secondary-foreground hover:bg-secondary/80 inline-flex items-center justify-center rounded-full transition-colors"
                       >
                         <PlusIcon className="h-5 w-5" />
                       </button>

@@ -15,7 +15,7 @@ interface CarouselProps {
 }
 
 const Carousel = ({
-  images = ["banner1.jpg", "cat2.jpg", "cat3.jpg", "cat4.jpg", "cat5.jpg"],
+  images = ["1.png", "2.png", "3.png", "4.png", "5.png"],
   autoSlideInterval = 4000,
   transitionSpeed = 0.7,
   loop = true,
@@ -100,7 +100,7 @@ const Carousel = ({
               objectPosition=""
               fill
               priority={currentIndex === 0}
-              sizes="(max-width: 768px) 100vw, 500px"
+              // sizes="(max-width: 768px) 100vw, 500px"
             />
           </MotionDiv>
         </AnimatePresence>

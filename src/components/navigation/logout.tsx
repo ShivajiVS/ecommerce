@@ -3,7 +3,7 @@
 import { LogIn, LogOut } from "lucide-react";
 import Link from "next/link";
 
-import { signOut } from "@/auth";
+import { signOut } from "next-auth/react";
 import { useClientSession } from "@/auth/useClientSession";
 import { logout } from "@/auth/logout";
 
@@ -13,12 +13,7 @@ const Logout = () => {
   return (
     <>
       {session ? (
-        <div
-          className="flex gap-2 font-medium"
-          onClick={async () => {
-            await logout();
-          }}
-        >
+        <div className="flex gap-2 font-medium" onClick={() => signOut()}>
           <LogOut className="w-5 h-5" />
           <span>Logout</span>
         </div>
