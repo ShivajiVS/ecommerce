@@ -18,4 +18,13 @@ const SignInSchema = z.object({
     }),
 });
 
+type SignInFormType = z.infer<typeof SignInSchema>;
+
+export type SignInFormState = {
+  success: boolean;
+  message: string;
+  errors: Record<keyof SignInFormType, string> | undefined;
+  fieldValues: SignInFormType;
+};
+
 export default SignInSchema;

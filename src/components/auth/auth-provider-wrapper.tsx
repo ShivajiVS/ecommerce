@@ -1,6 +1,6 @@
 import React from "react";
 import SignInWithGoogle from "./signIn-with-google";
-import { signInWithProviderAction } from "@/server/sign-in";
+import { signInWithProviderAction } from "@/server/signInAction";
 
 const AuthProviderWrapper = () => {
   return (

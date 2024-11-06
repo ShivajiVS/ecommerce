@@ -1,16 +1,21 @@
 import NextAuth, { NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { eq } from "drizzle-orm";
-import bcrypt from "bcrypt";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
-// import { db } from "./db"
+import { db } from "@/db";
+
+
 import { SignInSchema } from "@/lib/validators";
-// import { users } from "./schema";
+import { accounts, users, verificationTokens } from "@/db/schema";
 
 const authOptions: NextAuthConfig = {
   secret: process.env.AUTH_SECRET!,
-  // adapter: DrizzleAdapter(db),
+  adapter: DrizzleAdapter(db, {
+    usersTable: users,
+    accountsTable: accounts,
+    verificationTokensTable: verificationTokens,
+  }),
   session: { strategy: "jwt" },
 
   providers: [

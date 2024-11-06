@@ -23,12 +23,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import GoogleSignInButton from "./signIn-with-google";
 import { PasswordInput } from "./password-input";
 import { SignInSchema } from "@/lib/validators";
-import { signInwithEmail } from "@/auth/logout";
 import AuthProviderWrapper from "./auth-provider-wrapper";
-import { signInWithEmail } from "@/server/sign-in";
+import { signInWithEmail } from "@/server/signInAction";
+import { Loader2 } from "lucide-react";
+import { useActionState } from "react";
 
 export default function SignInForm() {
   const form = useForm<z.infer<typeof SignInSchema>>({
@@ -38,12 +38,23 @@ export default function SignInForm() {
       password: "",
     },
   });
+
+  const [state, formAction] = useActionState(signInWithEmail, {
+    success: false,
+    message: "",
+    errors: undefined,
+    fieldValues: {
+      email: " ",
+      password: "",
+    },
+  });
+
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
-    await signInWithEmail(values);
+    formAction(values);
   };
 
   const {
-    formState: { isDirty, isValid },
+    formState: { isSubmitting },
   } = form;
 
   return (
@@ -111,8 +122,13 @@ export default function SignInForm() {
                     )}
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  Login
+                <Button
+                  type="submit"
+                  className="w-full capitalize flex items-center space-x-2"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting && <Loader2 className="h-5 w-5 animate-spin" />}{" "}
+                  <span>Login</span>
                 </Button>
               </div>
             </CardContent>

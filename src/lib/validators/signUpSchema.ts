@@ -35,4 +35,13 @@ const SignUpSchema = z
     path: ["confirmPassword"],
   });
 
+type SignUpFormType = z.infer<typeof SignUpSchema>;
+
+export type SignUpFormState = {
+  success: boolean;
+  message: string;
+  errors: Record<keyof SignUpFormType, string> | undefined;
+  fieldValues: SignUpFormType;
+};
+
 export default SignUpSchema;

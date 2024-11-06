@@ -25,25 +25,24 @@ import {
 import { PasswordInput } from "./password-input";
 import { SignUpSchema } from "@/lib/validators";
 import AuthProviderWrapper from "./auth-provider-wrapper";
-import { cn } from "@/lib/utils";
 import { MotionDiv } from "../framer-motion";
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import { toast } from "../ui/use-toast";
 
 import { UseFormReturn } from "react-hook-form";
+import { createUser } from "@/server/createUserAction";
 
-interface Step1Props {
+interface FormStep1Props {
   form: UseFormReturn<z.infer<typeof SignUpSchema>>;
   onNextStep: () => void;
 }
 
-interface Step2Props {
+interface FormStep2Props {
   form: UseFormReturn<z.infer<typeof SignUpSchema>>;
   isSubmitting: boolean;
 }
 
-function Step1({ form, onNextStep }: Step1Props) {
+function FormStep1({ form, onNextStep }: FormStep1Props) {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       onNextStep();
@@ -89,7 +88,7 @@ function Step1({ form, onNextStep }: Step1Props) {
   );
 }
 
-function Step2({ form, isSubmitting }: Step2Props) {
+function FormStep2({ form, isSubmitting }: FormStep2Props) {
   return (
     <MotionDiv
       className="space-y-4"
@@ -122,8 +121,9 @@ function Step2({ form, isSubmitting }: Step2Props) {
           </FormItem>
         )}
       />
+
       <Button type="submit" className="w-full" disabled={isSubmitting}>
-        Create Account
+        {isSubmitting ? "Creating" : "Create Account"}
       </Button>
     </MotionDiv>
   );
@@ -141,6 +141,18 @@ export default function SignUpForm() {
     },
   });
 
+  const [state, formAction] = useActionState(createUser, {
+    success: false,
+    message: "",
+    errors: undefined,
+    fieldValues: {
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
   const nextFormStep = async () => {
     const isValid = await form.trigger(["fullName", "email"]);
     if (isValid) {
@@ -149,12 +161,8 @@ export default function SignUpForm() {
     }
   };
 
-  const onSubmit = (values: z.infer<typeof SignUpSchema>) => {
-    console.log("submitted..", values);
-    toast({
-      title: "Account Created!",
-      description: "Your account has been created successfully.",
-    });
+  const onSubmit = async (values: z.infer<typeof SignUpSchema>) => {
+    formAction(values);
   };
 
   return (
@@ -181,10 +189,13 @@ export default function SignUpForm() {
           >
             <CardContent>
               {formStep === 0 && (
-                <Step1 form={form} onNextStep={nextFormStep} />
+                <FormStep1 form={form} onNextStep={nextFormStep} />
               )}
               {formStep === 1 && (
-                <Step2 form={form} isSubmitting={form.formState.isSubmitting} />
+                <FormStep2
+                  form={form}
+                  isSubmitting={form.formState.isSubmitting}
+                />
               )}
             </CardContent>
           </form>
