@@ -51,7 +51,7 @@ const ProductImage = ({
           onClick={loadPreviousImage}
           aria-label="Previous image"
         >
-          <ChevronLeft className="h-7 w-7 cursor-pointer text-background" />
+          <ChevronLeft className="h-7 w-7 cursor-pointer text-white" />
         </button>
 
         {/* Next Button */}
@@ -60,7 +60,7 @@ const ProductImage = ({
           onClick={loadNextImage}
           aria-label="Next image"
         >
-          <ChevronRight className="h-7 w-7 cursor-pointer text-background" />
+          <ChevronRight className="h-7 w-7 cursor-pointer text-white" />
         </button>
         <div className="relative w-full h-full">
           <img

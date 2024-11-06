@@ -28,6 +28,7 @@ import { PasswordInput } from "./password-input";
 import { SignInSchema } from "@/lib/validators";
 import { signInwithEmail } from "@/auth/logout";
 import AuthProviderWrapper from "./auth-provider-wrapper";
+import { signInWithEmail } from "@/server/sign-in";
 
 export default function SignInForm() {
   const form = useForm<z.infer<typeof SignInSchema>>({
@@ -38,9 +39,7 @@ export default function SignInForm() {
     },
   });
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
-    console.log("start..");
-    await signInwithEmail(values);
-    console.log("end..");
+    await signInWithEmail(values);
   };
 
   const {

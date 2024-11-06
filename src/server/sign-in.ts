@@ -1,37 +1,61 @@
-import { SignInSchema } from "@/lib/validators";
-// import { actionClient } from "@/lib/safe-action";
+"use server";
+
+import SignInSchema from "@/lib/validators/signInSchema";
+
 import bcrypt from "bcrypt";
 import { db } from "../db";
 import { eq } from "drizzle-orm";
 // import { users } from "../schema";
 import { signIn } from "../auth";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
+import { z } from "zod";
 
-// export const LoginAccount = actionClient
-//   .schema(LoginSchema)
-//   .action(
-//     async ({ parsedInput: { email, password } }) => {
-//       const user = await db.query.users.findFirst({
-//         where: eq(users.email, email),
-//       });
+export async function signInWithEmail(formData: z.infer<typeof SignInSchema>) {
+  const validatedFormData = SignInSchema.safeParse(formData);
 
-//       if (!user || !user.password) {
-//         return { error: "Invalid email or password" };
-//       }
+  if (!validatedFormData.success)
+    return { success: false, message: "Invalid email or password" };
 
-//       const passwordMatch = await bcrypt.compare(password, user.password);
+  const { email, password } = validatedFormData.data;
 
-//       if (!passwordMatch) {
-//         return { error: "Invalid email or password" };
-//       }
+  // const user = await db.query.users.findFirst({
+  //   where: eq(users.email, email),
+  // });
 
-//       await signIn("credentials", {
-//         email,
-//         password,
-//         redirect: false
-//       })
+  // if (!user || !user.password) {
+  //   return { error: "Invalid email or password" };
+  // }
 
-//       redirect("/")
-//     }
+  // const passwordMatch = await bcrypt.compare(password, user.password);
 
-//   );
+  // if (!passwordMatch) {
+  //   return { error: "Invalid email or password" };
+  // }
+
+  console.log("started..");
+
+  await signIn("credentials", {
+    email,
+    password,
+    redirect: false,
+  });
+
+  // redirect("/");
+}
+
+export async function signInWithProviderAction(formData: FormData) {
+  const provider = formData.get("provider") as string;
+
+  console.log("google start");
+  await signIn("google", {
+    redirect: true,
+  });
+
+  console.log("google end");
+
+  // redirect("/");
+}
+
+export async function signInOutAction() {
+  //write your signOut logic here
+}

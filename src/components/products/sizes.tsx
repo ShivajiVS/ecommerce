@@ -9,7 +9,6 @@ const Sizes = ({
 }: {
   sizes?: string[];
 }) => {
-
   const searchParams = useSearchParams();
 
   const currentParams = Object.fromEntries(searchParams.entries());
@@ -25,12 +24,12 @@ const Sizes = ({
           }}
           key={item}
           className={cn(
-            "bg-gray-100 px-4 py-1 rounded-full uppercase border-2",
+            "bg-gray-100 px-4 py-1 rounded-full text-black uppercase border-2",
             selectedSize === item ? "border-blue-500" : "border-gray-200" // Highlight selected size
           )}
         >
           {item}
-        </Link>  
+        </Link>
       ))}
     </div>
   );

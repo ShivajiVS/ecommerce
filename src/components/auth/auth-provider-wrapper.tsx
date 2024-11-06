@@ -1,10 +1,10 @@
 import React from "react";
 import SignInWithGoogle from "./signIn-with-google";
-import { signInWithProvider } from "@/server/signInWithProvider";
+import { signInWithProviderAction } from "@/server/sign-in";
 
 const AuthProviderWrapper = () => {
   return (
-    <form className="w-full space-y-2" action={signInWithProvider}>
+    <form className="w-full space-y-2" action={signInWithProviderAction}>
       <SignInWithGoogle provider="google">
         continue with google
       </SignInWithGoogle>

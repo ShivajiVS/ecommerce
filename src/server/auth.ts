@@ -8,6 +8,4 @@ export function signInAction() {
   //write your signIn logic here
 }
 
-export function signInOutAction() {
-  //write your signOut logic here
-}
+
