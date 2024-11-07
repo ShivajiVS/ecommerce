@@ -31,6 +31,8 @@ import { ArrowLeft } from "lucide-react";
 
 import { UseFormReturn } from "react-hook-form";
 import { createUser } from "@/server/createUserAction";
+import { useAction } from "next-safe-action/hooks";
+import { redirect, useRouter } from "next/navigation";
 
 interface FormStep1Props {
   form: UseFormReturn<z.infer<typeof SignUpSchema>>;
@@ -141,17 +143,17 @@ export default function SignUpForm() {
     },
   });
 
-  const [state, formAction] = useActionState(createUser, {
-    success: false,
-    message: "",
-    errors: undefined,
-    fieldValues: {
-      fullName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-  });
+  // const [state, formAction] = useActionState(createUser, {
+  //   success: false,
+  //   message: "",
+  //   errors: undefined,
+  //   fieldValues: {
+  //     fullName: "",
+  //     email: "",
+  //     password: "",
+  //     confirmPassword: "",
+  //   },
+  // });
 
   const nextFormStep = async () => {
     const isValid = await form.trigger(["fullName", "email"]);
@@ -161,8 +163,22 @@ export default function SignUpForm() {
     }
   };
 
+  const { execute, status, result, isExecuting } = useAction(createUser, {
+    onSuccess(data) {
+      console.log("successs", data.data);
+      form.reset();
+    },
+    onError(error) {
+      console.log("errorrr", error.error);
+    },
+  });
+
+  // result.validationErrors?.password
+
   const onSubmit = async (values: z.infer<typeof SignUpSchema>) => {
-    formAction(values);
+    execute(values);
+    // Redirect to sign-in page after successful registration
+    redirect("/sign-in");
   };
 
   return (
@@ -192,10 +208,7 @@ export default function SignUpForm() {
                 <FormStep1 form={form} onNextStep={nextFormStep} />
               )}
               {formStep === 1 && (
-                <FormStep2
-                  form={form}
-                  isSubmitting={form.formState.isSubmitting}
-                />
+                <FormStep2 form={form} isSubmitting={isExecuting} />
               )}
             </CardContent>
           </form>
