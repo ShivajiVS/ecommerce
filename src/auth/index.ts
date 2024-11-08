@@ -4,8 +4,6 @@ import GoogleProvider from "next-auth/providers/google";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 import { db } from "@/db";
-
-
 import { SignInSchema } from "@/lib/validators";
 import { accounts, users, verificationTokens } from "@/db/schema";
 
@@ -21,16 +19,8 @@ const authOptions: NextAuthConfig = {
   providers: [
     CredentialsProvider({
       credentials: {
-        email: {
-          label: "email",
-          type: "email",
-          placeholder: "enter you email",
-        },
-        password: {
-          label: "password",
-          type: "password",
-          placeholder: "enter you password",
-        },
+        email: {},
+        password: {},
       },
       async authorize(credentials) {
         if (!credentials) return null;

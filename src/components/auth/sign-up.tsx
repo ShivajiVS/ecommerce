@@ -64,7 +64,7 @@ function FormStep1({ form, onNextStep }: FormStep1Props) {
           <FormItem>
             <FormLabel>Full Name</FormLabel>
             <FormControl>
-              <Input placeholder="Your Full Name" {...field} />
+              <Input placeholder="Kondeti Shivaji" {...field} />
             </FormControl>
             <FormMessage className="text-xs" />
           </FormItem>

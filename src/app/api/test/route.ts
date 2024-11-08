@@ -1,17 +1,4 @@
-export function GET() {
-  return Response.json({
-    name: "vyshnavi",
-  });
-}
-
 /*
-
-
-
-
-
-
-
 
 https://github.com/code100x/cms/blob/main/src/app/signin/page.tsx
 

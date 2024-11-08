@@ -1,9 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
+import { redirect, useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -28,9 +31,6 @@ import { PasswordInput } from "./password-input";
 import { SignInSchema } from "@/lib/validators";
 import AuthProviderWrapper from "./auth-provider-wrapper";
 import { signInWithEmail } from "@/server/signInAction";
-import { AlertCircle, Loader2 } from "lucide-react";
-import { useAction } from "next-safe-action/hooks";
-import { redirect, useRouter } from "next/navigation";
 import { FormError } from "./form-error";
 
 export default function SignInForm() {
@@ -71,11 +71,6 @@ export default function SignInForm() {
       <div className="box-border py-12 pt-20 lg:pt-10 px-2">
         <div className="mx-auto max-w-sm lg:max-w-md mb-2">
           {result.data?.success === false && (
-            // <Alert variant="destructive">
-            //   <AlertCircle className="h-4 w-4" />
-            //   <AlertTitle>Error</AlertTitle>
-            //   <AlertDescription>{result?.data?.message}</AlertDescription>
-            // </Alert>
             <FormError message={result?.data?.message} />
           )}
         </div>
