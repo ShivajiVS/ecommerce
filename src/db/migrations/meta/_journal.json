@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1730909228622,
-      "tag": "0000_great_thunderbird",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1730925653198,
-      "tag": "0001_lumpy_charles_xavier",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1730926147686,
-      "tag": "0002_motionless_red_hulk",
+      "when": 1731271144244,
+      "tag": "0000_public_millenium_guard",
       "breakpoints": true
     }
   ]

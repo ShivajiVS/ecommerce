@@ -7,7 +7,7 @@ export interface InputProps
   suffix?: React.ReactNode;
 }
 
-const CustomePasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
+const CustomPasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ suffix, className, type, ...props }, ref) => {
     return (
       <div
@@ -27,6 +27,6 @@ const CustomePasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
-CustomePasswordInput.displayName = "Input";
+CustomPasswordInput.displayName = "Input";
 
-export { CustomePasswordInput };
+export { CustomPasswordInput };

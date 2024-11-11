@@ -12,14 +12,13 @@ pnpm dev
 bun dev
 ```
 
+https://github.com/anushujan/next-auth-nextjs15/blob/main/src/components/LoginForm.tsx
+
 https://github.com/DevAntonioRogers/drizzle-neon-next-multistep-form/blob/main/server/auth.ts
 
 https://github.com/tobiasmeyhoefer/next-auth-v5/blob/main/schemas/index.ts
 
-
 https://github.com/HuXn-WebDev/Auth.js-v5-Complete-Course/blob/main/lib/getSession.ts
-
-
 
 how did i do
 

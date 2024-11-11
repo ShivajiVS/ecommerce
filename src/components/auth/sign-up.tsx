@@ -3,6 +3,11 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import { UseFormReturn } from "react-hook-form";
+import { useAction } from "next-safe-action/hooks";
+import { redirect } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -26,13 +31,7 @@ import { PasswordInput } from "./password-input";
 import { SignUpSchema } from "@/lib/validators";
 import AuthProviderWrapper from "./auth-provider-wrapper";
 import { MotionDiv } from "../framer-motion";
-import { useActionState, useState } from "react";
-import { ArrowLeft } from "lucide-react";
-
-import { UseFormReturn } from "react-hook-form";
 import { createUser } from "@/server/createUserAction";
-import { useAction } from "next-safe-action/hooks";
-import { redirect, useRouter } from "next/navigation";
 
 interface FormStep1Props {
   form: UseFormReturn<z.infer<typeof SignUpSchema>>;
@@ -165,7 +164,6 @@ export default function SignUpForm() {
 
   const { execute, status, result, isExecuting } = useAction(createUser, {
     onSuccess(data) {
-      console.log("successs", data.data);
       form.reset();
     },
     onError(error) {
@@ -173,10 +171,9 @@ export default function SignUpForm() {
     },
   });
 
-  // result.validationErrors?.password
 
   const onSubmit = async (values: z.infer<typeof SignUpSchema>) => {
-    execute(values);
+    execute(values)
     // Redirect to sign-in page after successful registration
     redirect("/sign-in");
   };

@@ -1,6 +1,6 @@
 import { useState, forwardRef } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { CustomePasswordInput } from "./custom-password-input";
+import { CustomPasswordInput } from "./custom-password-input";
 
 export interface PasswordInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
@@ -9,7 +9,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   ({ className, type, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     return (
-      <CustomePasswordInput
+      <CustomPasswordInput
         type={showPassword ? "text" : "password"}
         className="w-full"
         ref={ref}
