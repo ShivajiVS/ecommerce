@@ -44,17 +44,17 @@ export const accounts = pgTable(
   })
 );
 
-export const verificationTokens = pgTable(
-  "verificationToken",
-  {
-    identifier: text("identifier").notNull(),
-    token: text("token").notNull(),
-    expires: timestamp("expires", { mode: "date" }).notNull(),
-    email: text("email").notNull(),
-  },
-  (verificationToken) => ({
-    compositePk: primaryKey({
-      columns: [verificationToken.identifier, verificationToken.token],
-    }),
-  })
-);
+// export const verificationTokens = pgTable(
+//   "verificationToken",
+//   {
+//     identifier: text("identifier").notNull(),
+//     token: text("token").notNull(),
+//     expires: timestamp("expires", { mode: "date" }).notNull(),
+//     email: text("email").notNull(),
+//   },
+//   (verificationToken) => ({
+//     compositePk: primaryKey({
+//       columns: [verificationToken.identifier, verificationToken.token],
+//     }),
+//   })
+// );

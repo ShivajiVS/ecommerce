@@ -92,9 +92,19 @@ phrases: you can use these phrases after the interviwer has said hello, thank yo
 
 example: 
 
-Hello, good evening,
+Hello, Good Afternoon,
 
-It's a pleasure to be here. thank you for taking the time to meet with me today. my name is shivaji. i am a recent graduate in cse from aditya college of eng and i also hold diploma in cse from prasiddha college of eng & tech. during my academic, i developed a stronge foundation in javascript, reactjs and react native framework. in my final year, i lead a team project where we develop cross mobile application using react native framework. which allowed me to apply my skills in a more practical way. thank you...
+It's a pleasure to be here. thank you for taking the time to meet with me today. my name is shivaji. i am a recent graduate in cse from aditya college of engineering and i also hold diploma in cse from prasiddha college of eng & tech. during my academic, i developed a stronge foundation in javascript, reactjs and react native framework. in my final year, i lead a team project where we develop an food ordering mobile application using react native framework and firebase . which allowed me to apply my skills in a more practical way. thank you.
+
+Thank you for considering my application. please let me know if there is any additional information i can provide.
+
+
+
+7: ending the interview:
+    - Thank you for considering my application. 
+    - i'm looking forward to the next step. 
+    - please let me know if there is any additional information i can provide.
+    - thank tou for the opportunity to inetrview 
 
 
 
@@ -173,4 +183,5 @@ we creating our own language inside js called dsl and we write our programs in d
 
 
 cascadia code, Consolas
+
 */

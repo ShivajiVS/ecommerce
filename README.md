@@ -12,6 +12,29 @@ pnpm dev
 bun dev
 ```
 
+sanity typeGen lib
+install sanity cli: npm install -global sanity@latest
+
+ctrl + p : typescript -> select version -> version 5.6.3
+
+"typegen": "npx sanity@latest schema extract && npm sanity@latest typegen generate"
+
+//or
+
+"typegen": "sanity schema extract && npm sanity@latest typegen generate"
+
+create types:
+
+- sanity
+  - schemaTypes
+    - productType.ts
+    - categories.ts
+    - index.ts : this file used to add your types(sanity schems).
+        export const schema :{types:SchemaTypeDefination[]}={
+        types:[catogories,productType]
+        }
+    - 
+
 https://github.com/anushujan/next-auth-nextjs15/blob/main/src/components/LoginForm.tsx
 
 https://github.com/DevAntonioRogers/drizzle-neon-next-multistep-form/blob/main/server/auth.ts

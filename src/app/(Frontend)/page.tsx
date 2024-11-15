@@ -14,7 +14,6 @@ export default function Home() {
         <Title title="best selling products" />
         <ProductsList products={DumyProducts} />
       </section>
-
       <Footer />
     </div>
   );
