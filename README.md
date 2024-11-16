@@ -17,11 +17,11 @@ install sanity cli: npm install -global sanity@latest
 
 ctrl + p : typescript -> select version -> version 5.6.3
 
-"typegen": "npx sanity@latest schema extract && npm sanity@latest typegen generate"
+"typegen": "npx sanity@latest schema extract && npx sanity@latest typegen generate"
 
 //or
 
-"typegen": "sanity schema extract && npm sanity@latest typegen generate"
+"typegen": "sanity schema extract && sanity typegen generate"
 
 create types:
 
@@ -30,10 +30,10 @@ create types:
     - productType.ts
     - categories.ts
     - index.ts : this file used to add your types(sanity schems).
-        export const schema :{types:SchemaTypeDefination[]}={
-        types:[catogories,productType]
-        }
-    - 
+      export const schema :{types:SchemaTypeDefination[]}={
+      types:[catogories,productType]
+      }
+    -
 
 https://github.com/anushujan/next-auth-nextjs15/blob/main/src/components/LoginForm.tsx
 

@@ -5,7 +5,7 @@ import { z } from "zod";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 
-import SignInSchema, { SignInFormState } from "@/lib/validators/signInSchema";
+import SignInSchema from "@/lib/validators/signInSchema";
 import { db } from "@/db";
 import { signIn } from "../auth";
 import { users } from "@/db/schema";
@@ -61,9 +61,12 @@ import { actionClient } from "@/lib/safe-action";
 export const signInWithEmail = actionClient
   .schema(SignInSchema)
   .action(async ({ parsedInput: { email, password } }) => {
+    console.log("server for login started...");
     const user = await db.query.users.findFirst({
       where: eq(users.email, email),
     });
+
+    console.log("server for login middle...");
 
     if (!user || !user.password) {
       return {
@@ -71,6 +74,7 @@ export const signInWithEmail = actionClient
         message: "email doesn't exist",
       };
     }
+    console.log("server for login be...");
 
     const passwordMatch = await bcrypt.compare(password, user.password);
 
@@ -86,8 +90,7 @@ export const signInWithEmail = actionClient
       password,
       redirect: false,
     });
-
-   });
+  });
 
 export async function signInWithProviderAction(formData: FormData) {
   const provider = formData.get("provider") as string;
