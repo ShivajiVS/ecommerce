@@ -1,8 +1,6 @@
 "use server";
 
 import bcrypt from "bcrypt";
-import { z } from "zod";
-import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 
 import SignInSchema from "@/lib/validators/signInSchema";
@@ -10,6 +8,8 @@ import { db } from "@/db";
 import { signIn } from "../auth";
 import { users } from "@/db/schema";
 import { actionClient } from "@/lib/safe-action";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 // export async function signInWithEmail(
 //   previousState: SignInFormState,
@@ -90,6 +90,14 @@ export const signInWithEmail = actionClient
       password,
       redirect: false,
     });
+
+    revalidatePath("sign-in", "layout");
+    redirect("/admin/dashboard/generate-invoice");
+
+    return {
+      success: true,
+      message: "login successfull",
+    };
   });
 
 export async function signInWithProviderAction(formData: FormData) {

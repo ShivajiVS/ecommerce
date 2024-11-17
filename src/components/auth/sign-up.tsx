@@ -165,17 +165,16 @@ export default function SignUpForm() {
   const { execute, status, result, isExecuting } = useAction(createUser, {
     onSuccess(data) {
       form.reset();
+      // Redirect to sign-in page after successful registration
+      redirect("/sign-in");
     },
     onError(error) {
       console.log("errorrr", error.error);
     },
   });
 
-
   const onSubmit = async (values: z.infer<typeof SignUpSchema>) => {
-    execute(values)
-    // Redirect to sign-in page after successful registration
-    redirect("/sign-in");
+    execute(values);
   };
 
   return (

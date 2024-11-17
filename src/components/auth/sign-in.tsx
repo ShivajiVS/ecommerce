@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { Input } from "@/components/ui/input";
@@ -44,22 +44,19 @@ export default function SignInForm() {
   const router = useRouter();
 
   const { execute, isExecuting, result } = useAction(signInWithEmail, {
-    onSuccess(data) {
-      if (data.data?.success === true) {
+    onSuccess({ data }) {
+      if (data?.success === true) {
         router.refresh();
-        redirect("/home");
       }
     },
-    onError(error) {},
+    onError(error) {
+      console.log("Auth error : ", error);
+    },
   });
 
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
     execute(values);
   };
-
-  // result.validationErrors?.password
-
-  result.data?.success === false;
 
   const {
     formState: {},

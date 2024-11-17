@@ -26,7 +26,9 @@ ctrl + p : typescript -> select version -> version 5.6.3
 create types:
 
 - sanity
+
   - schemaTypes
+
     - productType.ts
     - categories.ts
     - index.ts : this file used to add your types(sanity schems).
@@ -35,6 +37,8 @@ create types:
       }
     -
 
+    "db:migrate": "tsx ./src/db/migrate.ts" - drizzle orm
+
 https://github.com/anushujan/next-auth-nextjs15/blob/main/src/components/LoginForm.tsx
 
 https://github.com/DevAntonioRogers/drizzle-neon-next-multistep-form/blob/main/server/auth.ts
@@ -42,6 +46,10 @@ https://github.com/DevAntonioRogers/drizzle-neon-next-multistep-form/blob/main/s
 https://github.com/tobiasmeyhoefer/next-auth-v5/blob/main/schemas/index.ts
 
 https://github.com/HuXn-WebDev/Auth.js-v5-Complete-Course/blob/main/lib/getSession.ts
+
+https://github.com/code100x/cms/blob/main/src/app/signin/page.tsx
+
+https://nextjsstarter.com/blog/nextauth-protected-routes-best-practices/
 
 how did i do
 

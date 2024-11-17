@@ -5,15 +5,10 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 import { db } from "@/db";
 import { SignInSchema } from "@/lib/validators";
-import { accounts, users, verificationTokens } from "@/db/schema";
 
 const authOptions: NextAuthConfig = {
   secret: process.env.AUTH_SECRET!,
-  adapter: DrizzleAdapter(db, {
-    usersTable: users,
-    accountsTable: accounts,
-    verificationTokensTable: verificationTokens,
-  }),
+  adapter: DrizzleAdapter(db),
   session: { strategy: "jwt" },
 
   providers: [
