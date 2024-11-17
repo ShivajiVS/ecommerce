@@ -36,4 +36,3 @@ export const PROTECTED_ROUTES = [
   "/orders",
   "/checkout",
 ];
-

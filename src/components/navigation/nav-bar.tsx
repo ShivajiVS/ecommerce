@@ -4,8 +4,6 @@ import localFont from "next/font/local";
 import { Header } from "./nav-wrapper";
 import { NavLinks } from "@/components/navigation/nav-links";
 import BagCount from "@/components/bag/bag-count";
-import BagIcon from "@/components/icons/bag-icon";
-import { cn } from "@/lib/utils";
 
 const redressed = localFont({
   src: "../../fonts/Redressed-Regular.ttf",

@@ -9,7 +9,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import ProfileIcon from "../icons/profile";
 
 export const NavLinks = () => {
   return (
