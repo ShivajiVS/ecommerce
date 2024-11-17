@@ -92,7 +92,7 @@ export const signInWithEmail = actionClient
     });
 
     revalidatePath("sign-in", "layout");
-    redirect("/admin/dashboard/generate-invoice");
+    redirect("/");
 
     return {
       success: true,

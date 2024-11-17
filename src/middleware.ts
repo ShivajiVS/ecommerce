@@ -12,8 +12,6 @@ import { getServerSession } from "./auth/getServerSession";
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // const user = false;
-
   const user = await getServerSession();
 
   const isProtectedRoute = PROTECTED_ROUTES.includes(pathname);
