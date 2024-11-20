@@ -6,16 +6,16 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { urlFor } from "@/sanity/sanityClient";
 
 interface CarouselProps {
-  images?: string[];
+  images: any;
   transitionSpeed?: number;
 }
 
-const ProductImage = ({
-  images = ["cat1.jpg", "cat2.jpg", "cat3.jpg", "cat4.jpg", "cat5.jpg"],
-  transitionSpeed = 0.7,
-}: CarouselProps) => {
+const ProductImage = ({ images, transitionSpeed = 0.7 }: CarouselProps) => {
+  const [image, setImage] = useState(images[0]);
+
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [direction, setDirection] = useState<string>("next");
 
@@ -42,6 +42,8 @@ const ProductImage = ({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  // src={urlFor(images[currentIndex]).url()}
+
   return (
     <div className="flex flex-1 flex-col-reverse gap-3 lg:flex-row w-full h-[500px]">
       <div className="relative">
@@ -51,7 +53,7 @@ const ProductImage = ({
           onClick={loadPreviousImage}
           aria-label="Previous image"
         >
-          <ChevronLeft className="h-7 w-7 cursor-pointer text-white" />
+          <ChevronLeft className="h-7 w-7 cursor-pointer text-black" />
         </button>
 
         {/* Next Button */}
@@ -60,11 +62,11 @@ const ProductImage = ({
           onClick={loadNextImage}
           aria-label="Next image"
         >
-          <ChevronRight className="h-7 w-7 cursor-pointer text-white" />
+          <ChevronRight className="h-7 w-7 cursor-pointer text-black" />
         </button>
         <div className="relative w-full h-full">
           <img
-            src={images[currentIndex]} // Dynamic source based on currentIndex
+            src={urlFor(images[currentIndex]).url()} // Dynamic source based on currentIndex
             alt={`Image ${currentIndex + 1}`}
             className="object-cover w-full h-full" // Use img tag with object-cover
           />

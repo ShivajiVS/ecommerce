@@ -1,7 +1,9 @@
 import AddToBag from "@/components/bag/add-to-bag";
+import ProductImage from "@/components/products/product-image";
 import Sizes from "@/components/products/sizes";
 import { Product } from "@/sanity/sanity.types";
 import { sanityClient } from "@/sanity/sanityClient";
+import { PortableText } from "next-sanity";
 import React from "react";
 
 async function getProductBySlug(slug: string) {
@@ -30,10 +32,12 @@ export default async function Page({
 }) {
   const product = await getProductBySlug(slug);
 
+  console.log("ddd", product.images);
+
   return (
     <div className="w-full flex flex-col lg:flex-row space-y-5 lg:space-x-10 h-full">
       <div className="flex flex-col lg:flex-row w-full lg:w-1/2">
-        {/* <ProductImage /> */}
+        <ProductImage images={product.images}/>
       </div>
       <div className="flex flex-col lg:w-1/2 space-y-10 mt-6 px-2">
         <div className="space-y-4">
@@ -41,9 +45,12 @@ export default async function Page({
             {product?.title}
           </h2>
           <div className=" text-sm">{product?.price} INR</div>
-          <p className="text-justify text-sm line-clamp-6">
-            {product?.description}
-          </p>
+
+          {product?.description && product?.description.length > 0 && (
+            <div className="text-justify text-sm prose max-w-none">
+              <PortableText value={product?.description} />
+            </div>
+          )}
           <Sizes sizes={product?.sizes} />
         </div>
         <div className="flex flex-col space-y-4">
