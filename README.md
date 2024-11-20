@@ -12,6 +12,14 @@ pnpm dev
 bun dev
 ```
 
+latest products - 8 -- see more products link
+
+recommended or featured products - 8 -- see more products link -> navigate to more products page. it contains list products and search box with filter options and also contains pagination or infinite scroll.
+
+product page,
+
+https://haru-fashion.vercel.app/
+
 sanity typeGen lib
 install sanity cli: npm install -global sanity@latest
 

@@ -1,14 +1,48 @@
 import AddToBag from "@/components/bag/add-to-bag";
 import ProductImage from "@/components/products/product-image";
 import Sizes from "@/components/products/sizes";
+import { sanityClient } from "@/sanity/sanityClient";
 import { Product } from "@/types/product";
 
 type PropsType = {
   searchParams: Promise<Product>;
 };
 
+
+
 export default async function Page(props: PropsType) {
   const searchParams = await props.searchParams;
+
+  const query = `*[_type == "product" && slug.current == "${searchParams}"][0] {
+    _id,
+     title,
+     description,
+     images,
+     "slug": slug.current,
+     "category": category-> title,
+     sizes,
+     price,
+     discountPercentage,
+     stock,
+ }`;
+
+  const data = await sanityClient.fetch(query);
+
+  /*
+  
+    const query = `*[_type == "product"][0...8] | order(_createdAt desc) {
+        _id,
+        title,
+        price,
+        "slug": slug.current,
+        "category": category->title,
+        "imageUrl": images[0].asset->url
+      }`;
+
+    const data = await client.fetch(query);
+
+  */
+
   return (
     <div className="w-full flex flex-col lg:flex-row space-y-5 lg:space-x-10 h-full">
       <div className="flex flex-col lg:flex-row w-full lg:w-1/2">

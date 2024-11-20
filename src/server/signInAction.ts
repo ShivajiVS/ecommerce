@@ -91,12 +91,11 @@ export const signInWithEmail = actionClient
       redirect: false,
     });
 
-    revalidatePath("sign-in", "layout");
-    redirect("/");
+    revalidatePath("/", "layout");
 
     return {
       success: true,
-      message: "login successfull",
+      message: "login successful",
     };
   });
 

@@ -80,7 +80,7 @@ export default function AddressForm() {
   };
 
   return (
-    <div className="box-border pt-20 lg:pt-5 px-2">
+    <div className="box-border lg:pt-5 px-2">
       <Card className="mx-auto max-w-sm lg:max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl">Shipping Information</CardTitle>

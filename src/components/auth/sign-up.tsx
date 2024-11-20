@@ -178,7 +178,7 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="box-border py-12 pt-24 lg:pt-16 px-2">
+    <div className="box-border py-12 lg:pt-16 px-2">
       <Card className="mx-auto max-w-sm lg:max-w-md">
         <CardHeader>
           <CardTitle className="text-xl text-center">

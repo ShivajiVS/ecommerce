@@ -1,29 +1,22 @@
 import { getServerSession } from "@/auth/getServerSession";
 import { db } from "@/db";
 import { users } from "@/db/schema";
+import { sanityFetch } from "@/sanity/live";
+import { defineQuery } from "next-sanity";
 
-export default async function page() {
-  const session = await getServerSession();
+export default async function Page() {
+  
+  const PRODUCT_QUERY = defineQuery(
+    `*[_type == "product"]{_id, title, slug, description,originalPrice, discountPrice,stock, sizes }|order(date desc)`
+  );
 
-  const res = await db
-    .insert(users)
-    .values({
-      name: "vyshnavi",
-      email: "shiva1212@gmail.com",
-      password: "shivaj1233",
-      id: "12123223",
-    })
-    .returning();
+  const data = await sanityFetch({ query: PRODUCT_QUERY });
 
-  console.log("res", res);
-
-  const result = await db.select().from(users);
-
-  console.log("users", result.length);
+  console.log(data.data);
 
   return (
     <div className="max-w-xl mx-auto h-96 bg-slate-500">
-      <p>{JSON.stringify(result)}</p>
+      {/* <p>{JSON.stringify(result)}</p> */}
     </div>
   );
 }

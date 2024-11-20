@@ -46,6 +46,7 @@ export default function SignInForm() {
   const { execute, isExecuting, result } = useAction(signInWithEmail, {
     onSuccess({ data }) {
       if (data?.success === true) {
+        console.log("onsuccess === true");
         router.refresh();
       }
     },
@@ -64,7 +65,7 @@ export default function SignInForm() {
 
   return (
     <>
-      <div className="box-border py-12 pt-20 lg:pt-10 px-2">
+      <div className="box-border py-12 lg:pt-10 px-2">
         <div className="mx-auto max-w-sm lg:max-w-md mb-2">
           {result.data?.success === false && (
             <FormError message={result?.data?.message} />
