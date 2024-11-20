@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { urlFor } from "@/sanity/sanityClient";
+import { sanityImageEncoder } from "@/sanity/sanityClient";
 
 interface CarouselProps {
   images: any;
@@ -42,8 +42,6 @@ const ProductImage = ({ images, transitionSpeed = 0.7 }: CarouselProps) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // src={urlFor(images[currentIndex]).url()}
-
   return (
     <div className="flex flex-1 flex-col-reverse gap-3 lg:flex-row w-full h-[500px]">
       <div className="relative">
@@ -66,7 +64,7 @@ const ProductImage = ({ images, transitionSpeed = 0.7 }: CarouselProps) => {
         </button>
         <div className="relative w-full h-full">
           <img
-            src={urlFor(images[currentIndex]).url()} // Dynamic source based on currentIndex
+            src={sanityImageEncoder(images[currentIndex]).url()} // Dynamic source based on currentIndex
             alt={`Image ${currentIndex + 1}`}
             className="object-cover w-full h-full" // Use img tag with object-cover
           />

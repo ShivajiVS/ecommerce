@@ -8,7 +8,23 @@ type PropsType = {
   searchParams: Promise<Product>;
 };
 
+async function getProductBySlug() {
+  const query = `*[_type == "product" && slug.current == "${searchParams}"][0] {
+    _id,
+     title,
+     description,
+     images,
+     "slug": slug.current,
+     "category": category-> title,
+     sizes,
+     price,
+     discountPercentage,
+     stock,
+ }`;
 
+  const data = await sanityClient.fetch(query);
+  return data;
+}
 
 export default async function Page(props: PropsType) {
   const searchParams = await props.searchParams;
@@ -46,7 +62,7 @@ export default async function Page(props: PropsType) {
   return (
     <div className="w-full flex flex-col lg:flex-row space-y-5 lg:space-x-10 h-full">
       <div className="flex flex-col lg:flex-row w-full lg:w-1/2">
-        <ProductImage />
+        {/* <ProductImage /> */}
       </div>
       <div className="flex flex-col lg:w-1/2 space-y-10 mt-6 px-2">
         <div className="space-y-4">

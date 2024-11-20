@@ -21,7 +21,7 @@ export default function Page() {
 
   // Memoize subtotal to avoid unnecessary recalculations
   const subTotal = useMemo(
-    () => cart.reduce((total, item) => total + item.quantity * item.price, 0),
+    () => cart.reduce((total, item) => total + item.quantity * parseFloat(item.price), 0),
     [cart]
   );
 
@@ -50,43 +50,21 @@ export default function Page() {
               My Bag
               <sup className="font-medium"> ({cart.length})</sup>
             </h2>
-            {cart.map(({ id, title, imgUrl, price, size, quantity }) => (
+            {cart.map(({ id, title, image, price, size, quantity, slug }) => (
               <div
                 key={id}
                 className="flex space-x-2 py-3 items-center border-b-2 last:border-none"
               >
-                <Link
-                  href={{
-                    pathname: "/product",
-                    query: {
-                      id: id,
-                      price: price,
-                      title: title,
-                      size: size,
-                      imgUrl: imgUrl,
-                    },
-                  }}
-                >
+                <Link href={`/shop/${slug}`}>
                   <img
-                    src={imgUrl || "5.webp"} // Use a fallback image in case imgUrl is missing
+                    src={image || "5.webp"} // Use a fallback image in case imgUrl is missing
                     alt={`Image of ${title}`}
                     className="h-40 w-40 object-cover cursor-pointer" // Added cursor-pointer for visual feedback
                   />
                 </Link>
                 <div className="w-full px-2 lg:px-3 flex flex-col space-y-2">
                   <section className="w-full flex items-center justify-between">
-                    <Link
-                      href={{
-                        pathname: "/product",
-                        query: {
-                          id: id,
-                          price: price,
-                          title: title,
-                          size: size,
-                          imgUrl: imgUrl,
-                        },
-                      }}
-                    >
+                    <Link href={`/shop/${slug}`}>
                       <h2 className="font-medium text-sm hover:text-slate-400">
                         {title}
                       </h2>

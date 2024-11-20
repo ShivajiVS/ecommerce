@@ -1,21 +1,23 @@
+import { Slug } from "@/sanity/sanity.types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export type CartItem = {
-  id: number;
-  title: string;
-  price: number;
-  imgUrl: string;
+  id: string;
+  title: string | undefined;
+  price: number | undefined;
+  image: string | undefined;
   quantity: number;
-  size: string; 
+  size: string;
+  slug: Slug | undefined;
 };
 
 type CartType = {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
-  removeFromCart: (id: number, size: string) => void;
-  incrementQuantity: (id: number, size: string) => void;
-  decrementQuantity: (id: number, size: string) => void;
+  removeFromCart: (id: string, size: string) => void;
+  incrementQuantity: (id: string, size: string) => void;
+  decrementQuantity: (id: string, size: string) => void;
   clearCart: () => void;
 };
 

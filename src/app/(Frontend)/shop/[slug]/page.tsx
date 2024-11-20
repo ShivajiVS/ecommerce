@@ -37,7 +37,7 @@ export default async function Page({
   return (
     <div className="w-full flex flex-col lg:flex-row space-y-5 lg:space-x-10 h-full">
       <div className="flex flex-col lg:flex-row w-full lg:w-1/2">
-        <ProductImage images={product.images}/>
+        <ProductImage images={product.images} />
       </div>
       <div className="flex flex-col lg:w-1/2 space-y-10 mt-6 px-2">
         <div className="space-y-4">
@@ -54,7 +54,7 @@ export default async function Page({
           <Sizes sizes={product?.sizes} />
         </div>
         <div className="flex flex-col space-y-4">
-          {/* <AddToBag product={searchParams} /> */}
+          <AddToBag {...product} />
         </div>
       </div>
     </div>
