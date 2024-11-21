@@ -60,7 +60,7 @@ export type Product = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
+  title: string;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -92,7 +92,7 @@ export type Product = {
     _key: string;
   }>;
   sizes?: Array<"M" | "L" | "XL" | "XXL">;
-  price?: number;
+  price: number;
   discountPercentage?: number;
   stock?: number;
   category?: {

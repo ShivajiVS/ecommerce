@@ -2,7 +2,19 @@ import { Slug } from "@/sanity/sanity.types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export type CartItem = {
+type CartItem = {
+  id: string;
+  title: string;
+  price: number;
+  image: string;
+  quantity: number;
+  size: string;
+  slug: Slug | undefined;
+};
+
+/*
+
+type CartItem = {
   id: string;
   title: string | undefined;
   price: number | undefined;
@@ -11,6 +23,8 @@ export type CartItem = {
   size: string;
   slug: Slug | undefined;
 };
+
+ */
 
 type CartType = {
   cart: CartItem[];

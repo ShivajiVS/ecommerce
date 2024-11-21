@@ -21,7 +21,7 @@ export default function Page() {
 
   // Memoize subtotal to avoid unnecessary recalculations
   const subTotal = useMemo(
-    () => cart.reduce((total, item) => total + item.quantity * parseFloat(item.price), 0),
+    () => cart.reduce((total, item) => total + item.quantity * item.price, 0),
     [cart]
   );
 
@@ -64,7 +64,7 @@ export default function Page() {
                 </Link>
                 <div className="w-full px-2 lg:px-3 flex flex-col space-y-2">
                   <section className="w-full flex items-center justify-between">
-                    <Link href={`/shop/${slug}`}>
+                    <Link href={`/shop/${slug}?size=${size}`}>
                       <h2 className="font-medium text-sm hover:text-slate-400">
                         {title}
                       </h2>

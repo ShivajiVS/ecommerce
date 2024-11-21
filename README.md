@@ -12,6 +12,12 @@ pnpm dev
 bun dev
 ```
 
+https://www.sanity.io/learn/course/day-one-with-sanity-studio/bringing-content-to-a-next-js-front-end
+
+https://www.sanity.io/docs/sanity-typegen#1a6a147d6737?utm_source=github&utm_medium=readme&utm_campaign=next-sanity
+
+https://github.com/sanity-io/next-sanity?tab=readme-ov-file#generate-typescript-types
+
 latest products - 8 -- see more products link
 
 recommended or featured products - 8 -- see more products link -> navigate to more products page. it contains list products and search box with filter options and also contains pagination or infinite scroll.
@@ -91,7 +97,7 @@ next-themes
 supabase
 drizzel
 
-cloudflair for images:
+cloudflare for images:
 https://st4ng.medium.com/how-to-use-next-js-image-optimization-with-cloudflare-569da7b3ddc6
 https://logsnag.com/blog/deploying-nextjs-13-app-dir-to-cloudflare-pages
 
