@@ -55,7 +55,7 @@ export default function Page() {
                 key={id}
                 className="flex space-x-2 py-3 items-center border-b-2 last:border-none"
               >
-                <Link href={`/shop/${slug}`}>
+                <Link href={`/product/${slug}`}>
                   <img
                     src={image || "5.webp"} // Use a fallback image in case imgUrl is missing
                     alt={`Image of ${title}`}
@@ -64,7 +64,7 @@ export default function Page() {
                 </Link>
                 <div className="w-full px-2 lg:px-3 flex flex-col space-y-2">
                   <section className="w-full flex items-center justify-between">
-                    <Link href={`/shop/${slug}?size=${size}`}>
+                    <Link href={`/product/${slug}?size=${size}`}>
                       <h2 className="font-medium text-sm hover:text-slate-400">
                         {title}
                       </h2>

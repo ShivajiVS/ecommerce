@@ -3,26 +3,13 @@
 import { notFound, useSearchParams } from "next/navigation";
 import * as z from "zod";
 import { toast } from "sonner";
-import { useState } from "react";
 
 import { Button } from "../ui/button";
 import { useCartState } from "@/lib/store/client-store";
-// import { Product } from "@/types/product";
 import { Product } from "@/sanity/sanity.types";
 import { sanityImageEncoder } from "@/sanity/sanityClient";
 
-const SearchParamsSchema = z.object({
-  size: z.string().optional(),
-});
-
-/*
-
-  id: z.coerce.number(),
-  title: z.string(),
-  price: z.coerce.number(),
-  size: z.string().optional(),
-  imgUrl: z.string(),
-*/
+const sizeSchema = z.enum(["s", "m", "l", "xl", "2xl", "3xl"]);
 
 const AddToBag = ({ _id, title, price, slug, images }: Product) => {
   const searchParams = useSearchParams();
@@ -34,13 +21,17 @@ const AddToBag = ({ _id, title, price, slug, images }: Product) => {
   //   notFound();
   // }
 
-  const size = searchParams.get("size") || "";
+  const size = searchParams.get("size") || "m";
 
-  const [quantity, setQuantity] = useState<number>(1);
+  const isSizeValid = sizeSchema.safeParse(size);
+
+  if (!isSizeValid.success) return notFound();
 
   const addToCart = useCartState((state) => state.addToCart);
 
   const image = sanityImageEncoder(images?.[0]).url();
+
+  let quantity = 1;
 
   return (
     <>
@@ -60,5 +51,3 @@ const AddToBag = ({ _id, title, price, slug, images }: Product) => {
 };
 
 export default AddToBag;
-
-// size, quantity, title, id, price, image

@@ -2,7 +2,6 @@ import { FC } from "react";
 import Link from "next/link";
 
 import { ProductsType } from "@/lib/dumyProducts";
-import formatPrice from "@/lib/format-price";
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice";
 
 type PropsTypes = {

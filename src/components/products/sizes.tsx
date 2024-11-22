@@ -4,16 +4,14 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-const Sizes = ({
-  sizes = ["xs", "s", "md", "l", "xl"],
-}: {
-  sizes?: string[];
-}) => {
+type Sizes = "M" | "L" | "XL" | "2XL";
+
+const Sizes = ({ sizes }: { sizes: Array<"M" | "L" | "XL" | "2XL"> }) => {
   const searchParams = useSearchParams();
 
   const currentParams = Object.fromEntries(searchParams.entries());
 
-  const selectedSize = currentParams.size || sizes[0];
+  const selectedSize = currentParams.size || sizes?.[0];
 
   return (
     <div className="flex flex-col md:items-center space-y-3 md:flex-row md:space-x-6 md:space-y-0">

@@ -12,6 +12,8 @@ pnpm dev
 bun dev
 ```
 
+https://www.marksandspencer.in/feather-and-down-quilted-packaway-puffer-jacket/p/000000060683424006.html?srsltid=AfmBOortBmNFMyIXV3kUocq_rUO2OoscZ7o206-KxAvJYH2tXUz5cf0mtmQ
+
 https://www.sanity.io/learn/course/day-one-with-sanity-studio/bringing-content-to-a-next-js-front-end
 
 https://www.sanity.io/docs/sanity-typegen#1a6a147d6737?utm_source=github&utm_medium=readme&utm_campaign=next-sanity

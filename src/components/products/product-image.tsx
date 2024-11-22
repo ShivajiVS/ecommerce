@@ -4,8 +4,6 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { sanityImageEncoder } from "@/sanity/sanityClient";
 
 interface CarouselProps {
@@ -14,7 +12,6 @@ interface CarouselProps {
 }
 
 const ProductImage = ({ images, transitionSpeed = 0.7 }: CarouselProps) => {
-  const [image, setImage] = useState(images[0]);
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [direction, setDirection] = useState<string>("next");
@@ -43,7 +40,7 @@ const ProductImage = ({ images, transitionSpeed = 0.7 }: CarouselProps) => {
   }, []);
 
   return (
-    <div className="flex flex-1 flex-col-reverse gap-3 lg:flex-row w-full h-[500px]">
+    <div className="flex flex-1 flex-col-reverse gap-3 lg:flex-row w-full h-[600px]">
       <div className="relative">
         {/* Previous Button */}
         <button
@@ -62,11 +59,11 @@ const ProductImage = ({ images, transitionSpeed = 0.7 }: CarouselProps) => {
         >
           <ChevronRight className="h-7 w-7 cursor-pointer text-black" />
         </button>
-        <div className="relative w-full h-full">
+        <div className="relative w-full lg:w-[532px] h-full">
           <img
-            src={sanityImageEncoder(images[currentIndex]).url()} // Dynamic source based on currentIndex
+            src={sanityImageEncoder(images[currentIndex]).url()}
             alt={`Image ${currentIndex + 1}`}
-            className="object-cover w-full h-full" // Use img tag with object-cover
+            className="object-fill w-full h-full"
           />
         </div>
       </div>
@@ -93,28 +90,3 @@ const variants = {
 };
 
 export default ProductImage;
-
-/**
- 
-const ProductImage = ({ images }: { images: string[] }) => {
-  const [image, setImage] = useState("1.webp");
-  return (
-    <div className="flex flex-1 flex-col-reverse gap-3 lg:flex-row">
-      <div className="flex lg:flex-col overflow-x-auto lg:overflow-y-auto justify-between lg:justify-normal lg:w-[18.7%] w-full gap-6">
-        {images.map((item, index) => (
-          <img
-            src={`${item}.webp`}
-            key={index}
-            className="w-10 h-20 lg:w-full flex-shrink-0 cursor-pointer"
-            onClick={() => setImage(`${item}.webp`)}
-          />
-        ))}
-      </div>
-      <div className="w-full lg:w-[80%]">
-        <img src={image} alt="" className="w-full h-auto" />
-      </div>
-    </div>
-  );
-};
-
- */

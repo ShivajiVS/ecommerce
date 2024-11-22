@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
 export default function Notfound() {
   return (
     <div className="w-full h-[calc(100vh-100px)]  flex justify-center bg-background text-foreground box-border">
