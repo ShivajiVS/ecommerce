@@ -65,12 +65,12 @@ export default function SignInForm() {
 
   return (
     <>
-      <div className="box-border py-12 lg:pt-10 px-2">
+      <div className="box-border px-2">
         <div className="mx-auto max-w-sm lg:max-w-md mb-2">
           {result.data?.success === false && (
             <FormError message={result?.data?.message} />
           )}
-        </div>
+        </div>  
         <Card className="mx-auto max-w-sm lg:max-w-md ">
           <CardHeader>
             <CardTitle className="text-2xl">Login</CardTitle>
