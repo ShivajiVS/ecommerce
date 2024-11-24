@@ -28,7 +28,9 @@ export default async function Page({
       {/* product description */}
       <div className="flex flex-col lg:w-1/2 gap-y-3 mt-6 px-2">
         <div className="space-y-4">
-          <h2 className={`font-semibold text-2xl tracking-tight capitalize `}>
+          <h2
+            className={`font-semibold text-lg lg:text-2xl tracking-tight capitalize `}
+          >
             {product?.title}
           </h2>
 
@@ -42,7 +44,7 @@ export default async function Page({
                 )}{" "}
                 INR
               </p>
-              <div className="capitalize flex space-x-2 text-sm text-primary">
+              <div className="capitalize flex space-x-1.5 text-sm text-primary">
                 <p className="uppercase">
                   mrp <span className="line-through">₹{product?.price}</span>
                 </p>

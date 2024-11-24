@@ -22,6 +22,7 @@ const Sizes = ({ sizes }: { sizes: Array<"M" | "L" | "XL" | "2XL"> }) => {
             href={{
               query: { ...currentParams, size: item },
             }}
+            scroll={false}
             key={item}
             className={cn(
               "bg-gray-100 px-4 py-1 rounded-full text-black uppercase border-2",

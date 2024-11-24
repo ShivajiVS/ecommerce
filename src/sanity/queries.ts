@@ -26,10 +26,13 @@ export async function getAllProduct() {
     _id,
     title,
     price,
+    discountPercentage,
     "slug": slug.current,
     "category": category->title,
-    "imageUrl": images[0].asset->url
+    images,
   }`;
+
+  // "imageUrl": images[0].asset->url
 
   const data = await sanityClient.fetch<Product[]>(query);
   return data;
@@ -40,6 +43,7 @@ export async function getAllProductByCategory(category: string) {
     _id,
     title,
     price,
+    discountPercentage,
     "slug": slug.current,
     "category": category->title,
     "imageUrl": images[0].asset->url

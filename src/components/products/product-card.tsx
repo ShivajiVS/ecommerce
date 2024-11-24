@@ -3,24 +3,32 @@ import Link from "next/link";
 
 import { ProductsType } from "@/lib/dumyProducts";
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice";
+import { Product } from "@/sanity/sanity.types";
+import { sanityImageEncoder } from "@/sanity/sanityClient";
 
 type PropsTypes = {
-  item: ProductsType;
+  item: Product;
 };
 
+// type PropsTypes = {
+//   item: {
+//     imageUrl: string;
+//     _id: string;
+//     title: string;
+//     price: number;
+//     discountPercentage: number;
+//     slug: string;
+//   };
+// };
+
 export const ProductCard: FC<PropsTypes> = ({ item }) => {
-  const { title, price, imgUrl } = item;
+  const { title, price, discountPercentage, images, slug } = item;
+  console.log("vyshaaa", title, price, discountPercentage, slug);
   return (
-    <Link
-      href={`/product?${Object.entries(item)
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&")}`}
-      prefetch={false}
-      className="cursor-pointer"
-    >
+    <Link href={`/product/${slug}`} className="cursor-pointer">
       <div className="overflow-hidden rounded-md">
         <img
-          src={imgUrl}
+          src={sanityImageEncoder(images[0]).url()}
           alt={title}
           className=" transition ease-in-out hover:scale-110 h-[300px] w-[250px]"
         />
@@ -28,7 +36,7 @@ export const ProductCard: FC<PropsTypes> = ({ item }) => {
       <div className="flex flex-col space-y-2 pt-2">
         <h2 className="font-medium text-xs tracking-tight">{title}</h2>
         <div className="text-xs font-semibold flex space-x-1">
-          <p>₹{calculateDiscountedPrice(parseInt(price), 10)} </p>
+          <p>₹{calculateDiscountedPrice(price, discountPercentage)} </p>
           <div className="capitalize flex space-x-1 ">
             <p className="uppercase">
               <span className="line-through">₹{price}</span>
