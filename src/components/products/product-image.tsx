@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { sanityImageEncoder } from "@/sanity/sanityClient";
@@ -15,7 +13,6 @@ const ProductImage = ({ images, transitionSpeed = 0.7 }: CarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [direction, setDirection] = useState<string>("next");
 
-  console.log(sanityImageEncoder(images[currentIndex]).url());
 
   const loadNextImage = () => {
     setDirection("next");

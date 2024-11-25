@@ -1,9 +1,9 @@
-import { sanityClient } from "@/sanity/sanityClient";
+import { sanityServerClient } from "@/sanity/sanityServerClient";
 import { Product } from "./sanity.types";
 
 export async function getProductBySlug(slug: string) {
   const query = `*[_type == "product" && slug.current == "${slug}"][0] {
-    _id,
+     _id,
      title,
      description,
      more,
@@ -16,7 +16,7 @@ export async function getProductBySlug(slug: string) {
      stock,
  }`;
 
-  const data = await sanityClient.fetch<Product>(query);
+  const data = await sanityServerClient.fetch<Product>(query);
 
   return data;
 }
@@ -34,7 +34,7 @@ export async function getAllProduct() {
 
   // "imageUrl": images[0].asset->url
 
-  const data = await sanityClient.fetch<Product[]>(query);
+  const data = await sanityServerClient.fetch<Product[]>(query);
   return data;
 }
 
@@ -49,6 +49,6 @@ export async function getAllProductByCategory(category: string) {
     "imageUrl": images[0].asset->url
   }`;
 
-  const data = await sanityClient.fetch<Product[]>(query);
+  const data = await sanityServerClient.fetch<Product[]>(query);
   return data;
 }

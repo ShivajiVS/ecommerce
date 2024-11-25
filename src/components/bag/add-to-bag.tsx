@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { useCartState } from "@/lib/store/client-store";
 import { Product } from "@/sanity/sanity.types";
-import { sanityImageEncoder } from "@/sanity/sanityClient";
+import { sanityImageEncoder } from "@/sanity/sanityServerClient";
 
 const sizeSchema = z.enum(["s", "m", "l", "xl", "2xl", "3xl"]);
 

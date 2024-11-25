@@ -15,8 +15,6 @@ export default async function Page({
 }) {
   const product = await getProductBySlug(slug);
 
-  console.log("product is", product);
-
   if (!product) return notFound();
 
   return (

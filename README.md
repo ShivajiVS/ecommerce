@@ -12,7 +12,9 @@ pnpm dev
 bun dev
 ```
 
-https://www.marksandspencer.in/feather-and-down-quilted-packaway-puffer-jacket/p/000000060683424006.html?srsltid=AfmBOortBmNFMyIXV3kUocq_rUO2OoscZ7o206-KxAvJYH2tXUz5cf0mtmQ
+Fix: sanity error in client side because in client side, we use sanity image build to generate image urls for image showcase but sanity client is not exposed in client side(server side env.)
+
+https://www.marksandspencer.infeather-and-down-quilted-packaway-puffer-jacket/p/000000060683424006.html?srsltid=AfmBOortBmNFMyIXV3kUocq_rUO2OoscZ7o206-KxAvJYH2tXUz5cf0mtmQ
 
 https://www.sanity.io/learn/course/day-one-with-sanity-studio/bringing-content-to-a-next-js-front-end
 
@@ -30,10 +32,7 @@ https://haru-fashion.vercel.app/
 
 https://brewingsoul.com/products/not-always-right-never-wrong?_pos=2&_fid=15d4e418e&_ss=c
 
-
 https://www.marksandspencer.in/crew-neck-zip-up-sweatshirt/p/P60678826.html?dwvar_P60678826_color=XH&dwvar_P60678826_size=S&pid=P60678826&quantity=1
-
-      
 
 sanity typeGen lib
 install sanity cli: npm install -global sanity@latest
