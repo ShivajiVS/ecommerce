@@ -41,13 +41,13 @@ export const DumyProducts: ProductsType[] = [
     imgUrl:
       "https://cdn.shopify.com/s/files/1/0420/7073/7058/files/SnitchOutdoorshoot1347.jpg?v=1700229317",
   },
-  // {
-  //   id: 43853004275805,
-  //   price: "1499",
-  //   title: "Gunnar Beige Geometric Jacket",
-  //   imgUrl:
-  //     "https://cdn.shopify.com/s/files/1/0420/7073/7058/files/5691e0a9c5c5f3516ededceac9567e21.webp?v=1718796828",
-  // },
+  {
+    id: 43853004275805,
+    price: "1499",
+    title: "Gunnar Beige Geometric Jacket",
+    imgUrl:
+      "https://cdn.shopify.com/s/files/1/0420/7073/7058/files/5691e0a9c5c5f3516ededceac9567e21.webp?v=1718796828",
+  },
   {
     id: 43853004275807,
     price: "1200",

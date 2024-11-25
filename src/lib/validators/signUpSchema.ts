@@ -35,6 +35,12 @@ const SignUpSchema = z
     path: ["confirmPassword"],
   });
 
+export const OtpSchema = z.object({
+  pin: z.string().min(6, {
+    message: "Your one-time password must be 6 characters.",
+  }),
+});
+
 type SignUpFormType = z.infer<typeof SignUpSchema>;
 
 export type SignUpFormState = {

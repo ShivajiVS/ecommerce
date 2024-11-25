@@ -6,9 +6,9 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Divide, Mail } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
-import { useSignUp } from "@clerk/nextjs";
+import { useSignUp, useSignIn } from "@clerk/nextjs";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -28,11 +28,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 import { PasswordInput } from "./password-input";
 import { SignUpSchema } from "@/lib/validators";
 import AuthProviderWrapper from "./auth-provider-wrapper";
 import { MotionDiv } from "../framer-motion";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { OtpSchema } from "@/lib/validators/signUpSchema";
+import { sleep } from "@/lib/sleep";
 
 interface FormStep1Props {
   form: UseFormReturn<z.infer<typeof SignUpSchema>>;
@@ -133,8 +141,7 @@ function FormStep2({ form, isSubmitting }: FormStep2Props) {
 
 export default function SignUpForm2() {
   const [formStep, setFormStep] = useState(0);
-  const [pendingVerfication, setPendingVerification] = useState<boolean>(false);
-  const [verificationCode, setVerificationCode] = useState("");
+  const [pendingVerfication, setPendingVerification] = useState<boolean>(true);
   const [error, setError] = useState("");
 
   const router = useRouter();
@@ -149,17 +156,37 @@ export default function SignUpForm2() {
     },
   });
 
-  const nextFormStep = async () => {
+  const otpForm = useForm<z.infer<typeof OtpSchema>>({
+    resolver: zodResolver(OtpSchema),
+    defaultValues: {
+      pin: "",
+    },
+  });
+
+  // const nextFormStep = async () => {
+  //   const isValid = await form.trigger(["fullName", "email"]);
+  //   if (isValid) {
+  //     form.clearErrors();
+  //     setFormStep(1);
+  //   }
+  // };
+
+  const nextFormStep = useCallback(async () => {
     const isValid = await form.trigger(["fullName", "email"]);
     if (isValid) {
       form.clearErrors();
       setFormStep(1);
     }
-  };
+  }, []);
 
   const {
     formState: { isSubmitting },
+    getValues,
   } = form;
+
+  const {
+    formState: { isSubmitting: otpIsSubmitting },
+  } = otpForm;
 
   const { isLoaded, signUp, setActive } = useSignUp();
 
@@ -172,93 +199,159 @@ export default function SignUpForm2() {
 
     const { fullName, email, password } = values;
 
-    try {
-      await signUp.create({
-        emailAddress: email,
-        password,
-        firstName: fullName,
-      });
-      console.log("after signup");
-      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
-      console.log("after prepare");
+    // try {
+    //   await signUp.create({
+    //     emailAddress: email,
+    //     password,
+    //     firstName: fullName,
+    //   });
+    //   console.log("after signup");
+    //   await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+    //   console.log("after prepare");
 
-      setPendingVerification(true);
-    } catch (error) {
-      console.log(error);
-    }
+    //   setPendingVerification(true);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    await sleep(4000);
+    setPendingVerification(true);
   }, []);
 
-  const onVerifyEmailOtp = useCallback(async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (!isLoaded) {
-      return;
-    }
-
-    try {
-      const completeSignUp = await signUp.attemptEmailAddressVerification({
-        code: verificationCode,
-      });
-
-      if (completeSignUp.status !== "complete") {
-        console.log(JSON.stringify(completeSignUp, null, 2));
+  const onVerifyEmailOtp = useCallback(
+    async (data: z.infer<typeof OtpSchema>) => {
+      if (!isLoaded) {
+        return;
       }
 
-      if (completeSignUp.status === "complete") {
-        await setActive({ session: completeSignUp.createdSessionId });
-        router.push("/dashboard");
-      }
-    } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
-      setError(err.errors[0].message);
-    }
-  }, []);
+      await sleep(4000);
+      // try {
+      //   const completeSignUp = await signUp.attemptEmailAddressVerification({
+      //     code: verificationCode,
+      //   });
+
+      //   if (completeSignUp.status !== "complete") {
+      //     console.log(JSON.stringify(completeSignUp, null, 2));
+      //   }
+
+      //   if (completeSignUp.status === "complete") {
+      //     await setActive({ session: completeSignUp.createdSessionId });
+      //     router.push("/dashboard");
+      //   }
+      // } catch (err: any) {
+      //   console.error(JSON.stringify(err, null, 2));
+      //   setError(err.errors[0].message);
+      // }
+
+      router.push("/");
+    },
+    []
+  );
 
   return (
-    <div className="box-border py-12 lg:pt-16 px-2">
-      <Card className="mx-auto max-w-sm lg:max-w-md">
-        <CardHeader>
-          <CardTitle className="text-xl text-center">
-            Create an Account
-          </CardTitle>
-          {formStep === 1 && (
-            <CardDescription className="flex space-x-0.5">
-              <ArrowLeft
-                aria-label="Go back to the previous step"
-                className="cursor-pointer"
-                onClick={() => setFormStep(0)}
-              />
-            </CardDescription>
-          )}
-        </CardHeader>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full max-w-md lg:max-w-lg flex flex-col gap-4"
-          >
-            <CardContent>
-              {formStep === 0 && (
-                <FormStep1 form={form} onNextStep={nextFormStep} />
-              )}
-              {formStep === 1 && (
-                <FormStep2 form={form} isSubmitting={isSubmitting} />
-              )}
-            </CardContent>
-          </form>
-          <CardFooter className="flex-col">
-            <div className="mx-auto mb-3 flex w-full items-center justify-evenly before:mr-4 before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:h-px after:flex-grow after:bg-stone-400">
-              or
-            </div>
-            <AuthProviderWrapper />
-            <div className="mt-4 text-center text-sm">
-              Already have an account?
-              <Link href="/sign-in" className="underline ml-1">
-                Sign in
-              </Link>
-            </div>
-          </CardFooter>
-        </Form>
-      </Card>
+    <div className="box-border py-12 pt-32 lg:pt-16 px-2.5">
+      {!pendingVerfication ? (
+        <Card className="mx-auto max-w-sm lg:max-w-md">
+          <CardHeader>
+            <CardTitle className="text-xl text-center">
+              Create an Account
+            </CardTitle>
+            {formStep === 1 && (
+              <CardDescription className="flex space-x-0.5">
+                <ArrowLeft
+                  aria-label="Go back to the previous step"
+                  className="cursor-pointer"
+                  onClick={() => setFormStep(0)}
+                />
+              </CardDescription>
+            )}
+          </CardHeader>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-full max-w-md lg:max-w-lg flex flex-col gap-4"
+            >
+              <CardContent>
+                {formStep === 0 && (
+                  <FormStep1 form={form} onNextStep={nextFormStep} />
+                )}
+                {formStep === 1 && (
+                  <FormStep2 form={form} isSubmitting={isSubmitting} />
+                )}
+              </CardContent>
+            </form>
+            <CardFooter className="flex-col">
+              <div className="mx-auto mb-3 flex w-full items-center justify-evenly before:mr-4 before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:h-px after:flex-grow after:bg-stone-400">
+                or
+              </div>
+              <AuthProviderWrapper />
+              <div className="mt-4 text-center text-sm">
+                Already have an account?
+                <Link href="/sign-in" className="underline ml-1">
+                  Sign in
+                </Link>
+              </div>
+            </CardFooter>
+          </Form>
+        </Card>
+      ) : (
+        <Card className="mx-auto max-w-sm lg:max-w-md py-6 px-4 flex flex-col justify-center space-y-4  ">
+          <div className="w-full flex flex-col items-center space-y-2 mt-4">
+            <Mail className="h-12 w-12 text-primary text-center font-bold" />
+            <h2 className="text-xl font-bold tracking-tight">
+              Please check your email
+            </h2>
+            <h4 className="text-sm">
+              we've sent a OTP code to shivaji12@gmail.com {getValues("email")}
+            </h4>
+          </div>
+
+          <CardContent>
+            <Form {...otpForm}>
+              <form
+                onSubmit={otpForm.handleSubmit(onVerifyEmailOtp)}
+                className="space-y-8 mt-2"
+              >
+                <div className="flex w-full justify-center">
+                  <FormField
+                    control={otpForm.control}
+                    name="pin"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <InputOTP maxLength={6} {...field}>
+                            <InputOTPGroup>
+                              <InputOTPSlot index={0} />
+                              <InputOTPSlot index={1} />
+                              <InputOTPSlot index={2} />
+                              <InputOTPSlot index={3} />
+                              <InputOTPSlot index={4} />
+                              <InputOTPSlot index={5} />
+                            </InputOTPGroup>
+                          </InputOTP>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between w-full mt-4 space-x-6">
+                  <Button variant="secondary" className="w-full">
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={otpIsSubmitting}
+                  >
+                    {otpIsSubmitting ? "Verifiying" : "Verify"}
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
