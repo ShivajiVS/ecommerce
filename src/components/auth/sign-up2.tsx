@@ -6,9 +6,11 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useState } from "react";
-import { ArrowLeft, Divide, Mail } from "lucide-react";
+import { ArrowLeft, Mail } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
-import { useSignUp, useSignIn } from "@clerk/nextjs";
+import { useSignUp } from "@clerk/nextjs";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -31,16 +33,14 @@ import {
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { PasswordInput } from "./password-input";
 import { SignUpSchema } from "@/lib/validators";
 import AuthProviderWrapper from "./auth-provider-wrapper";
 import { MotionDiv } from "../framer-motion";
-import { redirect, useRouter } from "next/navigation";
 import { OtpSchema } from "@/lib/validators/signUpSchema";
-import { sleep } from "@/lib/sleep";
+import { FormError } from "./form-error";
 
 interface FormStep1Props {
   form: UseFormReturn<z.infer<typeof SignUpSchema>>;
@@ -140,9 +140,9 @@ function FormStep2({ form, isSubmitting }: FormStep2Props) {
 }
 
 export default function SignUpForm2() {
-  const [formStep, setFormStep] = useState(0);
-  const [pendingVerfication, setPendingVerification] = useState<boolean>(true);
-  const [error, setError] = useState("");
+  const [formStep, setFormStep] = useState<number>(0);
+  const [pendingVerfication, setPendingVerification] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const router = useRouter();
 
@@ -163,14 +163,6 @@ export default function SignUpForm2() {
     },
   });
 
-  // const nextFormStep = async () => {
-  //   const isValid = await form.trigger(["fullName", "email"]);
-  //   if (isValid) {
-  //     form.clearErrors();
-  //     setFormStep(1);
-  //   }
-  // };
-
   const nextFormStep = useCallback(async () => {
     const isValid = await form.trigger(["fullName", "email"]);
     if (isValid) {
@@ -190,65 +182,66 @@ export default function SignUpForm2() {
 
   const { isLoaded, signUp, setActive } = useSignUp();
 
-  const onSubmit = useCallback(async (values: z.infer<typeof SignUpSchema>) => {
-    console.log("before signup");
+  const onSubmit = useCallback(
+    async ({ fullName, email, password }: z.infer<typeof SignUpSchema>) => {
+      if (!isLoaded) return;
 
-    if (!isLoaded) return;
+      try {
+        await signUp.create({
+          emailAddress: email,
+          password,
+          firstName: fullName,
+        });
 
-    console.log("before signup");
+        await signUp.prepareEmailAddressVerification({
+          strategy: "email_code",
+        });
 
-    const { fullName, email, password } = values;
-
-    // try {
-    //   await signUp.create({
-    //     emailAddress: email,
-    //     password,
-    //     firstName: fullName,
-    //   });
-    //   console.log("after signup");
-    //   await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
-    //   console.log("after prepare");
-
-    //   setPendingVerification(true);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    await sleep(4000);
-    setPendingVerification(true);
-  }, []);
+        setPendingVerification(true);
+        setError("");
+      } catch (error: any) {
+        setError(error.errors[0].message);
+      }
+    },
+    []
+  );
 
   const onVerifyEmailOtp = useCallback(
-    async (data: z.infer<typeof OtpSchema>) => {
-      if (!isLoaded) {
-        return;
+    async ({ pin }: z.infer<typeof OtpSchema>) => {
+      if (!isLoaded) return;
+
+      try {
+        const completeSignUp = await signUp.attemptEmailAddressVerification({
+          code: pin,
+        });
+
+        if (completeSignUp.status !== "complete") {
+          console.log(JSON.stringify(completeSignUp, null, 2));
+        }
+
+        if (completeSignUp.status === "complete") {
+          await setActive({ session: completeSignUp.createdSessionId });
+          toast("Verified Successful", {
+            duration: 500,
+          });
+          router.push("/");
+        }
+      } catch (error: any) {
+        // console.error(JSON.stringify(error, null, 2));
+        setError(error.errors[0].message);
       }
-
-      await sleep(4000);
-      // try {
-      //   const completeSignUp = await signUp.attemptEmailAddressVerification({
-      //     code: verificationCode,
-      //   });
-
-      //   if (completeSignUp.status !== "complete") {
-      //     console.log(JSON.stringify(completeSignUp, null, 2));
-      //   }
-
-      //   if (completeSignUp.status === "complete") {
-      //     await setActive({ session: completeSignUp.createdSessionId });
-      //     router.push("/dashboard");
-      //   }
-      // } catch (err: any) {
-      //   console.error(JSON.stringify(err, null, 2));
-      //   setError(err.errors[0].message);
-      // }
-
-      router.push("/");
     },
     []
   );
 
   return (
-    <div className="box-border py-12 pt-32 lg:pt-16 px-2.5">
+    <div className="box-border py-12 pt-32 lg:pt-12 px-2.5">
+      {error && (
+        <div className="mx-auto max-w-sm lg:max-w-md mb-4">
+          <FormError message={error} />
+        </div>
+      )}
+
       {!pendingVerfication ? (
         <Card className="mx-auto max-w-sm lg:max-w-md">
           <CardHeader>
@@ -301,7 +294,7 @@ export default function SignUpForm2() {
               Please check your email
             </h2>
             <h4 className="text-sm">
-              we've sent a OTP code to shivaji12@gmail.com {getValues("email")}
+              we've sent a Otp code to {getValues("email")}
             </h4>
           </div>
 
@@ -329,13 +322,13 @@ export default function SignUpForm2() {
                             </InputOTPGroup>
                           </InputOTP>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-xs" />
                       </FormItem>
                     )}
                   />
                 </div>
 
-                <div className="flex items-center justify-between w-full mt-4 space-x-6">
+                <div className="flex items-center justify-between w-full mt-4 space-x-8 ">
                   <Button variant="secondary" className="w-full">
                     Cancel
                   </Button>

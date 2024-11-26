@@ -1,21 +1,29 @@
 "use client";
 
 import { LogIn, LogOut } from "lucide-react";
+import { useClerk, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 
-import { signOut } from "next-auth/react";
-import { useClientSession } from "@/auth/useClientSession";
-import { logout } from "@/auth/logout";
-
 const Logout = () => {
-  const session = useClientSession();
+  const { isLoaded, user } = useUser();
+
+  const { signOut } = useClerk();
+
+  if (!isLoaded) return null;
+
+  console.log("user info", user?.getSessions);
+
+  console.log(user?.getSessions);
 
   return (
     <>
-      {session ? (
-        <div className="flex gap-2 font-medium" onClick={() => signOut()}>
+      {user ? (
+        <div
+          className="flex gap-2 font-medium"
+          onClick={() => signOut({ redirectUrl: "/" })}
+        >
           <LogOut className="w-5 h-5" />
-          <span>Logout</span>
+          <span>Sign out</span>
         </div>
       ) : (
         <Link href="/sign-in" className="flex gap-2 font-medium">

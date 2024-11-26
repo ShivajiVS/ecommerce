@@ -36,9 +36,12 @@ const SignUpSchema = z
   });
 
 export const OtpSchema = z.object({
-  pin: z.string().min(6, {
-    message: "Your one-time password must be 6 characters.",
-  }),
+  pin: z
+    .string()
+    .min(6, {
+      message: "Your one-time password must be 6 digits.",
+    })
+    .regex(/^\d{6}$/, { message: "Otp should only contain digits." }),
 });
 
 type SignUpFormType = z.infer<typeof SignUpSchema>;

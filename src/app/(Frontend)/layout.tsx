@@ -51,10 +51,10 @@ export default function RootLayout({
             </AuthProvider>
           </ThemeProvider>
         </body>
-        <script
+        {/* <script
           src="https://unpkg.com/react-scan/dist/auto.global.js"
           async
-        ></script>
+        ></script> */}
       </html>
     </ClerkProvider>
   );
