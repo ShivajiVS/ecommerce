@@ -9,19 +9,25 @@ import {
 } from "./routes";
 import { getServerSession } from "./auth/getServerSession";
 
+import { auth } from "@clerk/nextjs/server";
+
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const user = await getServerSession();
 
+  const { sessionId } = await auth();
+
+  console.log("session", sessionId);
+
   const isProtectedRoute = PROTECTED_ROUTES.includes(pathname);
   const isAuthRoute = AUTH_ROUTES.includes(pathname);
 
-  if (isProtectedRoute && !user) {
+  if (isProtectedRoute && !sessionId) {
     return NextResponse.redirect(new URL("/sign-in", request.nextUrl));
   }
 
-  if (user && isAuthRoute) {
+  if (sessionId && isAuthRoute) {
     return NextResponse.redirect(
       new URL(DEFAULT_LOGIN_REDIRECT, request.nextUrl)
     );

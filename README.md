@@ -12,6 +12,15 @@ pnpm dev
 bun dev
 ```
 
+https://clerk.com/docs/custom-flows/oauth-connections#create-the-sign-up-and-sign-in-flow
+
+https://clerk.com/docs/authentication/social-connections/oauth#enable-a-social-connection
+
+https://clerk.com/docs/authentication/social-connections/google
+
+
+
+
 Fix: sanity error in client side because in client side, we use sanity image build to generate image urls for image showcase but sanity client is not exposed in client side(server side env.)
 
 https://www.marksandspencer.infeather-and-down-quilted-packaway-puffer-jacket/p/000000060683424006.html?srsltid=AfmBOortBmNFMyIXV3kUocq_rUO2OoscZ7o206-KxAvJYH2tXUz5cf0mtmQ

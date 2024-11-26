@@ -37,10 +37,10 @@ import {
 } from "@/components/ui/input-otp";
 import { PasswordInput } from "./password-input";
 import { SignUpSchema } from "@/lib/validators";
-import AuthProviderWrapper from "./auth-provider-wrapper";
 import { MotionDiv } from "../framer-motion";
 import { OtpSchema } from "@/lib/validators/signUpSchema";
 import { FormError } from "./form-error";
+import SocialAuth from "./social-auth";
 
 interface FormStep1Props {
   form: UseFormReturn<z.infer<typeof SignUpSchema>>;
@@ -276,7 +276,7 @@ export default function SignUpForm2() {
               <div className="mx-auto mb-3 flex w-full items-center justify-evenly before:mr-4 before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:h-px after:flex-grow after:bg-stone-400">
                 or
               </div>
-              <AuthProviderWrapper />
+              <SocialAuth />
               <div className="mt-4 text-center text-sm">
                 Already have an account?
                 <Link href="/sign-in" className="underline ml-1">

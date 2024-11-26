@@ -5,7 +5,7 @@ import { useClerk, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 
 const Logout = () => {
-  const { isLoaded, user } = useUser();
+  const { isLoaded, user, isSignedIn } = useUser();
 
   const { signOut } = useClerk();
 
@@ -17,7 +17,7 @@ const Logout = () => {
 
   return (
     <>
-      {user ? (
+      {isSignedIn ? (
         <div
           className="flex gap-2 font-medium"
           onClick={() => signOut({ redirectUrl: "/" })}

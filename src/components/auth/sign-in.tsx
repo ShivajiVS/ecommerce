@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/form";
 import { PasswordInput } from "./password-input";
 import { SignInSchema } from "@/lib/validators";
-import AuthProviderWrapper from "./auth-provider-wrapper";
+import AuthProviderWrapper from "./social-auth";
 import { signInWithEmail } from "@/server/signInAction";
 import { FormError } from "./form-error";
 
@@ -70,7 +70,7 @@ export default function SignInForm() {
           {result.data?.success === false && (
             <FormError message={result?.data?.message} />
           )}
-        </div>  
+        </div>
         <Card className="mx-auto max-w-sm lg:max-w-md ">
           <CardHeader>
             <CardTitle className="text-2xl">Login</CardTitle>

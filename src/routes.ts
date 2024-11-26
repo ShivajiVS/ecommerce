@@ -7,7 +7,7 @@ export const PUBLIC_ROUTES = ["/", "/search", "/product"];
 
 /*
  * an array of routes that are used for authentication.
- * these routes will redirect logged in users to /admin/dashboard/generate-invoice.
+ * these routes will redirect logged in users to /protected routes.
  * @type {string[]}
  */
 export const AUTH_ROUTES = ["/sign-in", "/sign-up"];

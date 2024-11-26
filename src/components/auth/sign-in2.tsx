@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSignIn } from "@clerk/nextjs";
+import { useCallback, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -30,11 +31,10 @@ import {
 } from "@/components/ui/form";
 import { PasswordInput } from "./password-input";
 import { SignInSchema } from "@/lib/validators";
-import AuthProviderWrapper from "./auth-provider-wrapper";
 import { FormError } from "./form-error";
-import { useState } from "react";
+import SocialAuth from "./social-auth";
 
-export default function SignInForm() {
+export default function SignInForm2() {
   const [error, setError] = useState<string>("");
   const router = useRouter();
 
@@ -48,15 +48,13 @@ export default function SignInForm() {
 
   const { isLoaded, signIn, setActive } = useSignIn();
 
-  const onSubmit = async ({
-    email,
-    password,
-  }: z.infer<typeof SignInSchema>) => {
+  const onSubmit = useCallback(async (values: z.infer<typeof SignInSchema>) => {
     console.log("before loading..");
+    const { email, password } = values;
 
     if (!isLoaded) return;
 
-    console.log("before response");
+    console.log("before response", email, password);
     try {
       const signInAttempt = await signIn.create({
         identifier: email,
@@ -75,7 +73,7 @@ export default function SignInForm() {
       console.log("auth error is sss", error.errors[0].message);
       setError(error.errors[0].message);
     }
-  };
+  }, []);
 
   const {
     formState: { isSubmitting },
@@ -83,7 +81,7 @@ export default function SignInForm() {
 
   return (
     <>
-      <div className="box-border px-2">
+      <div className="box-border py-12 pt-32 lg:pt-12 px-2.5">
         <div className="mx-auto max-w-sm lg:max-w-md mb-4">
           {error && <FormError message={error} />}
         </div>
@@ -168,7 +166,7 @@ export default function SignInForm() {
             <div className="mx-auto mb-3 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
               or
             </div>
-            <AuthProviderWrapper />
+            <SocialAuth />
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
               <Link href="/sign-up" className="underline">

@@ -29,7 +29,7 @@ import {
 } from "@/components/ui/form";
 import { PasswordInput } from "./password-input";
 import { SignUpSchema } from "@/lib/validators";
-import AuthProviderWrapper from "./auth-provider-wrapper";
+import AuthProviderWrapper from "./social-auth";
 import { MotionDiv } from "../framer-motion";
 import { createUser } from "@/server/createUserAction";
 

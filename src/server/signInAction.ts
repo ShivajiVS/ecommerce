@@ -61,12 +61,9 @@ import { redirect } from "next/navigation";
 export const signInWithEmail = actionClient
   .schema(SignInSchema)
   .action(async ({ parsedInput: { email, password } }) => {
-    console.log("server for login started...");
     const user = await db.query.users.findFirst({
       where: eq(users.email, email),
     });
-
-    console.log("server for login middle...");
 
     if (!user || !user.password) {
       return {
@@ -74,7 +71,6 @@ export const signInWithEmail = actionClient
         message: "email doesn't exist",
       };
     }
-    console.log("server for login be...");
 
     const passwordMatch = await bcrypt.compare(password, user.password);
 
@@ -105,8 +101,6 @@ export async function signInWithProviderAction(formData: FormData) {
   await signIn(provider, {
     redirect: true,
   });
-
-  // redirect("/");
 }
 
 export async function signInOutAction() {
