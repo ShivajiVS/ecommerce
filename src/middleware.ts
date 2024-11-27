@@ -6,7 +6,7 @@ import {
   DEFAULT_LOGIN_REDIRECT,
 } from "./routes";
 
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { clerkMiddleware, } from "@clerk/nextjs/server";
 
 export default clerkMiddleware(async (auth, req) => {
   const { userId, redirectToSignIn } = await auth();

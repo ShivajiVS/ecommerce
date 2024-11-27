@@ -7,7 +7,6 @@ import NavBar from "@/components/navigation/nav-bar";
 import { Toaster } from "@/components/ui/sonner";
 import { Banner } from "@/components/banner";
 import { ThemeProvider } from "@/components/theme-provider";
-import { AuthProvider } from "@/components/auth/auth-provider";
 import { SanityLive } from "@/sanity/live";
 
 const lora = Lora({ subsets: ["latin-ext"] });
@@ -33,22 +32,20 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <AuthProvider>
-              <div className="flex flex-col min-h-screen dark:bg-slate-900 dark:text-white">
-                <Banner />
-                <NavBar />
-                <main className="w-full grow">
-                  <div className={`max-w-6xl mx-auto lg:px-6 `}>{children}</div>
-                </main>
-              </div>
-              <Toaster
-                toastOptions={{
-                  style: { color: "green" },
-                  className: "my-toast",
-                }}
-              />
-              <SanityLive />
-            </AuthProvider>
+            <div className="flex flex-col min-h-screen dark:bg-slate-900 dark:text-white">
+              <Banner />
+              <NavBar />
+              <main className="w-full grow">
+                <div className={`max-w-6xl mx-auto lg:px-6 `}>{children}</div>
+              </main>
+            </div>
+            <Toaster
+              toastOptions={{
+                style: { color: "green" },
+                className: "my-toast",
+              }}
+            />
+            <SanityLive />
           </ThemeProvider>
         </body>
         {/* <script
