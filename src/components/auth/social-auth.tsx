@@ -19,7 +19,10 @@ const SocialAuth = () => {
   return (
     <form
       className="w-full space-y-2"
-      onSubmit={() => signInWith("oauth_google")}
+      onSubmit={(event) => {
+        event.preventDefault();
+        signInWith("oauth_google");
+      }}
     >
       <SignInWithGoogle />
     </form>

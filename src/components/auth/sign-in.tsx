@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Loader2 } from "lucide-react";
-import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useSignIn } from "@clerk/nextjs";
+import { useCallback, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -28,11 +31,13 @@ import {
 } from "@/components/ui/form";
 import { PasswordInput } from "./password-input";
 import { SignInSchema } from "@/lib/validators";
-import AuthProviderWrapper from "./social-auth";
-import { signInWithEmail } from "@/server/signInAction";
 import { FormError } from "./form-error";
+import SocialAuth from "./social-auth";
 
 export default function SignInForm() {
+  const [error, setError] = useState<string>("");
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
@@ -41,35 +46,44 @@ export default function SignInForm() {
     },
   });
 
-  const router = useRouter();
+  const { isLoaded, signIn, setActive } = useSignIn();
 
-  const { execute, isExecuting, result } = useAction(signInWithEmail, {
-    onSuccess({ data }) {
-      if (data?.success === true) {
-        console.log("onsuccess === true");
-        router.refresh();
+  const onSubmit = useCallback(async (values: z.infer<typeof SignInSchema>) => {
+    console.log("before loading..");
+    const { email, password } = values;
+
+    if (!isLoaded) return;
+
+    console.log("before response", email, password);
+    try {
+      const signInAttempt = await signIn.create({
+        identifier: email,
+        password,
+      });
+
+      console.log("after response");
+
+      if (signInAttempt.status === "complete") {
+        await setActive({ session: signInAttempt.createdSessionId });
+        router.push("/");
       }
-    },
-    onError(error) {
-      console.log("Auth error : ", error);
-    },
-  });
 
-  const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
-    execute(values);
-  };
+      console.log("after session creation");
+    } catch (error: any) {
+      console.log("auth error is sss", error.errors[0].message);
+      setError(error.errors[0].message);
+    }
+  }, []);
 
   const {
-    formState: {},
+    formState: { isSubmitting },
   } = form;
 
   return (
     <>
-      <div className="box-border px-2">
-        <div className="mx-auto max-w-sm lg:max-w-md mb-2">
-          {result.data?.success === false && (
-            <FormError message={result?.data?.message} />
-          )}
+      <div className="box-border py-12 pt-32 lg:pt-12 px-2.5">
+        <div className="mx-auto max-w-sm lg:max-w-md mb-4">
+          {error && <FormError message={error} />}
         </div>
         <Card className="mx-auto max-w-sm lg:max-w-md ">
           <CardHeader>
@@ -137,9 +151,9 @@ export default function SignInForm() {
                   <Button
                     type="submit"
                     className="w-full capitalize flex items-center space-x-2"
-                    disabled={isExecuting}
+                    disabled={isSubmitting}
                   >
-                    {isExecuting && (
+                    {isSubmitting && (
                       <Loader2 className="h-5 w-5 animate-spin" />
                     )}{" "}
                     <span>Login</span>
@@ -152,7 +166,7 @@ export default function SignInForm() {
             <div className="mx-auto mb-3 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
               or
             </div>
-            <AuthProviderWrapper />
+            <SocialAuth />
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
               <Link href="/sign-up" className="underline">
