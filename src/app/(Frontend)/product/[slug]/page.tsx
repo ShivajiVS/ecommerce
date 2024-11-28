@@ -38,7 +38,7 @@ export default async function Page({
                 ₹
                 {calculateDiscountedPrice(
                   product?.price,
-                  product?.discountPercentage as number
+                  product?.discountPercentage
                 )}{" "}
                 INR
               </p>
@@ -71,7 +71,7 @@ export default async function Page({
           <AddToBag {...product} />
         </section>
 
-        <section className="mt-6 mb-32 border-t-2 pt-5 ">
+        <section className="mt-6 mb-32 lg:mb-0 border-t-2 pt-5">
           {product?.more && (
             <>
               <h3 className="text-base font-bold mb-1 text-[#406786]">

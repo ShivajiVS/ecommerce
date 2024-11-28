@@ -81,7 +81,7 @@ export default function SignInForm() {
 
   return (
     <>
-      <div className="box-border py-12 pt-32 lg:pt-12 px-2.5">
+      <div className="box-border pt-8 px-2.5">
         <div className="mx-auto max-w-sm lg:max-w-md mb-4">
           {error && <FormError message={error} />}
         </div>

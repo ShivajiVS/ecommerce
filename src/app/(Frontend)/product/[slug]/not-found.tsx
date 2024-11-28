@@ -5,7 +5,7 @@ export default function Notfound() {
   return (
     <div className="w-full h-[calc(100vh-100px)] flex justify-center bg-background text-foreground box-border">
       <div className="text-center bg-card mt-28 space-y-3">
-        <h1 className="text-9xl font-extrabold text-primary-foreground">404</h1>
+        <h1 className="text-9xl font-extrabold text-primary">404</h1>
         <p className="text-base md:text-lg lg:text-xl font-medium text-muted-foreground">
           Oops! The page youre looking for doesnt exist.
         </p>

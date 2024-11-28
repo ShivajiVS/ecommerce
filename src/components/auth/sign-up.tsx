@@ -235,7 +235,7 @@ export default function SignUpForm() {
   );
 
   return (
-    <div className="box-border py-12 pt-32 lg:pt-12 px-2.5">
+    <div className="box-border pt-14 px-2.5">
       {error && (
         <div className="mx-auto max-w-sm lg:max-w-md mb-4">
           <FormError message={error} />

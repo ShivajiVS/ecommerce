@@ -10,7 +10,7 @@ export default function Template({ children }: { children: ReactNode }) {
       animate={{ y: 0, opacity: 100 }}
       transition={{
         type: "spring",
-        duration: 0.6,
+        duration: 0.8,
       }}
     >
       {children}

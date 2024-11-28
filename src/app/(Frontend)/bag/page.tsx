@@ -24,9 +24,7 @@ export default function Page() {
     [cart]
   );
 
-  const { isLoaded, isSignedIn } = useUser();
-
-  if (!isLoaded) return null;
+  const { isSignedIn } = useUser();
 
   useEffect(() => setMounted(true), []);
 
