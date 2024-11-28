@@ -7,6 +7,7 @@ import ProductImage from "@/components/products/product-image";
 import Sizes from "@/components/products/sizes";
 import { getAllProductSlugs, getProductBySlug } from "@/sanity/queries";
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice";
+import { sleep } from "@/lib/sleep";
 
 export async function generateStaticParams() {
   const productsSlugs = await getAllProductSlugs();
@@ -22,6 +23,8 @@ export default async function Page({
   params: { slug: string };
 }) {
   const product = await getProductBySlug(slug);
+
+  sleep(6000);
 
   if (!product) return notFound();
 
