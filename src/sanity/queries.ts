@@ -52,3 +52,12 @@ export async function getAllProductByCategory(category: string) {
   const data = await sanityServerClient.fetch<Product[]>(query);
   return data;
 }
+
+export async function getAllProductSlugs() {
+  const query = `*[_type == "product"]{
+    "slug": slug.current,
+  }`;
+
+  const data = await sanityServerClient.fetch<Product[]>(query);
+  return data;
+}

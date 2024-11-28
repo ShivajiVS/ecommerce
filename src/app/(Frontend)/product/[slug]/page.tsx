@@ -1,12 +1,20 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { PortableText } from "next-sanity";
 import { notFound } from "next/navigation";
 
 import AddToBag from "@/components/bag/add-to-bag";
 import ProductImage from "@/components/products/product-image";
 import Sizes from "@/components/products/sizes";
-import { getProductBySlug } from "@/sanity/queries";
+import { getAllProductSlugs, getProductBySlug } from "@/sanity/queries";
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice";
+
+export async function generateStaticParams() {
+  const productsSlugs = await getAllProductSlugs();
+
+  if (productsSlugs) return productsSlugs;
+
+  return [];
+}
 
 export default async function Page({
   params: { slug },
@@ -64,11 +72,15 @@ export default async function Page({
           </p>
         </section>
         <section className="mt-4">
-          <Sizes sizes={product?.sizes} />
+          <Suspense>
+            <Sizes sizes={product?.sizes} />
+          </Suspense>
         </section>
 
         <section className="mt-5 hidden md:block">
-          <AddToBag {...product} />
+          <Suspense>
+            <AddToBag {...product} />
+          </Suspense>
         </section>
 
         <section className="mt-6 mb-32 lg:mb-0 border-t-2 pt-5">
@@ -86,7 +98,9 @@ export default async function Page({
       </div>
 
       <div className="bg-zinc-100 dark:bg-slate-700 w-full fixed bottom-0 left-0 right-0 h-16 flex flex-col justify-center drop-shadow-md md:hidden px-4">
-        <AddToBag {...product} />
+        <Suspense>
+          <AddToBag {...product} />
+        </Suspense>
       </div>
     </div>
   );

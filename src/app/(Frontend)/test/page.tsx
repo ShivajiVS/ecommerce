@@ -4,6 +4,8 @@
 // import { sanityFetch } from "@/sanity/live";
 // import { defineQuery } from "next-sanity";
 
+import { getAllProductSlugs } from "@/sanity/queries";
+
 // export default async function Page() {
 
 //   const PRODUCT_QUERY = defineQuery(
@@ -21,56 +23,73 @@
 //   );
 // }
 
-"use client";
+// "use client";
 
-import React, { useState } from "react";
+// import React, { useState } from "react";
 
-const ButtonColors = () => {
-  const colors: string[] = [
-    "red",
-    "green",
-    "blue",
-    "yellow",
-    "pink",
-    "purple",
-    "orange",
-    "cyan",
-    "brown",
-  ];
+// const ButtonColors = () => {
+//   const colors: string[] = [
+//     "red",
+//     "green",
+//     "blue",
+//     "yellow",
+//     "pink",
+//     "purple",
+//     "orange",
+//     "cyan",
+//     "brown",
+//   ];
 
-  const [buttons, setButtons] = useState(
-    Array(9).fill({ color: "", disabled: false })
-  );
+//   const [buttons, setButtons] = useState(
+//     Array(9).fill({ color: "", disabled: false })
+//   );
 
-  // Function to handle button clicks
-  const handleButtonClick = (index: number) => {
-    setButtons((prevButtons) => {
-      const updatedButtons = [...prevButtons];
-      const colorIndex = updatedButtons.filter(
-        (btn) => btn.color !== ""
-      ).length; // Determine the next color in sequence
-      updatedButtons[index] = { color: colors[colorIndex], disabled: true };
-      return updatedButtons;
-    });
-  };
+//   // Function to handle button clicks
+//   const handleButtonClick = (index: number) => {
+//     setButtons((prevButtons) => {
+//       const updatedButtons = [...prevButtons];
+//       const colorIndex = updatedButtons.filter(
+//         (btn) => btn.color !== ""
+//       ).length; // Determine the next color in sequence
+//       updatedButtons[index] = { color: colors[colorIndex], disabled: true };
+//       return updatedButtons;
+//     });
+//   };
+
+//   return (
+//     <div className="flex flex-wrap space-x-3 space-y-3">
+//       {buttons.map((button, index) => (
+//         <button
+//           key={index}
+//           style={{
+//             backgroundColor: button.color || "lightgray",
+//           }}
+//           onClick={() => handleButtonClick(index)}
+//           disabled={button.disabled}
+//           className={`w-24 h-10 bg-gray-500 cursor-pointer text-primary ${button.disabled ? "cursor-not-allowed" : null}`}
+//         >
+//           {button.disabled ? "Done" : "Click Me"}
+//         </button>
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default ButtonColors;
+
+export async function generateStaticParams() {
+  const productsSlugs = await getAllProductSlugs();
+  return productsSlugs;
+}
+
+export default async function Page() {
+  const data = await getAllProductSlugs();
+
+  console.log("products areeeee", data);
 
   return (
-    <div className="flex flex-wrap space-x-3 space-y-3">
-      {buttons.map((button, index) => (
-        <button
-          key={index}
-          style={{
-            backgroundColor: button.color || "lightgray",
-          }}
-          onClick={() => handleButtonClick(index)}
-          disabled={button.disabled}
-          className={`w-24 h-10 bg-gray-500 cursor-pointer text-primary ${button.disabled ? "cursor-not-allowed" : null}`}
-        >
-          {button.disabled ? "Done" : "Click Me"}
-        </button>
-      ))}
+    <div>
+      <h2>products</h2>
     </div>
   );
-};
-
-export default ButtonColors;
+}
