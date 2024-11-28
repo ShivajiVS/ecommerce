@@ -24,7 +24,7 @@ export default async function Page({
 }) {
   const product = await getProductBySlug(slug);
 
-  sleep(6000);
+  sleep(10000);
 
   if (!product) return notFound();
 
