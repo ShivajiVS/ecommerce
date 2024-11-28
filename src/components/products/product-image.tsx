@@ -1,26 +1,21 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { sanityImageEncoder } from "@/sanity/sanityClient";
 
 interface CarouselProps {
   images: any;
-  transitionSpeed?: number;
 }
 
-const ProductImage = ({ images, transitionSpeed = 0.7 }: CarouselProps) => {
+const ProductImage = ({ images }: CarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [direction, setDirection] = useState<string>("next");
-
 
   const loadNextImage = () => {
-    setDirection("next");
     setCurrentIndex((prev) => (prev + 1) % images.length);
   };
 
   const loadPreviousImage = () => {
-    setDirection("prev");
     setCurrentIndex((prev) => (prev - 1 < 0 ? images.length - 1 : prev - 1));
   };
 
@@ -38,7 +33,20 @@ const ProductImage = ({ images, transitionSpeed = 0.7 }: CarouselProps) => {
   }, []);
 
   return (
-    <div className="flex flex-1 flex-col-reverse gap-3 lg:flex-row w-full h-[600px]">
+    <div className="flex flex-1 lg:space-x-4 w-full h-[600px]">
+      <div className="lg:flex lg:items-center relative hidden h-full">
+        <div className=" flex flex-col space-y-4">
+          {images.map((image: string, idx: number) => (
+            <img
+              key={idx}
+              src={sanityImageEncoder(images[idx]).url()}
+              className="h-20 w-14 rounded-sm"
+              onClick={() => setCurrentIndex(idx)}
+            />
+          ))}
+        </div>
+      </div>
+
       <div className="relative">
         {/* Previous Button */}
         <button
@@ -57,7 +65,7 @@ const ProductImage = ({ images, transitionSpeed = 0.7 }: CarouselProps) => {
         >
           <ChevronRight className="h-7 w-7 cursor-pointer text-black" />
         </button>
-        <div className="relative w-full lg:w-[532px] h-full">
+        <div className="relative w-full lg:w-[515px] h-full">
           <img
             src={sanityImageEncoder(images[currentIndex]).url()}
             alt={`Image ${currentIndex + 1}`}
@@ -67,24 +75,6 @@ const ProductImage = ({ images, transitionSpeed = 0.7 }: CarouselProps) => {
       </div>
     </div>
   );
-};
-
-const variants = {
-  enter: (direction: string) => ({
-    x: direction === "next" ? "100%" : "-100%",
-    opacity: 0,
-    scale: 0.8, // Add a slight scale effect on enter
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-    scale: 1, // Normalize to full scale on center
-  },
-  exit: (direction: string) => ({
-    x: direction === "next" ? "-100%" : "100%",
-    opacity: 0,
-    scale: 0.8, // Slight scale effect on exit
-  }),
 };
 
 export default ProductImage;

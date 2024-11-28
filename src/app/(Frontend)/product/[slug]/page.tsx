@@ -8,6 +8,7 @@ import Sizes from "@/components/products/sizes";
 import { getAllProductSlugs, getProductBySlug } from "@/sanity/queries";
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice";
 import { sleep } from "@/lib/sleep";
+import { ProductDescription } from "@/components/products/product-description";
 
 export async function generateStaticParams() {
   const productsSlugs = await getAllProductSlugs();
@@ -29,9 +30,9 @@ export default async function Page({
   if (!product) return notFound();
 
   return (
-    <div className="w-full flex flex-col lg:flex-row space-y-3 lg:space-x-7 h-full relative lg:px-3 pt-3">
+    <div className="w-full flex flex-col lg:flex-row space-y-3 lg:space-x-7 h-full relative pt-3">
       {/* product image */}
-      <div className="flex flex-col lg:flex-row w-full lg:w-1/2">
+      <div className="flex flex-col lg:flex-row w-full lg:w-3/5">
         <ProductImage images={product.images} />
       </div>
       {/* product description */}
@@ -67,36 +68,33 @@ export default async function Page({
         </div>
 
         <section>
-          <h3 className="text-base font-bold mb-1 text-[#406786]">
+          <h3 className="text-base font-bold mb-1 text-[#406786] dark:text-white">
             Description
           </h3>
-          <p className="text-xs pr-5 mt-1.5 text-justify leading-5 hyphens-auto">
+          <p className="text-xs pr-5 mt-1.5 text-justify leading-6 hyphens-auto">
             {product.description}
           </p>
         </section>
-        <section className="mt-4">
+
+        <section className="pr-4">
+          {product?.more && (
+            <ProductDescription>
+              <div className="text-justify text-sm prose max-w-none">
+                <PortableText value={product?.more} />
+              </div>
+            </ProductDescription>
+          )}
+        </section>
+        <section className="mt-4 mb-32 lg:mb-0">
           <Suspense>
             <Sizes sizes={product?.sizes} />
           </Suspense>
         </section>
 
-        <section className="mt-5 hidden md:block">
+        <section className="mt-10 hidden md:block">
           <Suspense>
             <AddToBag {...product} />
           </Suspense>
-        </section>
-
-        <section className="mt-6 mb-32 lg:mb-0 border-t-2 pt-5">
-          {product?.more && (
-            <>
-              <h3 className="text-base font-bold mb-1 text-[#406786]">
-                More Details
-              </h3>
-              <div className="text-justify text-sm prose max-w-none">
-                <PortableText value={product?.more} />
-              </div>
-            </>
-          )}
         </section>
       </div>
 
