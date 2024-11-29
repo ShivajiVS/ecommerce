@@ -22,6 +22,7 @@ import { useCallback, useState } from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { FormError } from "./form-error";
 
 type Props = {
   email: string;
@@ -66,7 +67,6 @@ export const OtpVerfication = ({ email }: Props) => {
           router.push("/");
         }
       } catch (error: any) {
-        // console.error(JSON.stringify(error, null, 2));
         setError(error.errors[0].message);
       }
     },
@@ -75,6 +75,11 @@ export const OtpVerfication = ({ email }: Props) => {
 
   return (
     <div className="pt-16 px-2.5">
+      {error && (
+        <div className="mx-auto max-w-sm lg:max-w-md mb-4">
+          <FormError message={error} />
+        </div>
+      )}
       <Card className="mx-auto max-w-sm lg:max-w-md py-6 px-4 flex flex-col justify-center space-y-4  ">
         <div className="w-full flex flex-col items-center space-y-2 mt-4">
           <Mail className="h-12 w-12 text-primary text-center font-bold" />

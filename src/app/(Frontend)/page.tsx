@@ -2,9 +2,11 @@ import Carousel from "@/components/carousel";
 import { Footer } from "@/components/footer";
 import { ProductsList } from "@/components/products/products-list";
 import { Title } from "@/components/products/title";
+import { sleep } from "@/lib/sleep";
 import { getAllProduct } from "@/sanity/queries";
 
 export default async function Home() {
+  await sleep(1000);
   const response = await getAllProduct();
   return (
     <div className="flex flex-col relative">

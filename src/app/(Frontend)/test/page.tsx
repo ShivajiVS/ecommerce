@@ -4,7 +4,9 @@
 // import { sanityFetch } from "@/sanity/live";
 // import { defineQuery } from "next-sanity";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { getAllProductSlugs } from "@/sanity/queries";
+import { Fragment } from "react";
 
 // export default async function Page() {
 
@@ -77,19 +79,20 @@ import { getAllProductSlugs } from "@/sanity/queries";
 
 // export default ButtonColors;
 
-export async function generateStaticParams() {
-  const productsSlugs = await getAllProductSlugs();
-  return productsSlugs;
-}
-
 export default async function Page() {
-  const data = await getAllProductSlugs();
-
-  console.log("products areeeee", data);
-
   return (
     <div>
-      <h2>products</h2>
+      <div className="w-full h-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-5 md:gap-5 py-1">
+        {Array(8)
+          .fill(0)
+          .map((_, idx) => (
+            <div key={idx} className="flex flex-col space-y-2">
+              <Skeleton className="h-[300px] w-[250px] rounded-md" />
+              <Skeleton className="h-3 w-56" />
+              <Skeleton className="h-3 w-40" />{" "}
+            </div>
+          ))}
+      </div>
     </div>
   );
 }
