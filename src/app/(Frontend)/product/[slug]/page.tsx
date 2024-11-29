@@ -91,7 +91,7 @@ export default async function Page({
           </Suspense>
         </section>
 
-        <section className="mt-10 hidden md:block">
+        <section className="mt-10 hidden md:block md:mb-7">
           <Suspense>
             <AddToBag {...product} />
           </Suspense>

@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 
-export default function Page() {
+export default function NotFound() {
   return (
     <div className="flex items-center justify-center h-[calc(100vh-215px)] capitalize overflow-hidden">
       <div className="text-center">
