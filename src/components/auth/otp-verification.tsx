@@ -73,6 +73,8 @@ export const OtpVerfication = ({ email }: Props) => {
     []
   );
 
+  
+
   return (
     <div className="pt-16 px-2.5">
       {error && (

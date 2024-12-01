@@ -29,6 +29,7 @@ const ProductImage = ({ images }: CarouselProps) => {
     };
 
     window.addEventListener("keydown", handleKeyDown);
+
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
@@ -40,7 +41,7 @@ const ProductImage = ({ images }: CarouselProps) => {
             <img
               key={idx}
               src={sanityImageEncoder(images[idx]).url()}
-              className="h-20 w-14 rounded-sm"
+              className="h-20 w-14 rounded-sm cursor-pointer"
               onClick={() => setCurrentIndex(idx)}
             />
           ))}

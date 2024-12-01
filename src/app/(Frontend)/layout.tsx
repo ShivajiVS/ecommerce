@@ -8,6 +8,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { Banner } from "@/components/banner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SanityLive } from "@/sanity/live";
+import { Footer } from "@/components/footer";
+import { BagModel } from "@/components/bag-model";
 
 const lora = Lora({ subsets: ["latin-ext"] });
 
@@ -36,8 +38,9 @@ export default function RootLayout({
               <Banner />
               <NavBar />
               <main className="w-full grow">
-                <div className={`max-w-6xl mx-auto lg:px-6 `}>{children}</div>
+                <div className="max-w-6xl mx-auto lg:px-6">{children}</div>
               </main>
+              <Footer />
             </div>
             <Toaster
               toastOptions={{
