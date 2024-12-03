@@ -37,10 +37,10 @@ export default function RootLayout({
             <div className="flex flex-col min-h-screen dark:bg-slate-900 dark:text-white">
               <Banner />
               <NavBar />
-              <main className="w-full h-[70vh] grow">
+              <main className="w-full grow">
                 <div className="max-w-6xl mx-auto lg:px-6">{children}</div>
               </main>
-              <Footer />
+              {/* <Footer /> */}
             </div>
             <Toaster
               toastOptions={{
