@@ -12,6 +12,13 @@ pnpm dev
 bun dev
 ```
 
+
+https://jordbrown.medium.com/how-i-learn-technical-things-fast-a5b3f253d915
+
+https://medium.com/@mateogalic112/building-saas-product-with-next-js-14-architecture-overview-947371e78d46
+
+https://jordbrown.medium.com/how-i-learn-technical-things-fast-a5b3f253d915
+
 https://clerk.com/docs/custom-flows/oauth-connections#create-the-sign-up-and-sign-in-flow
 
 https://clerk.com/docs/authentication/social-connections/oauth#enable-a-social-connection
@@ -82,7 +89,7 @@ https://github.com/code100x/cms/blob/main/src/app/signin/page.tsx
 
 https://nextjsstarter.com/blog/nextauth-protected-routes-best-practices/
 
-how did i do
+how did i do 
 
 https://github.com/DevAntonioRogers/drizzle-neon-next-multistep-form/blob/main/app/(auth)/login/page.tsx
 
@@ -121,17 +128,24 @@ https://logsnag.com/blog/deploying-nextjs-13-app-dir-to-cloudflare-pages
 stripe payments:
 https://medium.com/@rakeshdhariwal61/integrating-stripe-payment-gateway-in-next-js-14-a-step-by-step-guide-1bd17d164c2c
 
+
 https://www.annscottage.com/
+
 
 https://g2vape.com/
 
+
 https://www.rallyenergy.co/
+
 
 https://www.josiefairbijoux.com/
 
+
 https://www.peregrineclothing.co.uk/
 
+
 https://orm.drizzle.team/learn/tutorials/drizzle-with-supabase#setup-supabase-and-drizzle-orm
+
 
 https://orm.drizzle.team/docs/get-started-postgresql#supabase
 
@@ -147,5 +161,6 @@ fonts :
 
 products page: Lora - 700 - 400 : available on google fonts..
 
-product page:
-SourceSansPro - 400
+product page
+
+SourceSansPro - 400 

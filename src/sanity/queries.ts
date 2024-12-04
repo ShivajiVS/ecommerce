@@ -53,10 +53,25 @@ export async function getAllProductByCategory(category: string) {
   return data;
 }
 
+export async function getLatestProducts() {
+  const query = `*[_type == "product"] | order(_createdAt desc)[0...8] {
+    _id,
+    title,
+    price,
+    discountPercentage,
+    "slug": slug.current,
+    "category": category->title,
+    images,
+  }`;
+
+  const data = await sanityServerClient.fetch<Product[]>(query);
+  return data;
+}
+
 export async function getAllProductSlugs() {
   const query = `*[_type == "product"]{
     "slug": slug.current,
-  }`;
+}`;
 
   const data = await sanityServerClient.fetch<Product[]>(query);
   return data;
