@@ -25,24 +25,6 @@ export default function Page() {
     [cart]
   );
 
-  const onQuantityIncrement = useCallback((id: string, size: string) => {
-    controls.start({
-      scale: [1, 1.2, 1],
-      opacity: [1, 0.9, 1],
-      transition: { duration: 0.3, ease: "easeOut" },
-    });
-    incrementQuantity(id, size);
-  }, []);
-
-  const onQuantityDecrement = useCallback((id: string, size: string) => {
-    controls.start({
-      scale: [1, 0.8, 1],
-      opacity: [1, 0.9, 1],
-      transition: { duration: 0.3, ease: "easeOut" },
-    });
-    decrementQuantity(id, size);
-  }, []);
-
   const { isSignedIn } = useUser();
 
   useEffect(() => setMounted(true), []);
@@ -79,7 +61,7 @@ export default function Page() {
                 key={id}
                 className="flex space-x-2 py-3 items-center border-b-2 last:border-none"
               >
-                <Link href={`/product/${slug}`}>
+                <Link href={`/product/${slug}?size=${size}`}>
                   <img
                     src={image}
                     alt={`Image of ${title}`}
