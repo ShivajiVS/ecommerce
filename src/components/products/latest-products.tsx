@@ -1,15 +1,12 @@
 import { getLatestProducts } from "@/sanity/queries";
 import { ProductsList } from "./products-list";
-import { Title } from "@radix-ui/react-toast";
 
 export const LatestProducts = async () => {
   const latestProducts = await getLatestProducts();
 
-  console.log("products", latestProducts);
-
   return (
     <div>
-      <h2 className="font-bold text-xl tracking-tight text-center capitalize mb-4">
+      <h2 className="font-bold text-xl lg:text-2xl tracking-tight text-center capitalize mb-2.5">
         New Arrivals
       </h2>
       <ProductsList products={latestProducts} />;
