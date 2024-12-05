@@ -8,8 +8,11 @@ export const LatestProducts = async () => {
   console.log("products", latestProducts);
 
   return (
-    <>
+    <div>
+      <h2 className="font-bold text-xl tracking-tight text-center capitalize mb-4">
+        New Arrivals
+      </h2>
       <ProductsList products={latestProducts} />;
-    </>
+    </div>
   );
 };

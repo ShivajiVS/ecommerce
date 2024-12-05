@@ -1,33 +1,7 @@
-// import { getServerSession } from "@/auth/getServerSession";
-// import { db } from "@/db";
-// import { users } from "@/db/schema";
-// import { sanityFetch } from "@/sanity/live";
-// import { defineQuery } from "next-sanity";
+"use client";
 
-import { Skeleton } from "@/components/ui/skeleton";
-import { getAllProductSlugs } from "@/sanity/queries";
-import { Fragment } from "react";
-
-// export default async function Page() {
-
-//   const PRODUCT_QUERY = defineQuery(
-//     `*[_type == "product"]{_id, title, slug, description,originalPrice, discountPrice,stock, sizes }|order(date desc)`
-//   );
-
-//   const data = await sanityFetch({ query: PRODUCT_QUERY });
-
-//   console.log(data.data);
-
-//   return (
-//     <div className="max-w-xl mx-auto h-96 bg-slate-500">
-//       {/* <p>{JSON.stringify(result)}</p> */}
-//     </div>
-//   );
-// }
-
-// "use client";
-
-// import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import React, { useEffect, useState } from "react";
 
 // const ButtonColors = () => {
 //   const colors: string[] = [
@@ -79,57 +53,20 @@ import { Fragment } from "react";
 
 // export default ButtonColors;
 
-export default async function Page() {
-  return (
-    // <div className="relative h-[500vh]">
-    //   <div className="">
-    //     <img
-    //       className="w-screen h-full absolute top-0"
-    //       src="https://img.freepik.com/free-vector/abstract-horizontal-grid-lines-graph-style-graphic-design_1017-39918.jpg?t=st=1733076845~exp=1733080445~hmac=b6ff8a3bd1fadcde3664b3a4c7a661efbfc7605dbb20a958f768754865f176ee&w=1380"
-    //       alt=""
-    //     />
-    //   </div>
-    //   <div className="">
+export default function Page() {
+  const [value, setValue] = useState("shivaji");
 
-    //   </div>
-    //   <div className="w-full h-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-5 md:gap-5 py-1">
-    //     {Array(8)
-    //       .fill(0)
-    //       .map((_, idx) => (
-    //         <div key={idx} className="flex flex-col space-y-2">
-    //           <Skeleton className="h-[300px] w-[250px] rounded-md" />
-    //           <Skeleton className="h-3 w-56" />
-    //           <Skeleton className="h-3 w-40" />{" "}
-    //         </div>
-    //       ))}
-    //   </div>
-    // </div>
-    <div className="w-full flex flex-col md:flex-row md:space-x-6 mt-6 mx-2 md:mx-0.5">
-      <div className="w-full max-w-3xl">
-        {Array(4)
-          .fill(0)
-          .map((_, idx) => (
-            <div
-              className="flex space-x-2 py-3 border-b-2 last:border-none"
-              key={idx}
-            >
-              <Skeleton className="h-32 w-40 rounded-md" />
-              <div className="w-full lg:w-80 px-2 lg:px-3 flex flex-col space-y-4 mt-2">
-                <section className="w-full flex items-center justify-between">
-                  <Skeleton className="h-2 w-full" />
-                </section>
-                <Skeleton className="h-2 w-40" />
-                <Skeleton className="h-2 w-40" />
-                <div className="flex space-x-8 items-center">
-                  <Skeleton className="h-10 w-10 rounded-full" />
-                  <Skeleton className="h-4 w-10" />
-                  <Skeleton className="h-10 w-10 rounded-full" />
-                </div>
-              </div>
-            </div>
-          ))}
-      </div>
-      {/* <Skeleton className="rounded-md w-full lg:w-[450px] h-56 mt-5 hidden lg:inline-block" /> */}
+  console.log("outside", value);
+
+  function handler() {
+    setValue((prev) => (prev === "shivaji" ? "vyshnavi" : "shivaji"));
+    console.log("inside", value);
+  }
+
+  return (
+    <div>
+      <p>{value}</p>
+      <Button onClick={handler}> Increment</Button>
     </div>
   );
 }

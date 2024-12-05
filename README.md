@@ -12,6 +12,13 @@ pnpm dev
 bun dev
 ```
 
+https://senja.io/resources/exclusive-offer
+
+https://blog.logrocket.com/ux-design/search-bar-design/
+
+https://github.com/kavinvalli/stripe-nextjs13/tree/main/app/orders/%5BorderId%5D
+
+
 
 https://jordbrown.medium.com/how-i-learn-technical-things-fast-a5b3f253d915
 
