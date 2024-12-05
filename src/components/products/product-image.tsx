@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { sanityImageEncoder } from "@/sanity/sanityClient";
 
 interface CarouselProps {
@@ -35,12 +35,12 @@ const ProductImage = ({ images }: CarouselProps) => {
 
   return (
     <div className="flex flex-1 lg:space-x-4 w-full h-[600px]">
-      <div className="lg:flex lg:items-center relative hidden h-full">
+      <div className="lg:flex relative hidden h-full">
         <div className=" flex flex-col space-y-4">
           {images.map((image: string, idx: number) => (
             <img
               key={idx}
-              src={sanityImageEncoder(images[idx]).url()}
+              src={sanityImageEncoder(image).url()}
               className="h-20 w-14 rounded-sm cursor-pointer"
               onClick={() => setCurrentIndex(idx)}
             />

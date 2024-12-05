@@ -10,9 +10,9 @@ export default async function Home() {
   return (
     <div className="flex flex-col relative py-2">
       <section className="max-w-6xl mx-auto px-1 lg:px-4 space-y-8 mt-4">
-        <img src="/desktop_banner.png" alt="" />
+        {/* <img src="/desktop_banner.png" alt="" /> */}
         <LatestProducts />
-        <h2 className="font-bold text-xl lg:text-2xl tracking-tight text-center capitalize mb-2.5">
+        <h2 className="font-bold text-xl lg:text-2xl tracking-tight text-center capitalize mb-2.5 ">
           best selling products
         </h2>
         <ProductsList products={products} />
