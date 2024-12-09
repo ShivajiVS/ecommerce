@@ -1,6 +1,6 @@
 "use client";
 
-import { LogIn, MinusIcon, PlusIcon, Trash2 } from "lucide-react";
+import { Loader2, LogIn, MinusIcon, PlusIcon, Trash2 } from "lucide-react";
 import { motion, useAnimation } from "framer-motion";
 import Lootie from "lottie-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -11,13 +11,14 @@ import { Button } from "@/components/ui/button";
 import { useCartState } from "@/lib/store/client-store";
 import formatPrice from "@/lib/format-price";
 import emptyBusket from "../../../../public/emptyBusket.json";
+import { toast } from "sonner";
 
 export default function Page() {
   const { cart, removeFromCart, incrementQuantity, decrementQuantity } =
     useCartState((state) => state);
 
   const [mounted, setMounted] = useState(false);
-  const controls = useAnimation();
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   // Memoize subtotal to avoid unnecessary recalculations
   const subTotal = useMemo(
@@ -28,6 +29,31 @@ export default function Page() {
   const { isSignedIn } = useUser();
 
   useEffect(() => setMounted(true), []);
+
+  const onCheckout = async () => {
+    setCheckoutLoading(true);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/stripe/checkout`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ cart }),
+        }
+      );
+
+      if (!response.ok) return toast.error("failed to create order");
+
+      const { paymentUrl } = await response.json();
+
+      window.location.href = paymentUrl;
+    } catch (error) {
+      setCheckoutLoading(false);
+      console.log("error:", error);
+    }
+  };
 
   if (mounted && cart.length === 0) {
     return (
@@ -152,23 +178,28 @@ export default function Page() {
                 <h3 className="tracking-tight">
                   Discount on <span className="uppercase">mrp</span>
                 </h3>
-                <span className="text-green-400"> -{formatPrice(400)}</span>
+                <span className="text-green-400"> -{formatPrice(0)}</span>
               </section>
 
               <section className="flex justify-between mt-3 text-sm">
                 <h3 className="tracking-tight capitalize">Platform fee</h3>
-                <span>{formatPrice(20)}</span>
+                <span>{formatPrice(0)}</span>
               </section>
 
               <section className="flex justify-between mt-3 text-sm font-semibold border-t pt-4">
                 <h3 className="tracking-tight capitalize">total amount</h3>
-                <span>{formatPrice(subTotal - 400 + 20)}</span>
+                <span>{formatPrice(subTotal - 0 + 0)}</span>
               </section>
             </div>
             <div className="mt-8 hidden md:block">
               {isSignedIn ? (
-                <Button className="uppercase w-full ml-auto">
-                  place order
+                <Button
+                  className="uppercase w-full ml-auto flex space-x-3"
+                  onClick={onCheckout}
+                  disabled={checkoutLoading}
+                >
+                  {checkoutLoading && <Loader2 className="animate-spin" />}
+                  <span>place order</span>
                 </Button>
               ) : (
                 <Button className="capitalize w-full ml-auto">
@@ -183,9 +214,16 @@ export default function Page() {
           {/* Mobile Checkout Section */}
           <div className="bg-zinc-100 dark:bg-slate-700 w-full fixed bottom-0 left-0 right-0 h-20 flex flex-col justify-center drop-shadow-md md:hidden px-4">
             <div className="flex items-center space-x-8">
-              <h2>{formatPrice(subTotal - 400 + 20)}</h2>
+              <h2>{formatPrice(subTotal - 0 + 0)}</h2>
               {isSignedIn ? (
-                <Button className="flex-1 uppercase">place order</Button>
+                <Button
+                  className="flex-1 uppercase flex space-x-3"
+                  onClick={onCheckout}
+                  disabled={checkoutLoading}
+                >
+                  {checkoutLoading && <Loader2 className="animate-spin" />}
+                  <span>place order</span>
+                </Button>
               ) : (
                 <Button className="flex-1">
                   <Link href="/sign-in" className="flex gap-2 font-medium">

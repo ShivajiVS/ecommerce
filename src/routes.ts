@@ -19,6 +19,8 @@ export const AUTH_ROUTES = ["/sign-in", "/sign-up"];
  */
 export const API_AUTH_PREFIX = "/api/auth";
 
+export const API_CHECKOUT_PREFIX = "/api/stripe/checkout";
+
 /*
  * the default redirect path after logging in.
  * @type {string}
