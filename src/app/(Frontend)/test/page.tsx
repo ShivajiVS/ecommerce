@@ -3,6 +3,10 @@
 import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
 
+import Lootie from "lottie-react";
+
+import order_success from "../../../../public/success-order.json";
+
 // const ButtonColors = () => {
 //   const colors: string[] = [
 //     "red",
@@ -54,19 +58,25 @@ import React, { useEffect, useState } from "react";
 // export default ButtonColors;
 
 export default function Page() {
-  const [value, setValue] = useState("shivaji");
+  // const [value, setValue] = useState("shivaji");
 
-  console.log("outside", value);
+  // console.log("outside", value);
 
-  function handler() {
-    setValue((prev) => (prev === "shivaji" ? "vyshnavi" : "shivaji"));
-    console.log("inside", value);
-  }
+  // function handler() {
+  //   setValue((prev) => (prev === "shivaji" ? "vyshnavi" : "shivaji"));
+  //   console.log("inside", value);
 
   return (
-    <div>
-      <p>{value}</p>
-      <Button onClick={handler}> Increment</Button>
+    <div className="h-[calc(100vh-100px)] w-full flex flex-col items-center justify-center">
+      <div>
+        <Lootie
+          animationData={order_success}
+          className="h-full w-full md:h-1/2 md:w-1/2"
+        />
+        {/* <h2 className="tracking-tight font-bold text-xl capitalize">
+          payment successful...
+        </h2> */}
+      </div>
     </div>
   );
 }

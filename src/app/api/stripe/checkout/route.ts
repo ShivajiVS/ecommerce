@@ -30,7 +30,8 @@ export const POST = async (request: Request) => {
         userId: userId,
       },
       mode: "payment",
-      success_url: `${process.env.BASE_URL}/checkout/`,
+      success_url: `${process.env.BASE_URL}/checkout?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.BASE_URL}/checkout?cancelled=true`,
     });
 
     return NextResponse.json({
