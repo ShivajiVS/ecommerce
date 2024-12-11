@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import {
   AUTH_ROUTES,
   PROTECTED_ROUTES,
@@ -12,6 +11,8 @@ import { clerkMiddleware } from "@clerk/nextjs/server";
 export default clerkMiddleware(async (auth, req) => {
   const { userId } = await auth();
   const { pathname } = req.nextUrl;
+
+  console.log("middleware running", pathname);
 
   const isProtectedRoute = PROTECTED_ROUTES.includes(pathname);
   const isAuthRoute = AUTH_ROUTES.includes(pathname);
@@ -33,7 +34,7 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: [
-    // Match all routes except "/", "/product", "/bag", public files, and API routes. middlware runs for auth and protected routes
-    "/((?!_next|trpc|bag|product|$|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Match all routes except "/", "/product", "/bag", public files, but include "/api/stripe/checkout".
+    "/((?!_next|trpc|bag|product|$|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*|^/api/stripe/checkout$)",
   ],
 };
