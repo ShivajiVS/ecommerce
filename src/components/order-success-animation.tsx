@@ -1,9 +1,17 @@
 "use client";
 
 import Lootie from "lottie-react";
+import { useEffect } from "react";
 
-import order_success from "../../public/success-order.json";
+import orderSuccess3 from "../../public/order-success3.json";
+import { useCartState } from "@/lib/store/client-store";
 
 export const OrderSuccessAnimation = () => {
-  return <Lootie animationData={order_success} className="h-96" />;
+  const clearCart = useCartState((state) => state.clearCart);
+
+  useEffect(() => {
+    clearCart();
+  }, []);
+
+  return <Lootie animationData={orderSuccess3} className="h-36 p-0" />;
 };

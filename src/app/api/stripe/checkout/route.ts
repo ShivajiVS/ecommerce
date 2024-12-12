@@ -1,7 +1,7 @@
 import { CartItem } from "@/lib/store/cartType";
 import { stripe } from "@/lib/stripe";
 import { auth } from "@clerk/nextjs/server";
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 export const POST = async (request: Request) => {
   const { userId } = await auth();
