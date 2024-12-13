@@ -3,7 +3,6 @@ import { NextResponse, NextRequest } from "next/server";
 import Stripe from "stripe";
 
 import { stripe } from "@/lib/stripe";
-import { Metadata } from "next";
 import { sanityServerClient } from "@/sanity/sanityServerClient";
 
 export async function POST(request: NextRequest) {
@@ -14,14 +13,20 @@ export async function POST(request: NextRequest) {
 
   const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
+  console.log("before webhook secret");
+
   if (!stripeWebhookSecret)
     return NextResponse.json(
       { error: "stripe webhook secret not set" },
       { status: 401 }
     );
 
+  console.log("after webhook secret");
+
   if (!signature)
     return NextResponse.json({ error: "no stripe signature" }, { status: 401 });
+
+  console.log("after signature");
 
   let event: Stripe.Event;
 
@@ -31,15 +36,20 @@ export async function POST(request: NextRequest) {
       signature,
       stripeWebhookSecret
     );
+    console.log("after event construction");
   } catch (error) {
     return NextResponse.json({ error: "webhook error," }, { status: 401 });
   }
+  console.log("event type is", event.type);
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
 
+    console.log("inside checkout.session.completed event");
+
     try {
       const order = await createOrder(session);
+      console.log("afeter order creation func", order);
     } catch (error) {
       return NextResponse.json(
         { error: "error while creating order" },
@@ -52,6 +62,8 @@ export async function POST(request: NextRequest) {
 }
 
 async function createOrder(session: Stripe.Checkout.Session) {
+  console.log("start create order func");
+
   const {
     id,
     amount_total,
@@ -62,12 +74,20 @@ async function createOrder(session: Stripe.Checkout.Session) {
     total_details,
   } = session;
 
-  const { orderNumber, customerName, customerEmail, clerkId } = metadata as any;
+  console.log("stripe session is ", session);
+
+  console.log(" metadata ", metadata);
+
+  const { orderNumber, customerName, customerEmail, userId } = metadata as any;
+
+  console.log("before lineItemswith");
 
   const lineItemsWithProduct = await stripe.checkout.sessions.listLineItems(
     id,
     { expand: ["data.price.product"] }
   );
+
+  console.log("after lineItemswith", lineItemsWithProduct);
 
   const sanityProducts = lineItemsWithProduct.data.map((item) => ({
     _key: crypto.randomUUID(),
@@ -78,20 +98,30 @@ async function createOrder(session: Stripe.Checkout.Session) {
     quantity: item.quantity || 0,
   }));
 
+  console.log("after sanityproducts", sanityProducts);
+
   const order = await sanityServerClient.create({
-    _type: "order",
+    _type: "orders",
     orderNumber,
-    stripeCheckoutSession: id,
+    stripeCheckoutSessionId: id,
     stripePaymentIntentId: payment_intent,
     customerName,
-    stripeCustomerId: customer,
-    clerkId,
+    // stripeCustomerId: customer,
+    clerkId: userId,
     email: customerEmail,
     currency,
     amountDiscount: total_details?.amount_discount
       ? total_details.amount_discount / 100
       : 0,
+    products: sanityProducts,
+    totalPrice: amount_total ? amount_total / 100 : 0,
+    status: "paid",
+    orderDate: new Date().toISOString,
   });
+
+  console.log("after order creation(inside)");
+
+  console.log("order details inside order func", order);
 
   return order;
 }

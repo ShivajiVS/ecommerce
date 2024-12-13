@@ -3,6 +3,12 @@ import { stripe } from "@/lib/stripe";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
+type metaData = {
+  orderNumber: string;
+  customerName: string;
+  customerEmail: string;
+};
+
 export const POST = async (request: Request) => {
   const { userId } = await auth();
 
@@ -12,6 +18,7 @@ export const POST = async (request: Request) => {
   const body = await request.json();
 
   const cart: CartItem[] = body.cart;
+  const metaData: metaData = body.metaData;
 
   try {
     const checkoutSession = await stripe.checkout.sessions.create({
@@ -28,6 +35,7 @@ export const POST = async (request: Request) => {
       })),
       metadata: {
         userId: userId,
+        ...metaData,
       },
       mode: "payment",
       success_url: `${process.env.BASE_URL}/orders/complete?success=true&session_id={CHECKOUT_SESSION_ID}`,

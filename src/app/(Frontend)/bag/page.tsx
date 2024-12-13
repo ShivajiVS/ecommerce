@@ -6,12 +6,14 @@ import Lootie from "lottie-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { toast } from "sonner";
+
+import { useAuth } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
 import { useCartState } from "@/lib/store/client-store";
 import formatPrice from "@/lib/format-price";
 import emptyBusket from "../../../../public/emptyBusket.json";
-import { toast } from "sonner";
 
 export default function Page() {
   const { cart, removeFromCart, incrementQuantity, decrementQuantity } =
@@ -26,12 +28,18 @@ export default function Page() {
     [cart]
   );
 
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
 
   useEffect(() => setMounted(true), []);
 
   const onCheckout = async () => {
     setCheckoutLoading(true);
+
+    const metaData = {
+      orderNumber: crypto.randomUUID(),
+      customerName: user?.fullName ?? "unknown",
+      customerEmail: user?.emailAddresses[0].emailAddress ?? "unknown",
+    };
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/stripe/checkout`,
@@ -40,7 +48,7 @@ export default function Page() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ cart }),
+          body: JSON.stringify({ cart, metaData }),
         }
       );
 
