@@ -6,6 +6,7 @@ import { stripe } from "@/lib/stripe";
 import { sanityServerClient } from "@/sanity/sanityServerClient";
 
 export async function POST(request: NextRequest) {
+  console.log("webhook trigered...");
   const body = await request.text();
   const header = headers();
 
@@ -89,12 +90,19 @@ async function createOrder(session: Stripe.Checkout.Session) {
 
   console.log("after lineItemswith", lineItemsWithProduct);
 
+  const lineItemsMetaData = lineItemsWithProduct.data.map((item) => ({
+    id: (item.price?.product as Stripe.Product)?.metadata?.id,
+    size: (item.price?.product as Stripe.Product)?.metadata?.size,
+  }));
+  console.log("lineItemsWithProduct.data", lineItemsMetaData);
+
   const sanityProducts = lineItemsWithProduct.data.map((item) => ({
     _key: crypto.randomUUID(),
     product: {
       _type: "reference",
       _ref: (item.price?.product as Stripe.Product)?.metadata?.id,
     },
+    size: (item.price?.product as Stripe.Product)?.metadata?.size,
     quantity: item.quantity || 0,
   }));
 
@@ -116,7 +124,7 @@ async function createOrder(session: Stripe.Checkout.Session) {
     products: sanityProducts,
     totalPrice: amount_total ? amount_total / 100 : 0,
     status: "paid",
-    orderDate: new Date().toISOString,
+    orderDate: new Date().toISOString(),
   });
 
   console.log("after order creation(inside)");
