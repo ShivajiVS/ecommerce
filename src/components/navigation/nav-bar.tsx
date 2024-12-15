@@ -18,7 +18,7 @@ const NavBar = () => {
           href="/"
           className={`font-bold tracking-tight text-2xl dark:text-white ${redressed.className}`}
         >
-          <span className="text-blue-500">S</span>vella
+          <span className="text-primary">Sv</span>ella
         </Link>
         <div className="flex space-x-6">
           <div className="relative">
