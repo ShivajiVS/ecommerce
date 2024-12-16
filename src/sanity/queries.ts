@@ -1,5 +1,5 @@
 import { sanityServerClient } from "@/sanity/sanityServerClient";
-import { Product } from "./sanity.types";
+import { Orders, Product } from "./sanity.types";
 
 export async function getProductBySlug(slug: string) {
   const query = `*[_type == "product" && slug.current == "${slug}"][0] {
@@ -74,5 +74,18 @@ export async function getAllProductSlugs() {
 }`;
 
   const data = await sanityServerClient.fetch<Product[]>(query);
+  return data;
+}
+
+export async function getOrders(userId: string) {
+  const query = `*[_type == "orders" && clerkId=="${userId}" ]|order(orderDate desc) {
+    ...,
+  products[]{
+    ...,
+    product ->
+  }
+  }`;
+
+  const data = await sanityServerClient.fetch<Orders[]>(query);
   return data;
 }
