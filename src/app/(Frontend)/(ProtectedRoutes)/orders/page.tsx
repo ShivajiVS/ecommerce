@@ -1,27 +1,8 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import { getOrders } from "@/sanity/queries";
 import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 
-// const orders: { id: number }[] = [
-//   {
-//     id: 1,
-//   },
-//   {
-//     id: 2,
-//   },
-//   {
-//     id: 3,
-//   },
-//   {
-//     id: 4,
-//   },
-// ];
+import { Card } from "@/components/ui/card";
+import { getOrders } from "@/sanity/queries";
 
 const statusStyles = {
   paid: "text-blue-500 bg-blue-100",
@@ -39,8 +20,6 @@ export default async function Page() {
 
   const orders = await getOrders(userId);
 
-  console.log("order list is", orders);
-
   if (orders.length === 0) {
     return (
       <div className="h-[calc(100vh-100px)] w-full flex items-center justify-center">
@@ -56,6 +35,7 @@ export default async function Page() {
       </div>
     );
   }
+
   return (
     <div className="mx-2 mt-4 relative">
       <h2 className="text-2xl font-extrabold tracking-tight">Order history</h2>
@@ -95,7 +75,7 @@ export default async function Page() {
               {item.products.map((item, idx) => (
                 <div className="flex space-x-5 py-2" key={idx}>
                   <div className="h-28 w-28 bg-slate-300 rounded-md "></div>
-                  <div className="w-full space-y-3">
+                  <div className="w-full space-y-2">
                     <h3 className="font-bold tracking-tight text-sm">
                       Cotton Blend Block Stripe Zip Up Jumper
                     </h3>
@@ -107,10 +87,11 @@ export default async function Page() {
                       <h4 className="font-medium capitalize"> Quantity - </h4>
                       <p className="font-semibold uppercase">{item.quantity}</p>
                     </div>
-                    <p className="font-bold ">₹{"2499"}</p>
+                    {/* <p className="font-bold ">₹{"2499"}</p> */}
                   </div>
                 </div>
               ))}
+              <div></div>
             </div>
           </Card>
         ))}
