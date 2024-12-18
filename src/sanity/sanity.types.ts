@@ -85,6 +85,9 @@ export type Orders = {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
+      imageUrl: string;
+      title: string;
+      price: string;
       [internalGroqTypeReferenceTo]?: "product";
     };
     size: string;

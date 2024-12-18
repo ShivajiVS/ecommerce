@@ -82,7 +82,11 @@ export async function getOrders(userId: string) {
     ...,
   products[]{
     ...,
-    product ->
+    product ->{
+     title,
+     "imageUrl": images[0].asset->url,
+     price,
+    }
   }
   }`;
 

@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
       const order = await createOrder(session);
       console.log("afeter order creation func", order);
     } catch (error) {
+      console.log("error while creating order ", error);
       return NextResponse.json(
         { error: "error while creating order" },
         { status: 500 }
