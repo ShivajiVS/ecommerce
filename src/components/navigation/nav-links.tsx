@@ -32,13 +32,13 @@ export const NavLinks = () => {
 
       <DropdownMenuContent className="w-52 mt-5 px-3 py-4 space-y-2">
         <DropdownMenuItem>
-          <Link href="/account" className="font-medium">
-            My Account
+          <Link href="/orders" className="font-medium">
+            My Orders
           </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem>
-          <Link href="/account" className="font-medium">
+          <Link href="#" className="font-medium">
             Settings
           </Link>
         </DropdownMenuItem>
