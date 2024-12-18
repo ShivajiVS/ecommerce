@@ -4,6 +4,7 @@ import { OrderSuccessAnimation } from "@/components/order-success-animation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { stripe } from "@/lib/stripe";
+import { sleep } from "@/lib/sleep";
 // import order_success3 from "../../../../../public/order-success3.json";
 
 type PropsTypes = {
@@ -23,6 +24,8 @@ export default async function page({ searchParams }: PropsTypes) {
       issession = true;
     }
   }
+
+  await sleep(2000);
 
   return (
     <div className="h-[calc(100vh-100px)] w-full flex flex-col items-center justify-center">
