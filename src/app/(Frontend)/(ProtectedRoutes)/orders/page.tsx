@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { Card } from "@/components/ui/card";
 import { getOrders } from "@/sanity/queries";
+import formatPrice from "@/lib/format-price";
 
 const statusStyles = {
   paid: "text-blue-500 bg-blue-100",
@@ -40,13 +41,17 @@ export default async function Page() {
 
   return (
     <div className="max-w-4xl mx-2 lg:mx-auto mt-4 relative">
-      <h2 className="text-2xl font-extrabold tracking-tight">Order history</h2>
+      <div className="lg:text-center">
+        <h2 className="text-2xl font-extrabold tracking-tight">
+          Order history
+        </h2>
 
-      <h4 className="text-muted-foreground text-sm tracking-tight font-medium mt-1">
-        Check the status of your recent and old orders
-      </h4>
+        <h4 className="text-muted-foreground text-sm tracking-tight font-medium mt-1">
+          Check the status of your recent and old orders
+        </h4>
+      </div>
 
-      <section className="space-y-5 mt-5 mb-5">
+      <section className="space-y-5 mt-6 mb-8">
         {orders.map((item) => (
           <Card className="h-auto w-full dark:bg-slate-900" key={item._id}>
             <div className="w-full space-y-3 p-4">
@@ -109,8 +114,11 @@ export default async function Page() {
                 ))}
               </div>
 
-              <div>
-                <h4>Total Amount</h4>
+              <div className="flex justify-center space-x-3 font-bold text-lg">
+                <h4 className="tracking-tighter font-medium">
+                  Total Amount :{" "}
+                </h4>
+                <span>{formatPrice(item.totalPrice)}</span>
               </div>
             </div>
           </Card>
