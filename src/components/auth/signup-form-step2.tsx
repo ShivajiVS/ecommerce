@@ -32,9 +32,16 @@ export function SignupFormStep2({ form, isSubmitting }: FormStep2Props) {
           <FormItem>
             <FormLabel>Password</FormLabel>
             <FormControl>
-              <PasswordInput placeholder="*************" {...field} />
+              <PasswordInput
+                placeholder="*************"
+                data-testid="password"
+                {...field}
+              />
             </FormControl>
-            <FormMessage className="text-xs" />
+            <FormMessage
+              className="text-xs"
+              data-testid="passwordErrorMessage"
+            />
           </FormItem>
         )}
       />
@@ -45,14 +52,26 @@ export function SignupFormStep2({ form, isSubmitting }: FormStep2Props) {
           <FormItem>
             <FormLabel>Confirm Password</FormLabel>
             <FormControl>
-              <PasswordInput placeholder="*************" {...field} />
+              <PasswordInput
+                placeholder="*************"
+                data-testid="confirmPassword"
+                {...field}
+              />
             </FormControl>
-            <FormMessage className="text-xs" />
+            <FormMessage
+              className="text-xs"
+              data-testid="confirmPasswordErrorMessage"
+            />
           </FormItem>
         )}
       />
 
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={isSubmitting}
+        data-testid="createAccount"
+      >
         {isSubmitting ? "Creating" : "Create Account"}
       </Button>
     </MotionDiv>

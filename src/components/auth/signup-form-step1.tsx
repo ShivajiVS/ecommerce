@@ -38,9 +38,16 @@ export function SignupFormStep1({ form, onNextStep }: FormStep1Props) {
           <FormItem>
             <FormLabel>Full Name</FormLabel>
             <FormControl>
-              <Input placeholder="Kondeti Shivaji" {...field} />
+              <Input
+                placeholder="Kondeti Shivaji"
+                {...field}
+                data-testid="fullName"
+              />
             </FormControl>
-            <FormMessage className="text-xs" />
+            <FormMessage
+              className="text-xs"
+              data-testid="fullNameErrorMessage"
+            />
           </FormItem>
         )}
       />
@@ -51,9 +58,13 @@ export function SignupFormStep1({ form, onNextStep }: FormStep1Props) {
           <FormItem>
             <FormLabel>Email</FormLabel>
             <FormControl>
-              <Input placeholder="yourname@example.com" {...field} />
+              <Input
+                placeholder="yourname@example.com"
+                data-testid="email"
+                {...field}
+              />
             </FormControl>
-            <FormMessage className="text-xs" />
+            <FormMessage className="text-xs" data-testid="emailErrorMessage" />
           </FormItem>
         )}
       />

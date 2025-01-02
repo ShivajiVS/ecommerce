@@ -110,14 +110,14 @@ export default function SignInForm() {
                           <FormControl>
                             <Input
                               placeholder="vy@gmail.com"
-                              data-testId="email"
+                              data-testid="email"
                               {...field}
                             />
                           </FormControl>
                           <div className="h-1">
                             <FormMessage
                               className="text-xs"
-                              data-testId="emailErrorMessage"
+                              data-testid="emailErrorMessage"
                             />
                           </div>
                         </FormItem>
@@ -144,7 +144,7 @@ export default function SignInForm() {
                             <div className="flex w-full">
                               <PasswordInput
                                 placeholder="*************"
-                                data-testId="password"
+                                data-testid="password"
                                 {...field}
                               />
                             </div>
@@ -152,7 +152,7 @@ export default function SignInForm() {
                           <div className="h-1">
                             <FormMessage
                               className="text-xs"
-                              data-testId="passwordErrorMessage"
+                              data-testid="passwordErrorMessage"
                             />
                           </div>
                         </FormItem>
@@ -162,11 +162,11 @@ export default function SignInForm() {
                   <Button
                     type="submit"
                     className="w-full capitalize flex items-center space-x-2"
-                    data-testId="sign-in"
+                    data-testid="sign-in"
                     disabled={isSubmitting}
                   >
                     {isSubmitting && (
-                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <Loader2 className="h-5 w-5 animate-spin" data-testid="loadingSpinner"/>
                     )}{" "}
                     <span>Login</span>
                   </Button>
