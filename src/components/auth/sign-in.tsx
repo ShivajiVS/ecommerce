@@ -108,10 +108,17 @@ export default function SignInForm() {
                         <FormItem>
                           <FormLabel>Email</FormLabel>
                           <FormControl>
-                            <Input placeholder="vy@gmail.com" {...field} />
+                            <Input
+                              placeholder="vy@gmail.com"
+                              data-testId="email"
+                              {...field}
+                            />
                           </FormControl>
                           <div className="h-1">
-                            <FormMessage className="text-xs" />
+                            <FormMessage
+                              className="text-xs"
+                              data-testId="emailErrorMessage"
+                            />
                           </div>
                         </FormItem>
                       )}
@@ -137,12 +144,16 @@ export default function SignInForm() {
                             <div className="flex w-full">
                               <PasswordInput
                                 placeholder="*************"
+                                data-testId="password"
                                 {...field}
                               />
                             </div>
                           </FormControl>
                           <div className="h-1">
-                            <FormMessage className="text-xs" />
+                            <FormMessage
+                              className="text-xs"
+                              data-testId="passwordErrorMessage"
+                            />
                           </div>
                         </FormItem>
                       )}
@@ -151,6 +162,7 @@ export default function SignInForm() {
                   <Button
                     type="submit"
                     className="w-full capitalize flex items-center space-x-2"
+                    data-testId="sign-in"
                     disabled={isSubmitting}
                   >
                     {isSubmitting && (
