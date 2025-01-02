@@ -1,9 +1,13 @@
 import * as z from "zod";
 
 const SignInSchema = z.object({
-  email: z.string().email({ message: "Invalid email." }),
+  email: z
+    .string()
+    .min(1, { message: "required" })
+    .email({ message: "Invalid email." }),
   password: z
     .string()
+    .min(1, { message: "required" })
     .min(8, { message: "Password must be at least 8 characters long." })
     .regex(/[a-z]/, {
       message: "Password must include at least one lowercase letter.",

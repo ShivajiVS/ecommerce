@@ -4,7 +4,7 @@ const SignUpSchema = z
   .object({
     fullName: z
       .string()
-      .min(1, { message: "Required." }) // Ensures the field is not empty
+      .min(1, { message: "required." }) // Ensures the field is not empty
       .min(4, { message: "Too short." }) // Minimum length of 2 characters
       .max(100, { message: "Too long." }) // Maximum length of 100 characters
       .regex(/^[a-zA-Z\s]+$/, {
@@ -13,7 +13,7 @@ const SignUpSchema = z
     email: z.string().email({ message: "Invalid email." }),
     password: z
       .string()
-      .min(1, { message: "Required." })
+      .min(1, { message: "required." })
       .min(8, { message: "Password must be at least 8 characters long." })
       .regex(/[a-z]/, {
         message: "Password must include at least one lowercase letter.",
@@ -26,9 +26,7 @@ const SignUpSchema = z
         message:
           "Password must include at least one special character (e.g.@, #, $,).",
       }),
-    confirmPassword: z
-      .string()
-      .min(1, { message: "Please confirm your password." }),
+    confirmPassword: z.string().min(1, { message: "required" }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match.",
@@ -38,6 +36,7 @@ const SignUpSchema = z
 export const OtpSchema = z.object({
   pin: z
     .string()
+    .min(1, { message: "required" })
     .min(6, {
       message: "Your one-time password must be 6 digits.",
     })
