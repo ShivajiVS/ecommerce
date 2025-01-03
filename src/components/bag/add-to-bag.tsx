@@ -37,6 +37,7 @@ const AddToBag = ({ _id, title, price, slug, images }: Product) => {
     <>
       <Button
         className="w-full"
+        data-testid="addToBag"
         onClick={() => {
           addToCart({ id: _id, size, title, quantity, price, image, slug });
           toast("Added successful", {

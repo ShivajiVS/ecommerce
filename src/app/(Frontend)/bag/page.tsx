@@ -94,6 +94,7 @@ export default function Page() {
               <div
                 key={id}
                 className="flex space-x-2 py-3 items-center border-b-2 last:border-none"
+                data-testid="bagItem"
               >
                 <Link href={`/product/${slug}?size=${size}`}>
                   <img
