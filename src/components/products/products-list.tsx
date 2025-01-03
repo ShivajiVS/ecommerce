@@ -10,10 +10,11 @@ type PropsTypes = {
 
 export const ProductsList: FC<PropsTypes> = ({ products }) => {
   return (
-    <div className="w-full h-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-5 md:gap-5 py-1">
-      {products?.map((item) => (
-        <ProductCard item={item} key={item._id} />
-      ))}
+    <div
+      className="w-full h-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-5 md:gap-5 py-1"
+      data-testid="products"
+    >
+      {products?.map((item) => <ProductCard item={item} key={item._id} />)}
     </div>
   );
 };

@@ -9,11 +9,7 @@ const Logout = () => {
 
   const { signOut } = useClerk();
 
-  if (!isLoaded) return null;
-
-  console.log("user info", user?.getSessions);
-
-  console.log(user?.getSessions);
+  if (!isLoaded) return;
 
   return (
     <>
@@ -21,12 +17,17 @@ const Logout = () => {
         <div
           className="flex gap-2 font-medium"
           onClick={() => signOut({ redirectUrl: "/" })}
+          data-testid="signOut"
         >
           <LogOut className="w-5 h-5" />
           <span>Sign out</span>
         </div>
       ) : (
-        <Link href="/sign-in" className="flex gap-2 font-medium">
+        <Link
+          href="/sign-in"
+          className="flex gap-2 font-medium"
+          data-testid="signIn"
+        >
           <LogIn className="w-5 h-5" /> <span>SignIn</span>
         </Link>
       )}

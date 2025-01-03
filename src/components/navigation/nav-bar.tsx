@@ -22,7 +22,7 @@ const NavBar = () => {
         </Link>
         <div className="flex space-x-6">
           <div className="relative">
-            <Link href="/bag">
+            <Link href="/bag" data-testid="bag">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

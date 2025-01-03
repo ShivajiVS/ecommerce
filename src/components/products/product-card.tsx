@@ -12,7 +12,11 @@ type PropsTypes = {
 export const ProductCard: FC<PropsTypes> = ({ item }) => {
   const { title, price, discountPercentage, images, slug } = item;
   return (
-    <Link href={`/product/${slug}`} className="cursor-pointer">
+    <Link
+      href={`/product/${slug}`}
+      className="cursor-pointer"
+      data-testid="product"
+    >
       <div className="overflow-hidden rounded-md">
         <img
           src={sanityImageEncoder(images[0]).url()}

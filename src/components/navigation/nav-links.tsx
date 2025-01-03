@@ -21,6 +21,7 @@ export const NavLinks = () => {
           strokeWidth="1.5"
           stroke="currentColor"
           className="h-7 w-7 cursor-pointer dark:text-white"
+          data-testid="account"
         >
           <path
             strokeLinecap="round"
@@ -32,7 +33,7 @@ export const NavLinks = () => {
 
       <DropdownMenuContent className="w-52 mt-5 px-3 py-4 space-y-2">
         <DropdownMenuItem>
-          <Link href="/orders" className="font-medium">
+          <Link href="/orders" className="font-medium" data-testid="orders">
             My Orders
           </Link>
         </DropdownMenuItem>
