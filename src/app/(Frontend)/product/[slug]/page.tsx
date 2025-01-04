@@ -40,6 +40,7 @@ export default async function Page({
         <div className="space-y-4">
           <h2
             className={`font-semibold text-lg lg:text-2xl tracking-tight capitalize `}
+            data-testid="title"
           >
             {product?.title}
           </h2>
@@ -67,7 +68,7 @@ export default async function Page({
           </section>
         </div>
 
-        <section>
+        <section data-testid="description">
           <h3 className="text-base font-bold mb-1 text-[#406786] dark:text-white">
             Description
           </h3>

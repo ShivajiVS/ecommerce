@@ -25,7 +25,7 @@ export const ProductCard: FC<PropsTypes> = ({ item }) => {
         />
       </div>
       <div className="flex flex-col space-y-2 pt-2">
-        <h2 className="font-medium text-xs tracking-tight line-clamp-1">
+        <h2 className="font-medium text-xs tracking-tight line-clamp-1" data-testid="title">
           {title}
         </h2>
         <div className="text-xs font-semibold flex space-x-1">

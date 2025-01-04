@@ -24,6 +24,7 @@ const Sizes = ({ sizes }: { sizes: Array<"M" | "L" | "XL" | "2XL"> }) => {
             }}
             scroll={false}
             key={item}
+            data-testid="size"
             className={cn(
               "bg-gray-100 px-4 py-1 rounded-full text-black uppercase border-2",
               selectedSize === item ? "border-blue-500" : "border-gray-200" // Highlight selected size
