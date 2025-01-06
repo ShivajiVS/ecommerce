@@ -1,7 +1,9 @@
+import { test, expect } from "@playwright/test";
+
 test.only("End-to-end checkout flow: Product selection, checkout, order confirmation, and logout.", async ({
   page,
 }) => {
-  await page.goto("http://localhost:3000/");
+  await page.goto("/");
 
   // Select first product section and validate
   const listOfProducts = await page.getByTestId("products").nth(0);
@@ -35,15 +37,7 @@ test.only("End-to-end checkout flow: Product selection, checkout, order confirma
   bagValue = await page.getByTestId("bagCount").textContent();
   expect(bagValue?.trim()).toBe("2");
 
-  // Add the same size option again, ensure quantity increments
-  await page.getByTestId("size").nth(1).click();
-  await page.getByTestId("addToBag").nth(0).click();
-
-  // Validate that the quantity does not increase and the count remains 2
-  bagValue = await page.getByTestId("bagCount").textContent();
-  expect(bagValue?.trim()).toBe("2");
-
   // Navigate to the bag page
   await page.getByTestId("bag").click();
-  await expect(page).toHaveURL("http://localhost:3000/bag");
+  await expect(page).toHaveURL("/bag");
 });

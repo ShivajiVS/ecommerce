@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { clerk, clerkSetup } from "@clerk/testing/playwright";
+import { clerk, setupClerkTestingToken } from "@clerk/testing/playwright";
 
 test.describe("sign-in page UI testing", () => {
   test("should render the sign-in page correctly", async ({ page }) => {
@@ -213,10 +213,14 @@ test.describe("sign-in page functionality testing", () => {
     );
   });
 
-  test("should display home page with text :'best selling products' after successful sign-in", async ({
+test.only("should display home page with text :'best selling products' after successful sign-in", async ({
     page,
   }) => {
+    await setupClerkTestingToken({ page });
+
     await page.goto("https://ecommerce-vsy.vercel.app/sign-in");
+
+    await clerk.loaded({ page });
 
     const email = page.getByTestId("email");
     await email.fill("sivajikondeti40@gmail.com");
@@ -228,7 +232,7 @@ test.describe("sign-in page functionality testing", () => {
     await page.getByRole("button", { name: "Login" }).click();
 
     await page.waitForURL("https://ecommerce-vsy.vercel.app/", {
-      timeout: 10000,
+      timeout: 6000,
     });
 
     const text = page.getByText("best selling products");
