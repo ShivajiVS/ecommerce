@@ -20,7 +20,8 @@ export default defineConfig({
   reporter: "html",
   timeout: 30 * 1000,
   use: {
-    baseURL: "https://ecommerce-vsy.vercel.app/",
+    // baseURL: "https://ecommerce-vsy.vercel.app/",
+    baseURL: "http://localhost:3000/",
     trace: "on-first-retry",
   },
 

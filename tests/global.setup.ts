@@ -23,14 +23,9 @@ setup("authenticate and save state to storage", async ({ page }) => {
       password: "Shivaji12@#",
     },
   });
-
-  // process.env.NEXT_PUBLIC_E2E_CLERK_USER_USERNAME!
-  // process.env.NEXT_PUBLIC_E2E_CLERK_USER_PASSWORD!
-
   await page.goto("/");
 
-  const text = page.getByText("best selling products");
-  await expect(text).toBeVisible();
+  await expect(page.getByText("best selling products")).toBeVisible();
 
   await page.context().storageState({ path: authFile });
 });

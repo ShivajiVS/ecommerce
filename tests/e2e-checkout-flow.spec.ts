@@ -6,15 +6,15 @@ test.only("End-to-end checkout flow: Product selection, checkout, order confirma
   await page.goto("/");
 
   // Select first product section and validate
-  const listOfProducts = await page.getByTestId("products").nth(0);
+  const listOfProducts = page.getByTestId("products").nth(0);
   await expect(listOfProducts).toBeVisible();
 
   // Select products within the section and check if any products exist
-  const products = await listOfProducts.getByTestId("product");
+  const products = listOfProducts.getByTestId("product");
   expect(await products.count()).toBeGreaterThan(0);
 
   // Click on the 4th product (0-indexed)
-  await products.nth(3).click();
+  await products.nth(5).click();
   await expect(page).toHaveURL(/\/product\/.*/);
 
   // Check initial bag count
@@ -40,4 +40,31 @@ test.only("End-to-end checkout flow: Product selection, checkout, order confirma
   // Navigate to the bag page
   await page.getByTestId("bag").click();
   await expect(page).toHaveURL("/bag");
+
+  await page.getByRole("button", { name: "place order" }).click();
+
+  // stripe payment page
+  await page.waitForURL(/\/checkout.stripe.com\/.*/);
+  await expect(page).toHaveURL(/\/checkout.stripe.com\/.*/);
+  await page.getByPlaceholder("1234 1234 1234").fill("4242 4242 4242 42421");
+  await page.getByPlaceholder("MM / YY").fill("12 / 292");
+  await page.getByPlaceholder("CVC").fill("322");
+  await page.getByPlaceholder("Full name on card").fill("shivaji12@#");
+  await page.getByTestId("hosted-payment-submit-button").click();
+
+  //order page(succesfull payment)
+  // await page.waitForURL(/orders/, { timeout: 10000 });
+  await page.waitForSelector("text=Thank you for ordering", { timeout: 30000 });
+  await expect(
+    page.getByRole("heading", { name: "Thank you for ordering" })
+  ).toBeVisible();
+  await page.getByRole("button", { name: "View order" }).click();
+
+  //orders page(history)
+  await page.waitForURL(/orders/);
+  await expect(page).toHaveURL(/\/orders\/.*/);
+  await page.waitForSelector("text=Order history");
+  await expect(
+    page.getByRole("heading", { name: "Order history" })
+  ).toBeVisible();
 });
