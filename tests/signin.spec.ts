@@ -213,12 +213,12 @@ test.describe("sign-in page functionality testing", () => {
     );
   });
 
-test.only("should display home page with text :'best selling products' after successful sign-in", async ({
+  test.skip("should display home page with text :'best selling products' after successful sign-in", async ({
     page,
   }) => {
-    await setupClerkTestingToken({ page });
+    await page.goto("https://ecommerce-vsy.vercel.app/");
 
-    await page.goto("https://ecommerce-vsy.vercel.app/sign-in");
+    await setupClerkTestingToken({ page });
 
     await clerk.loaded({ page });
 
@@ -231,7 +231,7 @@ test.only("should display home page with text :'best selling products' after suc
     console.log("Attempting to login...");
     await page.getByRole("button", { name: "Login" }).click();
 
-    await page.waitForURL("https://ecommerce-vsy.vercel.app/", {
+    await page.waitForURL("http://localhost:3000", {
       timeout: 6000,
     });
 

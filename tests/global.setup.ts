@@ -2,31 +2,31 @@ import { clerk, clerkSetup } from "@clerk/testing/playwright";
 import { expect, test as setup } from "@playwright/test";
 import path from "path";
 
-setup("global setup", async ({}) => {
-  await clerkSetup();
+setup.describe.configure({ mode: "serial" });
 
-  if (
-    !process.env.E2E_CLERK_USER_USERNAME ||
-    !process.env.E2E_CLERK_USER_PASSWORD
-  ) {
-    throw new Error(
-      "Please provide E2E_CLERK_USER_USERNAME and E2E_CLERK_USER_PASSWORD environment variables."
-    );
-  }
+setup("global setup", async ({}) => {
+  await clerkSetup({
+    frontendApiUrl: "https://smart-ferret-91.clerk.accounts.dev",
+  });
 });
 
-const authFile = path.join(__dirname, "./playwright/.clerk/user.json");
+const authFile = path.join(__dirname, "../playwright/.clerk/user.json");
 
 setup("authenticate and save state to storage", async ({ page }) => {
   await page.goto("/");
+  await clerk.loaded({ page });
   await clerk.signIn({
     page,
     signInParams: {
       strategy: "password",
-      identifier: process.env.E2E_CLERK_USER_USERNAME!,
-      password: process.env.E2E_CLERK_USER_PASSWORD!,
+      identifier: "sivajikondeti40@gmail.com",
+      password: "Shivaji12@#",
     },
   });
+
+  // process.env.NEXT_PUBLIC_E2E_CLERK_USER_USERNAME!
+  // process.env.NEXT_PUBLIC_E2E_CLERK_USER_PASSWORD!
+
   await page.goto("/");
 
   const text = page.getByText("best selling products");
