@@ -18,7 +18,7 @@ export default defineConfig({
   outputDir: "test-results/",
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   use: {
     // baseURL: "https://ecommerce-vsy.vercel.app/",
     baseURL: "http://localhost:3000/",

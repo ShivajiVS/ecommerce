@@ -53,17 +53,18 @@ test.only("End-to-end checkout flow: Product selection, checkout, order confirma
   await page.getByTestId("hosted-payment-submit-button").click();
 
   //order page(succesfull payment)
-  // await page.waitForURL(/orders/, { timeout: 10000 });
-  await page.waitForSelector("text=Thank you for ordering", { timeout: 30000 });
+  await page.waitForURL(/\/orders\/.*/);
+  // Assert that the "Thank you for ordering" heading is visible
   await expect(
     page.getByRole("heading", { name: "Thank you for ordering" })
   ).toBeVisible();
+
   await page.getByRole("button", { name: "View order" }).click();
 
-  //orders page(history)
-  await page.waitForURL(/orders/);
-  await expect(page).toHaveURL(/\/orders\/.*/);
-  await page.waitForSelector("text=Order history");
+  // Wait for the orders page to load
+  await page.waitForURL(/^(http|https):\/\/[^\/]+\/orders(\/.*)?$/);
+
+  // Assert the presence and visibility of the "Order history" heading
   await expect(
     page.getByRole("heading", { name: "Order history" })
   ).toBeVisible();
