@@ -68,4 +68,12 @@ test.only("End-to-end checkout flow: Product selection, checkout, order confirma
   await expect(
     page.getByRole("heading", { name: "Order history" })
   ).toBeVisible();
+
+  await page.goto("/");
+  await page.getByTestId("account").click();
+  await expect(page.getByTestId("signOut")).toBeVisible();
+  await page.getByTestId("signOut").click();
+
+  await page.getByTestId("account").click();
+  await expect(page.getByTestId("signIn")).toBeVisible();
 });
