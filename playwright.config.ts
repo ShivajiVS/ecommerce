@@ -41,5 +41,12 @@ export default defineConfig({
       },
       dependencies: ["global setup"],
     },
+    {
+      name: "test",
+      testMatch: "**/*.spec.ts", // Matches other test files
+      use: {
+        ...devices["Desktop Chrome"],
+      },
+    },
   ],
 });
