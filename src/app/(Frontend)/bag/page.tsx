@@ -106,17 +106,23 @@ export default function Page() {
                 <div className="w-full px-2 lg:px-3 flex flex-col space-y-2.5">
                   <section className="w-full flex items-center justify-between">
                     <Link href={`/product/${slug}?size=${size}`}>
-                      <h2 className="font-medium text-sm hover:text-slate-400">
+                      <h2
+                        className="font-medium text-sm hover:text-slate-400"
+                        data-testid="title"
+                      >
                         {title}
                       </h2>
                     </Link>
-                    <h4 className="font-normal text-sm hidden sm:block">
+                    <h4
+                      className="font-normal text-sm hidden sm:block"
+                      data-testid="price"
+                    >
                       ₹{quantity * price}
                     </h4>
                   </section>
 
                   <section className="font-semibold text-sm">
-                    <h3>
+                    <h3 data-testid="size">
                       Size: <span className="px-1 uppercase">{size}</span>
                     </h3>
                   </section>
@@ -142,6 +148,7 @@ export default function Page() {
                           exit={{ y: -20, opacity: 0 }}
                           transition={{ duration: 0.4, ease: "easeInOut" }}
                           className="absolute top-0 left-0 w-full flex items-center justify-center text-lg font-medium"
+                          data-testid="quantity"
                         >
                           {quantity}
                         </motion.div>
@@ -180,7 +187,7 @@ export default function Page() {
                   Total
                   <span className="ml-1 uppercase">mrp</span>
                 </h3>
-                <span>{formatPrice(subTotal)}</span>
+                <span data-testid="totalMrp">{formatPrice(subTotal)}</span>
               </section>
 
               <section className="flex justify-between mt-3 text-sm">
@@ -197,7 +204,7 @@ export default function Page() {
 
               <section className="flex justify-between mt-3 text-sm font-semibold border-t pt-4">
                 <h3 className="tracking-tight capitalize">total amount</h3>
-                <span>{formatPrice(subTotal - 0 + 0)}</span>
+                <span data-testid="total">{formatPrice(subTotal - 0 + 0)}</span>
               </section>
             </div>
             <div className="mt-8 hidden md:block">
