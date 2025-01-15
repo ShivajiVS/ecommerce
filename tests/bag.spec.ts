@@ -25,21 +25,35 @@ test.describe("Bag Page", () => {
     // Validate the updated bag count
     const bagValue = await page.getByTestId("bagCount").textContent();
     expect(bagValue?.trim()).toBe("1");
-
-    // // Navigate to the bag page
-    // page.goto("/");
-    // await page.getByTestId("bag").click();
-    // await expect(page).toHaveURL("/bag");
-    // await page.waitForTimeout(5000);
   });
 
   test.afterAll(async () => {
     await page.close();
   });
 
-  test("bag has 1 product", async () => {
+  test("should display 1 product in the bag", async () => {
     let bagValue = await page.getByTestId("bagCount").textContent();
+
+    // Ensure the bag count shows "1" after adding a product
     expect(bagValue?.trim()).toBe("1");
-    await page.waitForTimeout(5000);
+  });
+
+  test("should increment and decrement product quantity correctly", async () => {
+    // Navigate to the 'bag' page
+    page.goto("/bag");
+
+    // Get the first bag item
+    const bagItem = page.getByTestId("bagItem").first();
+
+    // Check initial quantity is 1
+    expect(await bagItem.getByTestId("quantity").textContent()).toBe("1");
+
+    // Increase quantity
+    await bagItem.getByRole("button", { name: "Increase quantity" }).click();
+    expect(await bagItem.getByTestId("quantity").textContent()).toBe("2");
+
+    // Decrease quantity
+    await bagItem.getByRole("button", { name: "Decrease quantity" }).click();
+    expect(await bagItem.getByTestId("quantity").textContent()).toBe("1");
   });
 });
