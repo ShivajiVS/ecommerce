@@ -1,14 +1,12 @@
 "use client";
 
 import { Loader2, LogIn, MinusIcon, PlusIcon, Trash2 } from "lucide-react";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import Lootie from "lottie-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { toast } from "sonner";
-
-import { useAuth } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
 import { useCartState } from "@/lib/store/client-store";
@@ -86,7 +84,10 @@ export default function Page() {
         <div className="flex flex-col md:flex-row md:space-x-6 mb-24 lg:mb-0 mx-2 md:mx-0.5 relative">
           {/* Product List */}
           <div className="flex flex-col space-y-4 w-full md:w-2/3 lg:w-3/4 mt-0 p-1.5 overflow-y-auto">
-            <h2 className="font-bold text-base tracking-tight lg:text-xl mt-2">
+            <h2
+              className="font-bold text-base tracking-tight lg:text-xl mt-2"
+              aria-label="My bag"
+            >
               My Bag
               <sup className="font-medium"> ({cart.length})</sup>
             </h2>
@@ -162,13 +163,12 @@ export default function Page() {
                         <PlusIcon className="h-5 w-5" />
                       </button>
                     </div>
-                    <div>
-                      <Trash2
-                        className="text-red-600 cursor-pointer hover:text-red-700"
-                        onClick={() => removeFromCart(id, size)}
-                        aria-label="Remove item"
-                      />
-                    </div>
+                    <button
+                      onClick={() => removeFromCart(id, size)}
+                      aria-label="Remove item"
+                    >
+                      <Trash2 className="text-red-600 cursor-pointer hover:text-red-700" />
+                    </button>
                   </section>
                 </div>
               </div>

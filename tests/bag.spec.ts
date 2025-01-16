@@ -31,6 +31,11 @@ test.describe("Bag Page", () => {
     await page.close();
   });
 
+  test("should bag page visible or not", async () => {
+    await page.goto("/bag");
+    await expect(page.getByRole("heading", { name: "My bag" })).toBeVisible();
+  });
+
   test("should display 1 product in the bag", async () => {
     let bagValue = await page.getByTestId("bagCount").textContent();
 
@@ -39,10 +44,8 @@ test.describe("Bag Page", () => {
   });
 
   test("should increment and decrement product quantity correctly", async () => {
-    // Navigate to the 'bag' page
-    page.goto("/bag");
+    await page.goto("/bag");
 
-    // Get the first bag item
     const bagItem = page.getByTestId("bagItem").first();
 
     // Check initial quantity is 1
@@ -55,5 +58,47 @@ test.describe("Bag Page", () => {
     // Decrease quantity
     await bagItem.getByRole("button", { name: "Decrease quantity" }).click();
     expect(await bagItem.getByTestId("quantity").textContent()).toBe("1");
+  });
+
+  test("should remove the product from the bag", async () => {
+    await page.goto("/bag");
+    let bagItem = page.getByTestId("bagItem").first();
+
+    await bagItem.getByRole("button", { name: "Remove item" }).click();
+
+    bagItem = page.getByTestId("bagItem");
+
+    expect(await bagItem.count()).toBe(0);
+  });
+
+  test("should dsiplays a 'your Bag is Empty' after removing the product from the bag", async () => {
+    await page.goto("/bag");
+
+    let bagItem = page.getByTestId("bagItem").first();
+
+    await bagItem.getByRole("button", { name: "Remove item" }).click();
+
+    expect(
+      page.getByRole("heading", { name: "Your Shopping Bag is Empty!" })
+    ).toBeVisible();
+  });
+
+  test("should displays a total mrp and total amount", async () => {
+    await page.goto("/bag");
+
+    await expect(page.getByTestId("totalMrp")).toBeVisible();
+
+    await expect(page.getByTestId("total")).toBeVisible();
+  });
+
+  test("should signIn button works correctly", async () => {
+    await page.goto("/bag");
+
+    await expect(page.getByRole("button", { name: "SignIn" })).toBeVisible();
+
+    await page.getByRole("button", { name: "SignIn" }).click();
+
+    await page.waitForURL("/sign-in");
+    await expect(page).toHaveURL("/sign-in");
   });
 });
