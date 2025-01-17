@@ -3,7 +3,7 @@ import { test, expect, Page } from "@playwright/test";
 let page: Page;
 
 test.describe("Bag Page", () => {
-  test.beforeAll(async ({ browser }) => {
+  test.beforeEach(async ({ browser }) => {
     page = await browser.newPage();
     await page.goto("/");
 
@@ -71,7 +71,7 @@ test.describe("Bag Page", () => {
     expect(await bagItem.count()).toBe(0);
   });
 
-  test("should dsiplays a 'your Bag is Empty' after removing the product from the bag", async () => {
+  test("should displays a 'your Bag is Empty' after removing the product from the bag", async () => {
     await page.goto("/bag");
 
     let bagItem = page.getByTestId("bagItem").first();
