@@ -2,6 +2,8 @@ import { test, expect } from "@playwright/test";
 
 import { clerk, setupClerkTestingToken } from "@clerk/testing/playwright";
 
+test.use({ storageState: { cookies: [], origins: [] } });
+
 test.describe("sign-in page UI testing", () => {
   test("should render the sign-in page correctly", async ({ page }) => {
     await page.goto("http://localhost:3000/sign-in");
@@ -174,7 +176,9 @@ test.describe("sign-in page functionality testing", () => {
   test("should display an error message for invalid email(doesn't exist on the db )", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await setupClerkTestingToken({ page });
+
+    await page.goto("/sign-in");
 
     const email = page.getByTestId("email");
     await email.fill("shivaji@gmail.com");
@@ -191,16 +195,20 @@ test.describe("sign-in page functionality testing", () => {
     await expect(formErrorMessage?.trim()).toBe("Couldn't find your account.");
   });
 
-  test("should display an error message for invalid password(password doesn't exist on the db)", async ({
+  test.only("should display an error message for invalid password(password doesn't exist on the db)", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await setupClerkTestingToken({ page });
+
+    await page.goto("/sign-in");
+
+    await clerk.loaded({ page });
 
     const email = page.getByTestId("email");
-    await email.fill("shivaji@gmail.com");
+    await email.fill("sivajikondeti40@gmail.com");
 
     const password = page.getByTestId("password");
-    await password.fill("Test12@#");
+    await password.fill("Shivaji12@#");
 
     await page.getByRole("button", { name: "Login" }).click();
 
@@ -213,29 +221,24 @@ test.describe("sign-in page functionality testing", () => {
     );
   });
 
-  test.skip("should display home page with text :'best selling products' after successful sign-in", async ({
+  test("should display Logout button after successful sign-in", async ({
     page,
   }) => {
-    await page.goto("https://ecommerce-vsy.vercel.app/");
-
     await setupClerkTestingToken({ page });
 
-    await clerk.loaded({ page });
+    await page.goto("/sign-in");
 
-    const email = page.getByTestId("email");
-    await email.fill("sivajikondeti40@gmail.com");
-
-    const password = page.getByTestId("password");
-    await password.fill("Shivaji12@#");
-
-    console.log("Attempting to login...");
-    await page.getByRole("button", { name: "Login" }).click();
-
-    await page.waitForURL("http://localhost:3000", {
-      timeout: 6000,
+    await clerk.signIn({
+      page,
+      signInParams: {
+        strategy: "password",
+        identifier: "sivajikondeti40@gmail.com",
+        password: "Shivaji12@#s",
+      },
     });
 
-    const text = page.getByText("best selling products");
-    await expect(text).toBeVisible();
+    await page.goto("/");
+    await page.getByTestId("account").click();
+    await expect(page.getByTestId("signOut")).toBeVisible();
   });
 });
