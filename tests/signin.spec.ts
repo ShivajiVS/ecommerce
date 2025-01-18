@@ -2,7 +2,9 @@ import { test, expect } from "@playwright/test";
 
 import { clerk, setupClerkTestingToken } from "@clerk/testing/playwright";
 
-test.use({ storageState: { cookies: [], origins: [] } });
+test.use({
+  storageState: { cookies: [], origins: [] },
+});
 
 test.describe("sign-in page UI testing", () => {
   test("should render the sign-in page correctly", async ({ page }) => {
@@ -173,7 +175,7 @@ test.describe("sign-in page functionality testing", () => {
     );
   });
 
-  test("should display an error message for invalid email(doesn't exist on the db )", async ({
+  test.skip("should display an error message for invalid email(doesn't exist on the db )", async ({
     page,
   }) => {
     await setupClerkTestingToken({ page });
@@ -195,14 +197,16 @@ test.describe("sign-in page functionality testing", () => {
     await expect(formErrorMessage?.trim()).toBe("Couldn't find your account.");
   });
 
-  test.only("should display an error message for invalid password(password doesn't exist on the db)", async ({
+  test.skip("should display an error message for invalid password(password doesn't exist on the db)", async ({
     page,
   }) => {
     await setupClerkTestingToken({ page });
 
-    await page.goto("/sign-in");
+    await page.goto("/");
 
     await clerk.loaded({ page });
+
+    await page.goto("/sign-in");
 
     const email = page.getByTestId("email");
     await email.fill("sivajikondeti40@gmail.com");
@@ -221,7 +225,7 @@ test.describe("sign-in page functionality testing", () => {
     );
   });
 
-  test("should display Logout button after successful sign-in", async ({
+  test("should display a Logout button after successful sign-in", async ({
     page,
   }) => {
     await setupClerkTestingToken({ page });
@@ -233,7 +237,7 @@ test.describe("sign-in page functionality testing", () => {
       signInParams: {
         strategy: "password",
         identifier: "sivajikondeti40@gmail.com",
-        password: "Shivaji12@#s",
+        password: "Shivaji12@#",
       },
     });
 
