@@ -104,7 +104,7 @@ test.describe("sign-up page functionality testing", () => {
     expect(emailErrorMessage?.trim()).toBe("Invalid email.");
   });
 
-  test.only("should display a password and confirm passwords input fields", async ({
+  test("should display a password and confirm passwords input fields", async ({
     page,
   }) => {
     await page.goto("/sign-up");
@@ -120,5 +120,27 @@ test.describe("sign-up page functionality testing", () => {
     await expect(page.getByTestId("password")).toBeVisible();
 
     await expect(page.getByTestId("confirmPassword")).toBeVisible();
+  });
+
+  test("entire signup flow", async ({
+    page,
+  }) => {
+    await page.goto("/sign-up");
+
+    await page.getByTestId("fullName").fill("shivaji");
+
+    await page.getByTestId("email").fill("shivaji@gmail.com");
+
+    await page.getByRole("button", { name: "Next" }).click();
+
+    await expect(page.getByTestId("password")).toBeVisible();
+
+    await expect(page.getByTestId("confirmPassword")).toBeVisible();
+
+    await page.getByTestId("password").fill("Test12@#");
+
+    await page.getByTestId("confirmPassword").fill("Test12@#");
+
+    await page.getByTestId("createAccount").click();
   });
 });
