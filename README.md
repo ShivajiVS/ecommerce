@@ -13,5 +13,6 @@ Designed and developed an e-commerce website with a focus on user experience and
 - Framer Motion.
 - Clerk.
 - Zustand.
-- Sanity CMS
+- Sanity CMS.
 - React Hook form and Zod.
+- End to End Testing with Playwright.
