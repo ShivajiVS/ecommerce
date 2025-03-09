@@ -1,5 +1,9 @@
 import { test, expect, Page } from "@playwright/test";
 
+test.use({
+  storageState: { cookies: [], origins: [] },
+});
+
 let page: Page;
 
 test.describe("Bag Page", () => {

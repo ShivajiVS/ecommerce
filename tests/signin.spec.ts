@@ -8,7 +8,7 @@ test.use({
 
 test.describe("sign-in page UI testing", () => {
   test("should render the sign-in page correctly", async ({ page }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto("/sign-in");
 
     const heading = page.getByRole("heading", { name: "Login" });
 
@@ -18,7 +18,7 @@ test.describe("sign-in page UI testing", () => {
   test("should have a visible email and password input fields", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto("/sign-in");
     const email = page.getByTestId("email");
     await expect(email).toBeVisible();
 
@@ -27,14 +27,14 @@ test.describe("sign-in page UI testing", () => {
   });
 
   test("should disable the Sign In button by default", async ({ page }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto("/sign-in");
 
     const loginButton = page.getByRole("button", { name: "Login" });
     await expect(loginButton).not.toBeDisabled();
   });
 
   test('should display a "Forgot Password?" link', async ({ page }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto("/sign-in");
 
     const forgotButton = page.getByRole("link", {
       name: "Forgot your password",
@@ -48,7 +48,7 @@ test.describe("sign-in page functionality testing", () => {
   test("should display an errors for empty email and password", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto("/sign-in");
 
     await page.getByRole("button", { name: "Login" }).click();
 
@@ -66,7 +66,7 @@ test.describe("sign-in page functionality testing", () => {
   });
 
   test("should display an error for invalid email format", async ({ page }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto("/sign-in");
 
     const email = page.getByTestId("email");
     await email.fill("shivaji#gmail.com");
@@ -83,7 +83,7 @@ test.describe("sign-in page functionality testing", () => {
   test("should display an error for less than 8 characters of password", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto("/sign-in");
 
     const password = page.getByTestId("password");
     await password.fill("111");
@@ -102,7 +102,7 @@ test.describe("sign-in page functionality testing", () => {
   test("should display an error for more than 8 characters of password but without any digits", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto("/sign-in");
 
     const password = page.getByTestId("password");
     await password.fill("Test@jhd");
@@ -121,7 +121,7 @@ test.describe("sign-in page functionality testing", () => {
   test("should display an error for more than 8 characters of password but without any lowecase letters", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto("/sign-in");
 
     const password = page.getByTestId("password");
     await password.fill("11111111");
@@ -140,7 +140,7 @@ test.describe("sign-in page functionality testing", () => {
   test("should display an error for more than 8 characters of password but without any uppercase letters", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto("/sign-in");
 
     const password = page.getByTestId("password");
     await password.fill("1111111s");
@@ -159,7 +159,7 @@ test.describe("sign-in page functionality testing", () => {
   test("should display an error for but without any uppercase letters", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/sign-in");
+    await page.goto("/sign-in");
 
     const password = page.getByTestId("password");
     await password.fill("1111111sS");
