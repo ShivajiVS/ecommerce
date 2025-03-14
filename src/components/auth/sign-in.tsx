@@ -85,107 +85,112 @@ export default function SignInForm() {
         <div className="mx-auto max-w-sm lg:max-w-md mb-4">
           {error && <FormError message={error} />}
         </div>
-        <Card className="mx-auto max-w-sm lg:max-w-md ">
-          <CardHeader>
-            <CardTitle className="text-2xl">Login</CardTitle>
-            <CardDescription>
-              Enter your email below to login to your account
-            </CardDescription>
-          </CardHeader>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full max-w-md flex flex-col gap-4"
-            >
-              <CardContent>
-                <div className="grid gap-4">
-                  <div className="grid gap-2">
-                    {/* email */}
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="vy@gmail.com"
-                              data-testid="email"
-                              {...field}
-                            />
-                          </FormControl>
-                          <div className="h-1">
-                            <FormMessage
-                              className="text-xs"
-                              data-testid="emailErrorMessage"
-                            />
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    {/* password */}
-                    <FormField
-                      control={form.control}
-                      name="password"
-                      render={({ field }) => (
-                        <FormItem>
-                          <div className="flex items-center">
-                            <FormLabel>Password</FormLabel>
-                            <Link
-                              href="#"
-                              className="ml-auto inline-block text-sm underline text-[#0069c2]"
-                            >
-                              Forgot your password?
-                            </Link>
-                          </div>
-                          <FormControl>
-                            <div className="flex w-full">
-                              <PasswordInput
-                                placeholder="*************"
-                                data-testid="password"
+        <Card className="mx-auto max-w-sm lg:max-w-md relative">
+          <div>
+            <CardHeader>
+              <CardTitle className="text-2xl">Login</CardTitle>
+              <CardDescription>
+                Enter your email below to login to your account
+              </CardDescription>
+            </CardHeader>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="w-full max-w-md flex flex-col gap-4"
+              >
+                <CardContent>
+                  <div className="grid gap-4">
+                    <div className="grid gap-2">
+                      {/* email */}
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="vy@gmail.com"
+                                data-testid="email"
                                 {...field}
                               />
+                            </FormControl>
+                            <div className="h-1">
+                              <FormMessage
+                                className="text-xs"
+                                data-testid="emailErrorMessage"
+                              />
                             </div>
-                          </FormControl>
-                          <div className="h-1">
-                            <FormMessage
-                              className="text-xs"
-                              data-testid="passwordErrorMessage"
-                            />
-                          </div>
-                        </FormItem>
-                      )}
-                    />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      {/* password */}
+                      <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                          <FormItem>
+                            <div className="flex items-center">
+                              <FormLabel>Password</FormLabel>
+                              <Link
+                                href="#"
+                                className="ml-auto inline-block text-sm underline text-[#0069c2]"
+                              >
+                                Forgot your password?
+                              </Link>
+                            </div>
+                            <FormControl>
+                              <div className="flex w-full">
+                                <PasswordInput
+                                  placeholder="*************"
+                                  data-testid="password"
+                                  {...field}
+                                />
+                              </div>
+                            </FormControl>
+                            <div className="h-1">
+                              <FormMessage
+                                className="text-xs"
+                                data-testid="passwordErrorMessage"
+                              />
+                            </div>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <Button
+                      type="submit"
+                      className="w-full capitalize flex items-center space-x-2"
+                      data-testid="sign-in"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting && (
+                        <Loader2
+                          className="h-5 w-5 animate-spin"
+                          data-testid="loadingSpinner"
+                        />
+                      )}{" "}
+                      <span>Login</span>
+                    </Button>
                   </div>
-                  <Button
-                    type="submit"
-                    className="w-full capitalize flex items-center space-x-2"
-                    data-testid="sign-in"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting && (
-                      <Loader2 className="h-5 w-5 animate-spin" data-testid="loadingSpinner"/>
-                    )}{" "}
-                    <span>Login</span>
-                  </Button>
-                </div>
-              </CardContent>
-            </form>
-          </Form>
-          <CardFooter className="flex-col">
-            <div className="mx-auto mb-3 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
-              or
-            </div>
-            <SocialAuth />
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <Link href="/sign-up" className="underline">
-                SignUp
-              </Link>
-            </div>
-          </CardFooter>
+                </CardContent>
+              </form>
+            </Form>
+            <CardFooter className="flex-col">
+              <div className="mx-auto mb-3 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
+                or
+              </div>
+              <SocialAuth />
+              <div className="mt-4 text-center text-sm">
+                Don&apos;t have an account?{" "}
+                <Link href="/sign-up" className="underline">
+                  SignUp
+                </Link>
+              </div>
+            </CardFooter>
+          </div>
         </Card>
       </div>
     </>

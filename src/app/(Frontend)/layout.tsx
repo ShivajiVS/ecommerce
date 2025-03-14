@@ -21,8 +21,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  auth,
 }: Readonly<{
   children: React.ReactNode;
+  auth: React.ReactNode;
 }>) {
   return (
     <ClerkProvider>
@@ -34,13 +36,15 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            {auth}
             <div className="flex flex-col min-h-screen dark:bg-slate-900 dark:text-white">
               <Banner />
               <NavBar />
               <main className="w-full grow">
-                <div className="max-w-6xl mx-auto lg:px-6">{children}</div>
+                <div className="max-w-6xl mx-auto lg:px-6 -z-40">
+                  {children}
+                </div>
               </main>
-              {/* <Footer /> */}
             </div>
             <Toaster
               toastOptions={{
