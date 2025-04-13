@@ -4,7 +4,7 @@
 import SignInForm from "@/components/auth/sign-in";
 import { Model } from "@/components/model";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 export default function Page() {
   const [show, setShow] = useState(false);
@@ -26,10 +26,11 @@ export default function Page() {
         //     </button>
         //   </div>
         // </div>
-
-        <Model isVisible onClose={() => setShow(false)}>
-          <SignInForm />
-        </Model>
+        <Suspense fallback={<h1>Loading..</h1>}>
+          <Model isVisible onClose={() => setShow(false)}>
+            <SignInForm />
+          </Model>
+        </Suspense>
       )}
     </div>
   );

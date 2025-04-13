@@ -1,9 +1,10 @@
 "use client";
 
-import SignInForm from "@/components/auth/sign-in";
-import { Model } from "@/components/model";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
+import { Model } from "@/components/model";
+import SignInForm from "@/components/auth/sign-in";
 
 export default function SignInRouteInterception() {
   const router = useRouter();

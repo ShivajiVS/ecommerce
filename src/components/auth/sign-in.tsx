@@ -9,7 +9,13 @@ import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSignIn } from "@clerk/nextjs";
-import { useCallback, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -37,6 +43,7 @@ import SocialAuth from "./social-auth";
 export default function SignInForm() {
   const [error, setError] = useState<string>("");
   const router = useRouter();
+  const emailRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
@@ -79,6 +86,12 @@ export default function SignInForm() {
     formState: { isSubmitting },
   } = form;
 
+  useEffect(() => {
+    if (emailRef.current) {
+      emailRef.current.focus();
+    }
+  }, []);
+
   return (
     <>
       <div className="box-border pt-8 px-2.5">
@@ -105,24 +118,29 @@ export default function SignInForm() {
                       <FormField
                         control={form.control}
                         name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="vy@gmail.com"
-                                data-testid="email"
-                                {...field}
-                              />
-                            </FormControl>
-                            <div className="h-1">
-                              <FormMessage
-                                className="text-xs"
-                                data-testid="emailErrorMessage"
-                              />
-                            </div>
-                          </FormItem>
-                        )}
+                        render={({ field }) => {
+                          const { ref, ...restField } = field;
+                          useImperativeHandle(ref, () => emailRef.current!);
+                          return (
+                            <FormItem>
+                              <FormLabel>Email</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="vy@gmail.com"
+                                  data-testid="email"
+                                  {...restField}
+                                  ref={emailRef}
+                                />
+                              </FormControl>
+                              <div className="h-1">
+                                <FormMessage
+                                  className="text-xs"
+                                  data-testid="emailErrorMessage"
+                                />
+                              </div>
+                            </FormItem>
+                          );
+                        }}
                       />
                     </div>
                     <div className="grid gap-2">

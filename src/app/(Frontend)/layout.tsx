@@ -8,8 +8,6 @@ import { Toaster } from "@/components/ui/sonner";
 import { Banner } from "@/components/banner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SanityLive } from "@/sanity/live";
-import { Footer } from "@/components/footer";
-import { BagModel } from "@/components/bag-model";
 
 const lora = Lora({ subsets: ["latin-ext"] });
 
@@ -36,13 +34,13 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {auth}
             <div className="flex flex-col min-h-screen dark:bg-slate-900 dark:text-white">
               <Banner />
               <NavBar />
-              <main className="w-full grow">
-                <div className="max-w-6xl mx-auto lg:px-6 -z-40">
+              <main className="w-full grow z-30">
+                <div className="max-w-6xl mx-auto lg:px-6">
                   {children}
+                  {auth}
                 </div>
               </main>
             </div>
