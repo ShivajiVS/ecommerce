@@ -56,26 +56,20 @@ export default function SignInForm() {
   const { isLoaded, signIn, setActive } = useSignIn();
 
   const onSubmit = useCallback(async (values: z.infer<typeof SignInSchema>) => {
-    console.log("before loading..");
     const { email, password } = values;
 
     if (!isLoaded) return;
 
-    console.log("before response", email, password);
     try {
       const signInAttempt = await signIn.create({
         identifier: email,
         password,
       });
 
-      console.log("after response");
-
       if (signInAttempt.status === "complete") {
         await setActive({ session: signInAttempt.createdSessionId });
         router.push("/");
       }
-
-      console.log("after session creation");
     } catch (error: any) {
       console.log("auth error is sss", error.errors[0].message);
       setError(error.errors[0].message);
