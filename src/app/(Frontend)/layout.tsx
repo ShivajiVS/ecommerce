@@ -38,7 +38,7 @@ export default function RootLayout({
               <Banner />
               <NavBar />
               <main className="w-full grow z-30">
-                <div className="max-w-6xl mx-auto lg:px-6">
+                <div className="">
                   {children}
                   {auth}
                 </div>

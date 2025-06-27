@@ -63,7 +63,7 @@ export default function Page() {
 
   if (mounted && cart.length === 0) {
     return (
-      <div className="flex flex-col h-full w-full items-center justify-center mt-28 lg:mt-16">
+      <div className="flex flex-col h-full w-full items-center justify-center mt-28 lg:mt-16 max-w-6xl mx-auto px-3">
         <motion.div
           animate={{ opacity: 1 }}
           initial={{ opacity: 0 }}
@@ -80,7 +80,7 @@ export default function Page() {
 
   return (
     mounted && (
-      <div className="h-full relative">
+      <div className="h-full relative max-w-6xl mx-auto px-3">
         <div className="flex flex-col md:flex-row md:space-x-6 mb-24 lg:mb-0 mx-2 md:mx-0.5 relative">
           {/* Product List */}
           <div className="flex flex-col space-y-4 w-full md:w-2/3 lg:w-3/4 mt-0 p-1.5 overflow-y-auto">

@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="w-full flex flex-col md:flex-row md:space-x-6 mt-6 mx-2 md:mx-0.5">
+    <div className="w-full flex flex-col md:flex-row md:space-x-6 mt-6 md:mx-0.5 max-w-6xl mx-auto px-4">
       <div className="w-full max-w-3xl">
         {Array(4)
           .fill(0)
@@ -27,7 +27,6 @@ export default function Loading() {
             </div>
           ))}
       </div>
-      {/* <Skeleton className="rounded-md w-full lg:w-[450px] h-56 mt-5 hidden lg:inline-block" /> */}
     </div>
   );
 }

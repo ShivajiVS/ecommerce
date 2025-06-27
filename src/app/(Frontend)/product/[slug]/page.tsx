@@ -30,7 +30,7 @@ export default async function Page({
   if (!product) return notFound();
 
   return (
-    <div className="w-full flex flex-col lg:flex-row space-y-3 lg:space-x-7 h-full relative pt-3">
+    <div className="w-full flex flex-col lg:flex-row space-y-3 lg:space-x-7 h-full relative pt-3 max-w-6xl mx-auto px-3">
       {/* product image */}
       <div className="flex flex-col lg:flex-row w-full lg:w-3/5">
         <ProductImage images={product.images} />

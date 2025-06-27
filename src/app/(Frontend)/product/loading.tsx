@@ -3,7 +3,7 @@ import { Fragment } from "react";
 
 export default function Loading() {
   return (
-    <div className="w-full flex flex-col lg:flex-row space-y-3 lg:space-x-7 h-full relative lg:px-3 pt-3">
+    <div className="w-full flex flex-col lg:flex-row space-y-3 lg:space-x-7 h-full relative lg:px-3 pt-3 max-w-6xl mx-auto px-3">
       {/* product image */}
       <div className="flex flex-col lg:flex-row w-full lg:w-1/2">
         <Skeleton className="h-[400px] lg:h-[600px] w-full rounded-md" />

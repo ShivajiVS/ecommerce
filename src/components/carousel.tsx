@@ -15,7 +15,7 @@ interface CarouselProps {
 }
 
 const Carousel = ({
-  images = ["1.png", "2.png", "3.png", "4.png", "5.png"],
+  images = ["hero-image.png", "hero-image2.png", "hero-image.png"],
   autoSlideInterval = 4000,
   transitionSpeed = 0.7,
   loop = true,
@@ -62,21 +62,21 @@ const Carousel = ({
 
   return (
     <div
-      className="mb-8 mt-5 overflow-hidden lg:mx-4"
+      className="mb-8 overflow-hidden"
       onMouseEnter={() => pauseOnHover && setIsPaused(true)}
       onMouseLeave={() => pauseOnHover && setIsPaused(false)}
     >
-      <div className="w-full h-[500px] relative overflow-hidden">
-        <button className="absolute z-[500000] left-2 top-1/2 transform -translate-y-1/2">
+      <div className="w-full h-[40vh] md:h-[60vh] relative overflow-hidden">
+        <button className="absolute z-[500000] left-1.5 md:left-2 top-1/2 transform -translate-y-1/2">
           <ChevronLeft
-            className="h-10 w-10 cursor-pointer text-background"
+            className="h-10 w-10 cursor-pointer text-foreground"
             onClick={loadPreviousImage}
             aria-label="Previous image"
           />
         </button>
-        <button className="absolute z-[500000] right-2 top-1/2 transform -translate-y-1/2">
+        <button className="absolute z-[500000] right-0.5 md:right-2 top-1/2 transform -translate-y-1/2">
           <ChevronRight
-            className="h-10 w-10 cursor-pointer text-background"
+            className="h-10 w-10 cursor-pointer text-foreground"
             onClick={loadNextImage}
             aria-label="Next image"
           />
