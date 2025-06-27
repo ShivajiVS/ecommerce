@@ -13,14 +13,16 @@ import { useCartState } from "@/lib/store/client-store";
 import formatPrice from "@/lib/format-price";
 import emptyBusket from "../../../../public/emptyBusket.json";
 
-export const dynamic = "force-dynamic";
-
 export default function Page() {
-  const { cart, removeFromCart, incrementQuantity, decrementQuantity } =
-    useCartState((state) => state);
-
   const [mounted, setMounted] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+
+  if (!mounted) {
+    return null; // Don't render on the server
+  }
+
+  const { cart, removeFromCart, incrementQuantity, decrementQuantity } =
+    useCartState((state) => state);
 
   // Memoize subtotal to avoid unnecessary recalculations
   const subTotal = useMemo(
