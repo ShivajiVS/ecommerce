@@ -17,9 +17,7 @@ export default function Page() {
   const [mounted, setMounted] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
 
-  if (!mounted) {
-    return null; // Don't render on the server
-  }
+  useEffect(() => setMounted(true), []);
 
   const { cart, removeFromCart, incrementQuantity, decrementQuantity } =
     useCartState((state) => state);
@@ -30,9 +28,11 @@ export default function Page() {
     [cart]
   );
 
-  const { isSignedIn, user } = useUser();
+  if (!mounted) {
+    return null; // Don't render on the server
+  }
 
-  useEffect(() => setMounted(true), []);
+  const { isSignedIn, user } = useUser();
 
   const onCheckout = async () => {
     setCheckoutLoading(true);
