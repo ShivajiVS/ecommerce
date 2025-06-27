@@ -13,11 +13,15 @@ import { useCartState } from "@/lib/store/client-store";
 import formatPrice from "@/lib/format-price";
 import emptyBusket from "../../../../public/emptyBusket.json";
 
+export const dynamic = "force-dynamic";
+
 export default function Page() {
   const [mounted, setMounted] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  if (typeof window === "undefined") {
+    return null;
+  }
 
   const { cart, removeFromCart, incrementQuantity, decrementQuantity } =
     useCartState((state) => state);
@@ -27,6 +31,8 @@ export default function Page() {
     () => cart.reduce((total, item) => total + item.quantity * item.price, 0),
     [cart]
   );
+
+  useEffect(() => setMounted(true), []);
 
   if (!mounted) {
     return null; // Don't render on the server
