@@ -1,19 +1,21 @@
 import { clerk, clerkSetup } from "@clerk/testing/playwright";
-import { expect, test as setup } from "@playwright/test";
+import { chromium, expect } from "@playwright/test";
 import path from "path";
-
-setup.describe.configure({ mode: "serial" });
-
-setup("global setup", async ({}) => {
-  await clerkSetup({
-    frontendApiUrl: "https://smart-ferret-91.clerk.accounts.dev",
-  });
-});
 
 const authFile = path.join(__dirname, "../playwright/.clerk/user.json");
 
-setup("authenticate and save state to storage", async ({ page }) => {
-  await page.goto("/");
+async function globalSetup() {
+  // Setup Clerk
+  await clerkSetup({
+    frontendApiUrl: "https://smart-ferret-91.clerk.accounts.dev",
+  });
+
+  // Launch browser and authenticate
+  const browser = await chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  await page.goto("https://ecommerce-vsy.vercel.app/");
   await clerk.loaded({ page });
   await clerk.signIn({
     page,
@@ -23,9 +25,13 @@ setup("authenticate and save state to storage", async ({ page }) => {
       password: "Shivaji12@#",
     },
   });
-  await page.goto("/");
 
+  await page.goto("https://ecommerce-vsy.vercel.app/");
   await expect(page.getByText("best selling products")).toBeVisible();
 
-  await page.context().storageState({ path: authFile });
-});
+  // Save authentication state
+  await context.storageState({ path: authFile });
+  await browser.close();
+}
+
+export default globalSetup;
